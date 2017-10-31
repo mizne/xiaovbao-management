@@ -149,7 +149,6 @@ export class AddQrcodeModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.addQrcodeForm = this.fb.group({
       qrcodeType: [this._qrcodeType, Validators.required],
       tableNo: [this._tableNo, Validators.required],
