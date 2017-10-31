@@ -1,0 +1,79 @@
+import { Routes } from '@angular/router'
+
+import { AuthGuard } from 'app/core/services/auth-guard.service'
+
+import { LayoutComponent } from '../layout/layout.component'
+import { LoginComponent } from './pages/login/login.component'
+import { LockComponent } from './pages/lock/lock.component'
+import { RegisterComponent } from './pages/register/register.component'
+import { RegisterSuccessComponent } from './pages/register-success/register-success.component'
+import { ForgetComponent } from './pages/forget/forget.component'
+// import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
+// import { Page404Component } from './pages/404/404.component';
+// import { Page500Component } from './pages/500/500.component';
+import { DashboardV1Component } from './dashboard/v1/v1.component'
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
+      { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
+      {
+        path: 'dashboard/v1',
+        component: DashboardV1Component,
+        data: { translate: 'dashboard_v1' }
+      },
+      {
+        path: 'activity-management',
+        loadChildren:
+          './activity-management/activity-management.module#ActivityManagementModule'
+      },
+      {
+        path: 'interactive-marketing',
+        loadChildren:
+          './interactive-marketing/interactive-marketing.module#InteractiveMarketingModule'
+      },
+      {
+        path: 'goods-management',
+        loadChildren:
+          './goods-management/goods-management.module#GoodsManagementModule'
+      },
+      {
+        path: 'customer-management',
+        loadChildren:
+          './customer-management/customer-management.module#CustomerManagementModule'
+      },
+      {
+        path: 'qrcode-management',
+        loadChildren:
+          './qrcode-management/qrcode-management.module#QrcodeManagementModule'
+      },
+      {
+        path: 'precise-analysis',
+        loadChildren:
+          './precise-analysis/precise-analysis.module#PreciseAnalysisModule'
+      },
+      {
+        path: 'elements',
+        loadChildren: './elements/elements.module#ElementsModule'
+      }
+    ]
+  },
+  // 单页不包裹Layout
+  {
+    path: 'register',
+    component: RegisterComponent,
+    data: { translate: 'register' }
+  },
+  {
+    path: 'register-success',
+    component: RegisterSuccessComponent,
+    data: { translate: 'register-success' }
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'forget', component: ForgetComponent, data: { translate: 'forget' } },
+  { path: 'lock', component: LockComponent, data: { translate: 'lock' } }
+]

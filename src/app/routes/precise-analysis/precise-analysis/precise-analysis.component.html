@@ -1,0 +1,83 @@
+<div class="content__title">
+  <h1>
+      精准分析/营销
+  </h1>
+</div>
+<nz-card>
+    <ng-template #body>
+        <form nz-form [formGroup]="searchForm" (ngSubmit)="search()">
+            <div nz-row nz-form-item [nzGutter]="16">
+                <div nz-form-label nz-col [nzSm]="2">
+                    <label for="name">时间间隔</label>
+                </div>
+                <div nz-form-control nz-col [nzSm]="5">
+                    <nz-select formControlName="duration" [nzSize]="'large'">
+                      <nz-option [nzLabel]="'最近一个月'" [nzValue]="0"></nz-option>
+                      <nz-option [nzLabel]="'最近三个月'" [nzValue]="1"></nz-option>
+                      <nz-option [nzLabel]="'最近半年'" [nzValue]="2"></nz-option>
+                    </nz-select>
+                </div>
+
+                <div nz-form-label nz-col [nzSm]="2">
+                    <label>用户行为</label>
+                </div>
+                <div nz-form-control nz-col [nzSm]="5">
+                    <nz-select formControlName="action" [nzSize]="'large'">
+                      <nz-option [nzLabel]="'潜在客户'" [nzValue]="0"></nz-option>
+                      <nz-option [nzLabel]="'有购买一次客户'" [nzValue]="1"></nz-option>
+                      <nz-option [nzLabel]="'有多次购买客户'" [nzValue]="2"></nz-option>
+                    </nz-select>
+                </div>
+
+                <div nz-col [nzSm]="5" [nzOffset]="2">
+                    <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="loading">{{ 'search' | translate }}</button>
+                    <button nz-button (click)="clear()" type="button" [disabled]="loading">{{ 'clear' | translate }}</button>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+  </nz-card>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzMd]="24">
+      <nz-card>
+        <ng-template #title>
+          客户统计
+        </ng-template>
+          <ng-template #body>
+              <!-- <div class="mb-sm text-right">
+                  <button nz-button [nzType]="'primary'" (click)="addQrcode()">
+                      <span>添加二维码</span>
+                  </button>
+              </div> -->
+              <nz-table #nzTable
+                  [nzAjaxData]="showPreciseAnalysis$ | async"
+                  [nzShowSizeChanger]="true"
+                  [nzLoading]="loading$ | async"
+                  [nzTotal]="total$ | async"
+                  [(nzPageIndex)]="pageIndex"
+                  (nzPageIndexChange)="pageIndexChange()"
+                  [(nzPageSize)]="pageSize"
+                  (nzPageSizeChange)="pageSizeChange()">
+                  <thead nz-thead>
+                      <tr>
+                          <th nz-th><span>客户名</span></th>
+                          <th nz-th><span>手机</span></th>
+                          <th nz-th><span>是否会员</span></th>
+                          <th nz-th><span>操作</span></th>
+                      </tr>
+                  </thead>
+                  <tbody nz-tbody>
+                      <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                          <td nz-td>{{data.name}}</td>
+                          <td nz-td>{{data.phone}}</td>
+                          <td nz-td>{{data.isVip | boolean}}</td>
+                          <td nz-td>
+                              <a (click)="toSendSMS(data)">{{ 'send sms' | translate }}</a>
+                          </td>
+                      </tr>
+                  </tbody>
+              </nz-table>
+          </ng-template>
+      </nz-card>
+  </div>
+</div>

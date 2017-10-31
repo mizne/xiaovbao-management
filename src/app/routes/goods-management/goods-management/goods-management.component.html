@@ -1,0 +1,86 @@
+<div class="content__title">
+  <h1>
+      商品管理
+  </h1>
+</div>
+<nz-card>
+  <ng-template #body>
+      <form nz-form [formGroup]="searchForm" (ngSubmit)="search()">
+          <div nz-row nz-form-item [nzGutter]="16">
+              <div nz-form-label nz-col [nzSm]="2">
+                  <label for="name">商品名称</label>
+              </div>
+              <div nz-form-control nz-col [nzSm]="5">
+                  <nz-input formControlName="name"></nz-input>
+              </div>
+
+              <div nz-form-label nz-col [nzSm]="2">
+                  <label>商品类别</label>
+              </div>
+              <div nz-form-control nz-col [nzSm]="5">
+                  <nz-select formControlName="type" [nzSize]="'large'">
+                    <nz-option *ngFor="let type of goodsTypes$ | async" [nzLabel]="type.name" [nzValue]="type.name"></nz-option>
+                  </nz-select>
+              </div>
+
+              <div nz-col [nzSm]="5" [nzOffset]="2">
+                  <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="loading">{{ 'search' | translate }}</button>
+                  <button nz-button (click)="clear()" type="button" [disabled]="loading">{{ 'clear' | translate }}</button>
+              </div>
+          </div>
+      </form>
+  </ng-template>
+</nz-card>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzMd]="24">
+      <nz-card>
+          <ng-template #body>
+              <div class="mb-sm text-right">
+                  <button nz-button [nzType]="'primary'" (click)="addGoodsType()">
+                      <span>添加类别</span>
+                  </button>
+                  <button nz-button [nzType]="'primary'" (click)="addGoods()">
+                      <span>添加商品</span>
+                  </button>
+              </div>
+              <nz-table #nzTable
+                  [nzAjaxData]="showGoods$ | async"
+                  [nzShowSizeChanger]="true"
+                  [nzLoading]="loading$ | async"
+                  [nzTotal]="total$ | async"
+                  [(nzPageIndex)]="pageIndex"
+                  (nzPageIndexChange)="pageIndexChange()"
+                  [(nzPageSize)]="pageSize"
+                  (nzPageSizeChange)="pageSizeChange()">
+                  <thead nz-thead>
+                      <tr>
+                          <th nz-th><span>图片</span></th>
+                          <th nz-th><span>商品名称</span></th>
+                          <th nz-th><span>价格</span></th>
+                          <th nz-th><span>操作</span></th>
+                      </tr>
+                  </thead>
+                  <tbody nz-tbody>
+                      <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                          <td nz-td>
+                            <img [src]="data.imageUrl" alt="">
+                          </td>
+
+                          <td nz-td>{{data.name}}</td>
+                          <td nz-td>{{data.price}}</td>
+                          <td nz-td>
+                              <a (click)="showMsg('Edit')">{{ 'edit' | translate }}</a>
+                              <span nz-table-divider></span>
+                              <nz-popconfirm [nzTitle]="'Are you sure to delete?' | translate"
+                              [nzOkText]="'ok' | translate" [nzCancelText]="'cancel' | translate"
+                              (nzOnConfirm)="showMsg('has deleted')" (nzOnCancel)="showMsg('cancel delete')">
+                                  <a nz-popconfirm>{{ 'delete' | translate }}</a>
+                              </nz-popconfirm>
+                          </td>
+                      </tr>
+                  </tbody>
+              </nz-table>
+          </ng-template>
+      </nz-card>
+  </div>
+</div>

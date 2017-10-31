@@ -1,0 +1,22 @@
+<div class="wrapper register-success">
+  <div class="abs-center mt-lg width-lg">
+    <nz-card [nzNoHovering]="true" [nzBordered]="false" class="ant-card__primary ant-card__title-img">
+      <ng-template #title>
+        <div class="text-center">
+          <img src="./assets/img/logo.svg" style="height:20px;">
+        </div>
+      </ng-template>
+      <ng-template #body>
+        <div class="icon-wrap">
+          <i class="anticon anticon-check-circle"></i>
+        </div>
+        <nz-alert [nzType]="'success'" [nzMessage]="'注册成功'"
+        nzDescription="恭喜您, 注册成功, {{restSeconds$ | async}} 秒后自动跳转登录">
+        </nz-alert>
+        <button nz-button [nzType]="'primary'" (click)="login$.next()">
+          <span>立即登录</span>
+        </button>
+      </ng-template>
+    </nz-card>
+
+  </div>

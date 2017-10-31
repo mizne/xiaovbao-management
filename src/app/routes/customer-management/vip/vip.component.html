@@ -1,0 +1,77 @@
+<div class="content__title">
+    <h1>
+        会员管理
+    </h1>
+  </div>
+  <!-- <nz-card>
+      <ng-template #body>
+          <form nz-form [formGroup]="searchForm" (ngSubmit)="search()">
+              <div nz-row nz-form-item [nzGutter]="16">
+                  <div nz-form-label nz-col [nzSm]="2">
+                      <label for="name">号码</label>
+                  </div>
+                  <div nz-form-control nz-col [nzSm]="5">
+                      <nz-input formControlName="phone"></nz-input>
+                  </div>
+
+                  <div nz-col [nzSm]="5" [nzOffset]="2">
+                      <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="loading">{{ 'search' | translate }}</button>
+                      <button nz-button (click)="clear()" type="button" [disabled]="loading">{{ 'clear' | translate }}</button>
+                  </div>
+              </div>
+          </form>
+      </ng-template>
+    </nz-card> -->
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="24">
+        <nz-card>
+            <ng-template #body>
+                <div class="mb-sm text-right">
+                    <button nz-button [nzType]="'primary'" (click)="addVip()">
+                        <span>添加会员</span>
+                    </button>
+                    <button nz-button [nzType]="'primary'" (click)="toEditVipLevelSetting()">
+                        <span>会员等级设置</span>
+                    </button>
+                    <!-- <button nz-button [nzType]="'primary'" (click)="toEditVipLevel()">
+                        <span>会员等级编辑</span>
+                    </button> -->
+                </div>
+                <nz-table #nzTable
+                    [nzAjaxData]="showVips$ | async"
+                    [nzShowSizeChanger]="true"
+                    [nzLoading]="loading$ | async"
+                    [nzTotal]="total$ | async"
+                    [(nzPageIndex)]="pageIndex"
+                    (nzPageIndexChange)="pageIndexChange()"
+                    [(nzPageSize)]="pageSize"
+                    (nzPageSizeChange)="pageSizeChange()">
+                    <thead nz-thead>
+                        <tr>
+                            <th nz-th><span>类型</span></th>
+                            <th nz-th><span>手机</span></th>
+                            <th nz-th><span>操作</span></th>
+                        </tr>
+                    </thead>
+                    <tbody nz-tbody>
+                        <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                            <td nz-td>{{data.level | vipLevel}}</td>
+                            <td nz-td>{{data.phone}}</td>
+                            <td nz-td>
+                                <a (click)="toEdit(data)">{{ 'edit' | translate }}</a>
+                                <span nz-table-divider></span>
+                                <nz-popconfirm [nzTitle]="'Are you sure to delete?' | translate"
+                                [nzOkText]="'ok' | translate" [nzCancelText]="'cancel' | translate"
+                                (nzOnConfirm)="ensureDelete(data.id)">
+                                    <a nz-popconfirm>{{ 'delete' | translate }}</a>
+                                </nz-popconfirm>
+                                <span nz-table-divider></span>
+                                <a (click)="sendSms(data.phone)">{{ 'send sms' | translate }}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </ng-template>
+        </nz-card>
+    </div>
+  </div>
