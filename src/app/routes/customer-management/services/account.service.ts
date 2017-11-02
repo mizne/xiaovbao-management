@@ -5,21 +5,18 @@ import 'rxjs/add/operator/catch';
 
 import { Account } from '../models/account.model'
 import { Vip } from '../models/vip.model'
-
-import { APIResponse } from '../../../shared/api-error-interceptor'
+import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
 @Injectable()
 export class AccountService {
     private fetchAccountsUrl = '/admin/customerByTenantId'
     private fetchAccountsCountUrl = '/admin/customerByCount'
     private delAccountUrl = '/admin/customerById'
-
-    private tenantId = '18d473e77f459833bb06c60f9a8f0001'
     constructor(private http: HttpClient) {
     }
 
-    fetchAccounts(pageIndex: number, pageSize: number): Observable<Account[]> {
-      const query = `?tenantId=${this.tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
+    fetchAccounts(tenantId: string, pageIndex: number, pageSize: number): Observable<Account[]> {
+      const query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
       return this.http.get(this.fetchAccountsUrl + query)
       .map(resp => (resp as APIResponse).result)
       .map(result => result.map(e => ({
@@ -31,14 +28,14 @@ export class AccountService {
       .catch(this.handleError)
     }
 
-    fetchAccountsCount(): Observable<number> {
-      return this.http.get(this.fetchAccountsCountUrl + '/?tenantId=18d473e77f459833bb06c60f9a8f0001')
+    fetchAccountsCount(tenantId: string): Observable<number> {
+      return this.http.get(this.fetchAccountsCountUrl + `/?tenantId=${tenantId}`)
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
     }
 
-    delAccount(id: string): Observable<any> {
-      return this.http.delete(this.delAccountUrl + `?tenantId=18d473e77f459833bb06c60f9a8f0001&id=${id}`)
+    delAccount(tenantId: string, id: string): Observable<any> {
+      return this.http.delete(this.delAccountUrl + `?tenantId=${tenantId}&id=${id}`)
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
     }

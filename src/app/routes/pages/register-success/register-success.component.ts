@@ -9,8 +9,6 @@ import 'rxjs/add/operator/startWith'
 import 'rxjs/add/operator/takeUntil'
 import 'rxjs/add/operator/takeWhile'
 
-import { DestroyService } from 'app/shared/services/destroy.service'
-
 @Component({
   selector: 'app-register-success',
   templateUrl: './register-success.component.html'
@@ -28,6 +26,7 @@ export class RegisterSuccessComponent implements OnInit {
       .startWith(this.totalSeconds)
       .takeWhile(e => e > 0)
       .takeUntil(this.login$)
+      .share()
 
     this.restSeconds$.subscribe({
       complete: () => {

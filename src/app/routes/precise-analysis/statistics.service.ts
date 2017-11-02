@@ -2,54 +2,54 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-
+import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 
+import * as R from 'ramda'
+
 import { PreciseAnalysis } from './models/precise-analysis.model'
-import { APIResponse } from 'app/shared/api-error-interceptor'
+import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
 @Injectable()
 export class StatisticsService {
-    private fetchQrcodesUrl = '/admin/QRCodeTemplate'
-    private fetchQrcodessCountUrl = '/admin/QRCodeTemplateCount'
-    private delQrcodeUrl = '/admin/QRCodeTemplate'
-
-    private tenantId = '18d473e77f459833bb06c60f9a8f0001'
+    private fetchPreciseAnalysisUrl = '/admin/customerEchats'
+    private fetchPreciseAnalysisCountUrl = '/admin/customerEchatsCount'
 
     constructor(private http: HttpClient) {
     }
 
-    fetchPreciseAnalysis({ action, startDate, endDate, pageIndex, pageSize }): Observable<PreciseAnalysis[]> {
-      const query = `?tenantId=${this.tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
-      // return this.http.get(this.fetchQrcodesUrl + query)
-      // .map(resp => (resp as APIResponse).result)
-      // .map(result => result.map(e => ({
-      //   id: e.id,
-      //   bizType: e.bizType,
-      //   consigneeId: e.consigneeId,
-      //   consigneeName: e.consigneeName,
-      //   couponRate: e.couponRate,
-      //   couponType: e.couponType,
-      //   couponValue: e.couponValue,
-      //   description: e.descriptor,
-      //   tableName: e.tableName,
-      //   tenantId: e.tenantId,
-      //   tenantName: e.tenantName
-      // })))
-      // .catch(this.handleError);
+    fetchPreciseAnalysis({ tenantId, action, startDate, endDate, pageIndex, pageSize }): Observable<PreciseAnalysis[]> {
+      const query = `
+      ?tenantId=${tenantId}
+      &action=${action}
+      &startDate=${startDate}
+      &endDate=${endDate}
+      &pageNumber=${pageIndex}
+      &pageSize=${pageSize}
+      `
 
-      return Observable.of(Array.from({length: 11}, (_, i) => ({
-        name: `fakeName${i}`,
-        phone: `fakePhone${i}`,
-        isVip: i % 2 === 0
-      })))
+      return this.http.get(this.fetchPreciseAnalysisUrl + query)
+      .map(resp => (resp as APIResponse).result)
+      .map(e => e.map(this.convert))
+      .catch(this.handleError)
     }
 
-    fetchPreciseAnalysisCount({ action, startDate, endDate }): Observable<number> {
-      // return this.http.get(this.fetchQrcodessCountUrl + `/?tenantId=${this.tenantId}`)
-      // .map(resp => (resp as APIResponse).result)
-      // .catch(this.handleError)
-      return Observable.of(11)
+    fetchPreciseAnalysisCount({ tenantId, action, startDate, endDate }): Observable<number> {
+      const query = `?tenantId=${tenantId}&action=${action}&startDate=${startDate}&endDate=${endDate}`
+      
+      return this.http.get(this.fetchPreciseAnalysisCountUrl + query)
+      .map(resp => (resp as APIResponse).result)
+      .catch(this.handleError)
+    }
+
+    private convert(srcObj): PreciseAnalysis {
+      return {
+        id: srcObj.id,
+        name: srcObj.name,
+        phone: srcObj.phone,
+        isVip: !R.isEmpty(srcObj.vip),
+        selected: false
+      }
     }
 
     private handleError(error: any) {

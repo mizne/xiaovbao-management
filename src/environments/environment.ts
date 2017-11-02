@@ -3,8 +3,9 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-export const environment = {
-  SERVER_URL: `./`,
-  production: false,
-  hmr: false
-};
+import { environment as devEnvironment } from './environment.dev'
+import { environment as prodEnvironment } from './environment.prod'
+
+
+
+export { devEnvironment as environment }

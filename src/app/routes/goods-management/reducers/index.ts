@@ -27,3 +27,15 @@ export const getGoodsTotalCount = createSelector(
   getGoodsState,
   fromGoods.getGoodsTotalCount
 )
+export const getAddGoodsLoading = createSelector(
+  getGoodsState,
+  fromGoods.getAddGoodsLoading
+)
+export const getAllGoodsUnits = createSelector(
+  getGoodsState,
+  fromGoods.getGoodsUnits
+)
+export const getAddGoodsUnitLoading = createSelector(
+  getGoodsState,
+  fromGoods.getAddGoodsUnitLoading
+)

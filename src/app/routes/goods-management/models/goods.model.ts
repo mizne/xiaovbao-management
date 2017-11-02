@@ -1,14 +1,20 @@
 export interface Goods {
   id?: string
-  name: string
-  imageUrl: string
-  description: string
-  goodsType: string
-  price: number
-  oldPrice: number
-  vipPrice: number
-  unit: string
-  sellCount: number
-  totalCount: number
-  restCount: number
+  name?: string
+  listImageUrl?: string
+  detailImageUrl?: string[]
+  description?: string
+  goodsTypeId?: string
+  goodsTypeName?: string
+  buyPrice?: number
+  price?: number
+  oldPrice?: number
+  vipPrice?: number
+  goodsUnitId?: string
+  goodsUnitName?: string
+  sellCount?: number
+  totalCount?: number
+  restCount?: number
+  isActive?: boolean
 }
+

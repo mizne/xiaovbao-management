@@ -5,7 +5,7 @@ import { SettingsService } from '../services/settings.service';
 @Injectable()
 export class TranslatorService {
 
-    private _default = 'en';
+    private _default = 'zh-CN';
 
     private _langs = [
         { code: 'en', text: 'English' },

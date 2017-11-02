@@ -7,7 +7,7 @@
         </div>
       </ng-template>
       <ng-template #body>
-        <div class="login-failure-msg text-center text-error">{{loginFailureMsg$ | async}}</div>
+        <div class="mb-sm text-center text-error">{{loginFailureMsg$ | async}}</div>
         <form nz-form [formGroup]="valForm" (ngSubmit)="submit()" role="form">
           <div nz-form-item>
             <div nz-form-control [nzValidateStatus]="valForm.controls.name">
@@ -37,7 +37,7 @@
                   <nz-input [nzSize]="'large'" [nzPlaceHolder]="'验证码'" formControlName="captcha" [nzId]="'captcha'"></nz-input>
                 </div>
                 <div nz-col [nzSpan]="12">
-                  <img (click)="refreshCaptcha()" [src]="captcha$ | async" alt="验证码" style="max-width: 100%; max-height: 100%;">
+                  <img (click)="refreshCaptcha()" [src]="captcha$ | async" alt="点击获取验证码" style="max-width: 100%; max-height: 100%;">
                   <!-- <button nz-button [nzSize]="'large'" (click)="getCaptcha($event)">Get captcha</button> -->
                 </div>
               </div>

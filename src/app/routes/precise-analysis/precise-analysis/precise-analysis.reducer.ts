@@ -5,12 +5,14 @@ export interface State {
   loading: boolean
   preciseAnalysis: PreciseAnalysis[]
   totalCount: number
+  batchSendSMSLoading: boolean
 }
 
 const initialState: State = {
   loading: false,
   preciseAnalysis: [],
-  totalCount: 0
+  totalCount: 0,
+  batchSendSMSLoading: false
 }
 
 export function reducer(
@@ -40,6 +42,31 @@ export function reducer(
         ...state,
         totalCount: action.count
       }
+
+    case fromPreciseAnalysis.SEND_SMS:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case fromPreciseAnalysis.SEND_SMS_SUCCESS:
+    case fromPreciseAnalysis.SEND_SMS_FAILURE:
+      return {
+        ...state,
+        loading: false
+      }
+
+    case fromPreciseAnalysis.BATCH_SEND_SMS: 
+      return {
+        ...state,
+        batchSendSMSLoading: true
+      }
+    case fromPreciseAnalysis.BATCH_SEND_SMS_SUCCESS:
+    case fromPreciseAnalysis.BATCH_SEND_SMS_FAILURE: 
+      return {
+        ...state,
+        batchSendSMSLoading: false
+      }
     default:
       return state
   }
@@ -48,3 +75,5 @@ export function reducer(
 export const getLoading = (state: State) => state.loading
 export const getPreciseAnalysis = (state: State) => state.preciseAnalysis
 export const getTotalCount = (state: State) => state.totalCount
+
+export const getBatchSendSMSLoading = (state: State) => state.batchSendSMSLoading

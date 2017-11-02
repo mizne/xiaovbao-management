@@ -12,6 +12,10 @@ import { ThemeType } from '@core/services/themes.service'
 import { TranslatorService } from '@core/translator/translator.service'
 import { LocalStorageService } from 'app/core/services/localstorage.service'
 
+import { Store } from '@ngrx/store'
+import { State } from 'app/routes/pages/reducers'
+import { LogoutAction } from 'app/routes/pages/login/login.action'
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
@@ -44,7 +48,8 @@ export class HeaderComponent implements OnInit {
     private confirmServ: NzModalService,
     private messageServ: NzMessageService,
     private local: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private store: Store<State>
   ) {}
 
   ngOnInit() {}
@@ -102,7 +107,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.local.remove('token')
-    this.router.navigate(['login'])
+    this.store.dispatch(new LogoutAction())
   }
 }

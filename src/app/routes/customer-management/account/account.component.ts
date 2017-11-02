@@ -71,7 +71,7 @@ export class AccountComponent implements OnInit {
     });
     subscription.subscribe(result => {
       if (typeof result !== 'string') {
-        console.log('to edit goods type: ', result)
+        console.log('to edit account: ', result)
       }
       if (result === 'onDestroy') {
         subscription.unsubscribe()
@@ -104,7 +104,7 @@ export class AccountComponent implements OnInit {
     });
     subscription.subscribe(result => {
       if (typeof result !== 'string') {
-        console.log('to add goods type: ', result)
+        console.log('to add account: ', result)
       }
       if (result === 'onDestroy') {
         subscription.unsubscribe()

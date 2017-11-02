@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/exhaustMap'
-import 'rxjs/add/operator/mergeMap'
+import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/concatMap';
 
@@ -14,22 +13,23 @@ import {NzNotificationService} from 'ng-zorro-antd';
 import * as fromVip from './vip.action'
 import { VipService } from '../services/vip.service'
 import { SMSService } from 'app/core/services/sms.service'
+import { LocalStorageService } from 'app/core/services/localstorage.service'
 
 @Injectable()
 export class VipEffects {
   @Effect()
   fetchVips$ = this.actions$.ofType(fromVip.FETCH_VIPS)
   .map((action: fromVip.FectchVipsAction) => action.payload)
-  .mergeMap(({ pageIndex, pageSize }) => {
-    return this.vipService.fetchVips(pageIndex, pageSize)
+  .switchMap(({ pageIndex, pageSize }) => {
+    return this.vipService.fetchVips(this.local.tenantId, pageIndex, pageSize)
     .map(vips => new fromVip.FetchVipsSuccessAction(vips))
     .catch(e => of(new fromVip.FetchVipsFailureAction()))
   })
 
   @Effect()
   fetchVipsCount$ = this.actions$.ofType(fromVip.FETCH_VIPS_COUNT)
-  .mergeMap(() =>
-    this.vipService.fetchVipsCount()
+  .switchMap(() =>
+    this.vipService.fetchVipsCount(this.local.tenantId)
     .map(count => new fromVip.FetchVipsCountSuccessAction(count))
     .catch(e => of(new fromVip.FetchVipsCountFailureAction()))
   )
@@ -37,8 +37,8 @@ export class VipEffects {
   @Effect()
   sendSMS$ = this.actions$.ofType(fromVip.SEND_SMS)
   .map((action: fromVip.SendSMSAction) => action.phones)
-  .mergeMap((phones) => {
-    return this.smsService.sendSMS(phones)
+  .switchMap((phones) => {
+    return this.smsService.sendSMS(this.local.tenantId, phones)
     .map(res => new fromVip.SendSMSSuccessAction())
     .catch(e => of(new fromVip.SendSMSFailureAction()))
   })
@@ -59,8 +59,8 @@ export class VipEffects {
   @Effect()
   ensureDeleteVip$ = this.actions$.ofType(fromVip.ENSURE_DELETE_VIP)
   .map((action: fromVip.EnsureDeleteVipAction) => action.payload)
-  .mergeMap(({ id, pageIndex, pageSize }) => {
-    return this.vipService.delVip(id)
+  .switchMap(({ id, pageIndex, pageSize }) => {
+    return this.vipService.delVip(this.local.tenantId, id)
     .concatMap(res => [
       new fromVip.DeleteVipSuccessAction(),
       new fromVip.FectchVipsAction({pageIndex, pageSize})
@@ -84,6 +84,7 @@ export class VipEffects {
     private actions$: Actions,
     private vipService: VipService,
     private smsService: SMSService,
-    private _notification: NzNotificationService
+    private _notification: NzNotificationService,
+    private local: LocalStorageService
   ) {}
 }

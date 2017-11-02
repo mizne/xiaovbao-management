@@ -4,6 +4,11 @@ import * as store from 'store'
 
 @Injectable()
 export class LocalStorageService {
+
+  get tenantId() {
+    return this.get('tenantId')
+  }
+
   set(key: string, value: any) {
     store.set(key, value)
   }

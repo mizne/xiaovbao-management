@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/exhaustMap'
-import 'rxjs/add/operator/mergeMap'
+import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/take'
 import 'rxjs/add/operator/withLatestFrom';
@@ -28,7 +27,7 @@ export class RegisterEffects {
   @Effect()
   registryRequest$ = this.actions$.ofType(fromRegister.REGISTRY_REQUEST)
   .map((action: fromRegister.RegistryRequestAction) => action.payload)
-  .mergeMap(({ name, password, phone, role, industry }) => {
+  .switchMap(({ name, password, phone, role, industry }) => {
     return this.registgerService.registry( name, password, phone, role, industry )
     .map(res => new fromRegister.RegistrySuccessAction())
     .catch(e => of(new fromRegister.RegistryFailureAction()))

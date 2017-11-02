@@ -9,6 +9,14 @@ export const FETCH_PRECISE_ANALYSIS_COUNT = '[PreciseAnalysis] Fetch Precise Ana
 export const FETCH_PRECISE_ANALYSIS_COUNT_SUCCESS = '[PreciseAnalysis] Fetch Precise Analysis Count Success'
 export const FETCH_PRECISE_ANALYSIS_COUNT_FAILURE = '[PreciseAnalysis] Fetch Precise Analysis Count Failure'
 
+export const SEND_SMS = '[PreciseAnalysis] Send SMS'
+export const SEND_SMS_SUCCESS = '[PreciseAnalysis] Send SMS Success'
+export const SEND_SMS_FAILURE = '[PreciseAnalysis] Send SMS Failure'
+
+export const BATCH_SEND_SMS = '[PreciseAnalysis] Batch Send SMS'
+export const BATCH_SEND_SMS_SUCCESS = '[PreciseAnalysis] Batch Send SMS Success'
+export const BATCH_SEND_SMS_FAILURE = '[PreciseAnalysis] Batch Send SMS Failure'
+
 export class FectchPreciseAnalysisAction implements Action {
   readonly type = FETCH_PRECISE_ANALYSIS
   constructor(public payload: {
@@ -49,6 +57,32 @@ export class FetchPreciseAnalysisCountFailureAction implements Action {
 }
 
 
+export class SendSMSAction implements Action {
+  readonly type = SEND_SMS
+  constructor(public phones: string[]) {}
+}
+
+export class SendSMSSuccessAction implements Action {
+  readonly type = SEND_SMS_SUCCESS
+}
+
+export class SendSMSFailureAction implements Action {
+  readonly type = SEND_SMS_FAILURE
+}
+
+export class BatchSendSMSAction implements Action {
+  readonly type = BATCH_SEND_SMS
+  constructor(public phones: string[]) {}
+}
+export class BatchSendSMSSuccessAction implements Action {
+  readonly type = BATCH_SEND_SMS_SUCCESS
+  constructor(public phonesCount: number) {}
+}
+export class BatchSendSMSFailureAction implements Action {
+  readonly type = BATCH_SEND_SMS_FAILURE
+}
+
+
 
 
 export type Actions =
@@ -58,4 +92,12 @@ FetchPreciseAnalysisFailureAction |
 
 FetchPreciseAnalysisCountAction |
 FetchPreciseAnalysisCountSuccessAction |
-FetchPreciseAnalysisCountFailureAction
+FetchPreciseAnalysisCountFailureAction |
+
+SendSMSAction |
+SendSMSSuccessAction |
+SendSMSFailureAction |
+
+BatchSendSMSAction |
+BatchSendSMSSuccessAction |
+BatchSendSMSFailureAction

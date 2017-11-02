@@ -111,7 +111,7 @@
           "children": []
         },
         {
-          "text": "经营分析",
+          "text": "经营统计",
           "translate": "management-analysis",
           "link": "/management-analysis",
           "icon": "icon-chart",
@@ -120,7 +120,7 @@
             {
               "text": "统计报表",
               "link": "/management-analysis/statistical_report",
-              "translate": "statistical_report"
+              "translate": "statistical-report"
             }
           ]
         }

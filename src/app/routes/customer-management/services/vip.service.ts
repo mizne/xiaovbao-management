@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 
 import { Vip } from '../models/vip.model'
 
-import { APIResponse } from '../../../shared/api-error-interceptor'
+import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
 @Injectable()
 export class VipService {
@@ -13,12 +13,11 @@ export class VipService {
     private fetchVipsCountUrl = '/admin/vipByCount'
     private delVipUrl = '/admin/customerById'
 
-    private tenantId = '18d473e77f459833bb06c60f9a8f0001'
     constructor(private http: HttpClient) {
     }
 
-    fetchVips(pageIndex: number, pageSize: number): Observable<Vip[]> {
-      const query = `?tenantId=${this.tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
+    fetchVips(tenantId: string, pageIndex: number, pageSize: number): Observable<Vip[]> {
+      const query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
       return this.http.get(this.fetchVipsUrl + query)
       .map(resp => (resp as APIResponse).result)
       .map(result => result.map(e => ({
@@ -31,14 +30,14 @@ export class VipService {
       .catch(this.handleError)
     }
 
-    fetchVipsCount(): Observable<number> {
-      return this.http.get(this.fetchVipsCountUrl + '/?tenantId=18d473e77f459833bb06c60f9a8f0001')
+    fetchVipsCount(tenantId: string): Observable<number> {
+      return this.http.get(this.fetchVipsCountUrl + `/?tenantId=${tenantId}`)
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
     }
 
-    delVip(id: string): Observable<any> {
-      return this.http.delete(this.delVipUrl + `?tenantId=18d473e77f459833bb06c60f9a8f0001&id=${id}`)
+    delVip(tenantId: string, id: string): Observable<any> {
+      return this.http.delete(this.delVipUrl + `?tenantId=${tenantId}&id=${id}`)
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
     }

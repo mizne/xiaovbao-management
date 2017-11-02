@@ -5,32 +5,47 @@ import 'rxjs/add/operator/catch'
 
 import { Goods } from './models/goods.model'
 import { GoodsType } from './models/goodsType.model'
+import { GoodsUnit } from './models/goodsUnit.model'
 
-import { APIResponse } from '../../shared/api-error-interceptor'
+import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
 @Injectable()
 export class GoodsService {
-  private fetchGoodsUrl = '/admin/food'
-  private fetchGoodsCountUrl = '/admin/foodByCount'
-  private fetchGoodsTypeUrl = '/admin/menus'
-  private tenantId = '18d473e77f459833bb06c60f9a8f0001'
+  private goodsUrl = '/admin/food'
+  private goodsCountUrl = '/admin/foodByCount'
+  private goodsTypeUrl = '/admin/menus'
+  private goodsUnitUrl = '/admin/units'
   constructor(private http: HttpClient) {}
 
-  fetchAllGoods(): Observable<Goods[]> {
+  fetchGoods(
+    tenantId: string,
+    pageIndex: number,
+    pageSize: number,
+    goodsName?: string,
+    goodsType?: string
+  ): Observable<Goods[]> {
+    let query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
+    if (goodsName) {
+      query += `&goodsName=${goodsName}`
+    }
+    if (goodsType) {
+      query += `&goodsType=${goodsType}`
+    }
     return this.http
-      .get(this.fetchGoodsUrl + '/?tenantId=18d473e77f459833bb06c60f9a8f0001')
+      .get(this.goodsUrl + query)
       .map(resp => (resp as APIResponse).result)
       .map(result =>
         result.map(e => ({
           id: e.id,
           name: e.name,
-          imageUrl: e.image,
+          listImageUrl: e.image,
           description: e.info,
-          goodsType: e.menuName,
+          goodsTypeName: e.menuName,
+          isActive: e.isActive,
           price: e.price,
           oldPrice: e.oldPrice,
           vipPrice: e.vipPrice,
-          unit: e.unit,
+          goodsUnitName: e.unit,
           sellCount: e.sellCount,
           totalCount: e.foodNum,
           restCount: e.rest
@@ -38,46 +53,74 @@ export class GoodsService {
       )
       .catch(this.handleError)
   }
-
-  fetchGoods(pageIndex: number, pageSize: number): Observable<Goods[]> {
-    const query = `?tenantId=${this
-      .tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
+  
+  addGoods(tenantId: string, goods: Goods): Observable<any> {
     return this.http
-      .get(this.fetchGoodsUrl + query)
-      .map(resp => (resp as APIResponse).result)
-      .map(result =>
-        result.map(e => ({
-          id: e.id,
-          name: e.name,
-          imageUrl: e.image,
-          description: e.info,
-          goodsType: e.menuName,
-          price: e.price,
-          oldPrice: e.oldPrice,
-          vipPrice: e.vipPrice,
-          unit: e.unit,
-          sellCount: e.sellCount,
-          totalCount: e.foodNum,
-          restCount: e.rest
-        }))
-      )
-      .catch(this.handleError)
-  }
-
-  fetchGoodsCount(): Observable<number> {
-    return this.http
-      .get(
-        this.fetchGoodsCountUrl + '/?tenantId=18d473e77f459833bb06c60f9a8f0001'
-      )
+      .post(this.goodsUrl, {
+        tenantId,
+        food: {
+          name: goods.name,
+          image: goods.listImageUrl,
+          minuteImage: goods.detailImageUrl,
+          constPrice: goods.buyPrice,
+          oldPrice: goods.price,
+          vipPrice: goods.vipPrice,
+          price: goods.price,
+          foodNum: goods.totalCount,
+          unitId: goods.goodsUnitId,
+          info: goods.description,
+          menuId: goods.goodsTypeId,
+          isActive: goods.isActive
+        }
+      })
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
   }
 
-  fetchAllGoodsTypes(): Observable<GoodsType[]> {
+  deleteGoods(tenantId: string, goodsId: string): Observable<any> {
+    return Observable.of()
+  }
+
+  offShelfGoods(tenantId: string, goodsId: string): Observable<any> {
+    return this.editGoods(tenantId, goodsId, {isActive: false})
+  }
+
+  onShelfGoods(tenantId: string, goodsId: string): Observable<any> {
+    return this.editGoods(tenantId, goodsId, {isActive: true})
+  }
+
+  editGoods(tenantId: string, goodsId: string, goods: Goods): Observable<any> {
     return this.http
-      .get(
-        this.fetchGoodsTypeUrl + '/?tenantId=18d473e77f459833bb06c60f9a8f0001'
-      )
+    .put(this.goodsUrl, {
+      food: goods,
+      condition: {
+        tenantId,
+        id: goodsId
+      }
+    })
+    .map(resp => (resp as APIResponse).result)
+    .catch(this.handleError)
+  }
+
+
+  fetchGoodsCount(tenantId: string, goodsName?: string, goodsType?: string): Observable<number> {
+    let query = `/?tenantId=${tenantId}`
+    if (goodsName) {
+      query += `&goodsName=${goodsName}`
+    }
+    if (goodsType) {
+      query += `&goodsType=${goodsType}`
+    }
+
+    return this.http
+      .get(this.goodsCountUrl + query)
+      .map(resp => (resp as APIResponse).result)
+      .catch(this.handleError)
+  }
+
+  fetchAllGoodsTypes(tenantId: string): Observable<GoodsType[]> {
+    return this.http
+      .get(this.goodsTypeUrl + `/?tenantId=${tenantId}`)
       .map(resp => (resp as APIResponse).result)
       .map(result =>
         result.map(e => ({
@@ -85,6 +128,46 @@ export class GoodsService {
           name: e.name
         }))
       )
+      .catch(this.handleError)
+  }
+
+  addGoodsType(tenantId: string, goodsTypeName: string): Observable<any> {
+    return this.http
+      .post(this.goodsTypeUrl, {
+        tenantId,
+        menu: {
+          name: goodsTypeName
+        }
+      })
+      .map(resp => (resp as APIResponse).result)
+      .catch(this.handleError)
+  }
+
+  fetchAllGoodsUnits(tenantId: string): Observable<GoodsUnit[]> {
+    return this.http
+      .get(this.goodsUnitUrl + `?tenantId=${tenantId}`)
+      .map(resp => (resp as APIResponse).result)
+      .map(e =>
+        e.map(f => ({
+          id: f.id,
+          name: f.goodUnit
+        }))
+      )
+      .catch(this.handleError)
+  }
+
+  addGoodsUnit(tenantId: string, goodsUnit: string): Observable<any> {
+    return this.http
+      .post(this.goodsUnitUrl, {
+        unit: {
+          tenantId,
+          goodUnit: goodsUnit
+        }
+      })
+      .map(resp => (resp as APIResponse).result)
+      .map(e => ({
+        id: name
+      }))
       .catch(this.handleError)
   }
 

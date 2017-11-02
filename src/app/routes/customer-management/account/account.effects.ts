@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/exhaustMap'
-import 'rxjs/add/operator/mergeMap'
+import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/concatMap';
 
@@ -14,22 +13,23 @@ import {NzNotificationService} from 'ng-zorro-antd';
 import * as fromAccount from './account.action'
 import { AccountService } from '../services/account.service'
 import { SMSService } from 'app/core/services/sms.service'
+import { LocalStorageService } from 'app/core/services/localstorage.service'
 
 @Injectable()
 export class AccountEffects {
   @Effect()
   fetchAccounts$ = this.actions$.ofType(fromAccount.FETCH_ACCOUNTS)
   .map((action: fromAccount.FectchAccountsAction) => action.payload)
-  .mergeMap(({ pageIndex, pageSize }) => {
-    return this.accountService.fetchAccounts(pageIndex, pageSize)
+  .switchMap(({ pageIndex, pageSize }) => {
+    return this.accountService.fetchAccounts(this.local.tenantId, pageIndex, pageSize)
     .map(accounts => new fromAccount.FetchAccountsSuccessAction(accounts))
     .catch(e => of(new fromAccount.FetchAccountsFailureAction()))
   })
 
   @Effect()
   fetchAccountsCount$ = this.actions$.ofType(fromAccount.FETCH_ACCOUNTS_COUNT)
-  .mergeMap(() =>
-    this.accountService.fetchAccountsCount()
+  .switchMap(() =>
+    this.accountService.fetchAccountsCount(this.local.tenantId)
     .map(count => new fromAccount.FetchAccountsCountSuccessAction(count))
     .catch(e => of(new fromAccount.FetchAccountsCountFailureAction()))
   )
@@ -37,8 +37,8 @@ export class AccountEffects {
   @Effect()
   sendSMS$ = this.actions$.ofType(fromAccount.SEND_SMS)
   .map((action: fromAccount.SendSMSAction) => action.phones)
-  .mergeMap((phones) => {
-    return this.smsService.sendSMS(phones)
+  .switchMap((phones) => {
+    return this.smsService.sendSMS(this.local.tenantId, phones)
     .map(res => new fromAccount.SendSMSSuccessAction())
     .catch(e => of(new fromAccount.SendSMSFailureAction()))
   })
@@ -59,8 +59,8 @@ export class AccountEffects {
   @Effect()
   ensureDeleteAccount$ = this.actions$.ofType(fromAccount.ENSURE_DELETE_ACCOUNT)
   .map((action: fromAccount.EnsureDeleteAccountAction) => action.payload)
-  .mergeMap(({ id, pageIndex, pageSize }) => {
-    return this.accountService.delAccount(id)
+  .switchMap(({ id, pageIndex, pageSize }) => {
+    return this.accountService.delAccount(this.local.tenantId, id)
     .concatMap(res => [
       new fromAccount.DeleteAccountSuccessAction(),
       new fromAccount.FectchAccountsAction({pageIndex, pageSize})
@@ -84,6 +84,7 @@ export class AccountEffects {
     private actions$: Actions,
     private accountService: AccountService,
     private smsService: SMSService,
-    private _notification: NzNotificationService
+    private _notification: NzNotificationService,
+    private local: LocalStorageService
   ) {}
 }

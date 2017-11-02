@@ -19,9 +19,11 @@ import { RoutesModule } from './routes/routes.module'
 import { LayoutModule } from './layout/layout.module'
 import { CoreModule } from './core/core.module'
 
-import { ApiErrorInterceptor } from './shared/api-error-interceptor'
+import { ApiErrorInterceptor } from './core/interceptors/api-error-interceptor'
+import { TokenInterceptor } from './core/interceptors/token.interceptor'
 
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { DiscountActivityComponent } from './app/routes/activity-management/discount-activity/discount-activity.component'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,7 +37,7 @@ export function StartupServiceFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DiscountActivityComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -64,6 +66,7 @@ export function StartupServiceFactory(
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'zh-Hans' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
     StartupService,
     {

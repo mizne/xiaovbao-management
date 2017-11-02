@@ -6,7 +6,7 @@ import 'rxjs/add/observable/of'
 import 'rxjs/add/operator/delay'
 import 'rxjs/add/observable/throw'
 
-import { APIResponse } from 'app/shared/api-error-interceptor'
+import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 import { Captcha } from '../models/captcha.model'
 import { User, ROLES } from '../models/user.model'
 
@@ -51,7 +51,8 @@ export class LoginService {
         name: e.name,
         role: ROLES[e.correspondingType],
         industry: e.style,
-        token: e.token
+        token: e.token,
+        tenantId: e.tenantId
       }))
       .catch(this.handleError)
   }

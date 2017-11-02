@@ -7,34 +7,47 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 
-import { ApiErrorInterceptor } from './api-error-interceptor'
-import { BooleanPipe } from './pipes/boolean.pipe'
+import { BooleanPipe } from './pipes/boolean.pipe';
+import { WrapTableComponent } from './components/wrap-table/wrap-table.component'
+
+const pipes = [
+  BooleanPipe
+]
+
+const components = [
+  WrapTableComponent
+]
+
+const directives = [
+
+]
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        // HttpClientModule,
         FileUploadModule,
         NgZorroAntdModule.forRoot(),
     ],
     declarations: [
-      BooleanPipe
+      ...pipes,
+      ...components,
+      ...directives
     ],
     providers: [
-      // { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true }
     ],
     exports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        // HttpClientModule,
         NgZorroAntdModule,
         RouterModule,
         TranslateModule,
         FileUploadModule,
-        BooleanPipe
+        ...pipes,
+        ...components,
+        ...directives
     ]
 })
 export class SharedModule {

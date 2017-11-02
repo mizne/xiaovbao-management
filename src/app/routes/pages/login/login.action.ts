@@ -10,6 +10,7 @@ export const FETCH_CAPTCHA = '[Login] Fetch Captcha'
 export const FETCH_CAPTCHA_SUCCESS = '[Login] Fetch Captcha Success'
 export const FETCH_CAPTCHA_FAILURE = '[Login] Fetch Captcha Failure'
 
+export const LOGOUT = '[Login] Logout'
 
 export class LoginRequestAction implements Action {
   readonly type = LOGIN_REQUEST
@@ -39,6 +40,11 @@ export class FetchCaptchaFailureAction implements Action {
 }
 
 
+export class LogoutAction implements Action {
+  readonly type = LOGOUT
+}
+
+
 
 export type Actions =
 LoginRequestAction |
@@ -47,4 +53,6 @@ LoginFailureAction |
 
 FetchCaptchaAction |
 FetchCaptchaSuccessAction |
-FetchCaptchaFailureAction
+FetchCaptchaFailureAction |
+
+LogoutAction

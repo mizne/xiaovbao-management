@@ -26,4 +26,8 @@ export const getPreciseAnalysisTotalCount = createSelector(
   getPreciseAnalysisState,
   fromPreciseAnalysis.getTotalCount
 )
+export const getBatchSendSMSLoading = createSelector(
+  getPreciseAnalysisState,
+  fromPreciseAnalysis.getBatchSendSMSLoading
+)
 

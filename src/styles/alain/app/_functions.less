@@ -1,48 +1,47 @@
 // Color contrast
 .color-yiq(@color) {
+  .yiq-mixin (@v) when (@v >= 150) {
+    color: #111;
+  }
+  .yiq-mixin (@v) when (default()) {
+    color: #fff;
+  }
 
-    .yiq-mixin (@v) when (@v >= 150) {
-        color: #111;
-    }
-    .yiq-mixin (@v) when (default()) {
-        color: #fff;
-    }
+  @r: red(@color);
+  @g: green(@color);
+  @b: blue(@color);
 
-    @r: red(@color);
-    @g: green(@color);
-    @b: blue(@color);
-
-    @yiq: ((@r * 299) + (@g * 587) + (@b * 114)) / 1000;
-    .yiq-mixin(@yiq);
+  @yiq: ((@r * 299) + (@g * 587) + (@b * 114)) / 1000;
+  .yiq-mixin(@yiq);
 }
 
 // Basic loop
 .for(@list, @code) {
-    & {
-        .loop(@i:1) when (@i =< length(@list)) {
-            @index: @i - 1;
-			@item: extract(@list, @i);
+  & {
+    .loop(@i:1) when (@i =< length(@list)) {
+      @index: @i - 1;
+      @item: extract(@list, @i);
 
-			@code();
+      @code();
 
-			.loop(@i + 1);
-        }
-        .loop();
+      .loop(@i + 1);
     }
+    .loop();
+  }
 }
 
 .for-each(@list, @code) {
-    & {
-        .loop(@i:1) when (@i =< length(@list)) {
-            @index: @i - 1;
-            @item: extract(@list, @i);
-            @key: extract(@item, 1);
-            @value: extract(@item, 2);
+  & {
+    .loop(@i:1) when (@i =< length(@list)) {
+      @index: @i - 1;
+      @item: extract(@list, @i);
+      @key: extract(@item, 1);
+      @value: extract(@item, 2);
 
-			@code();
+      @code();
 
-			.loop(@i + 1);
-        }
-        .loop();
+      .loop(@i + 1);
     }
+    .loop();
+  }
 }

@@ -6,6 +6,7 @@ export interface State {
   login: boolean
   loginName: string
   loginFailureMsg: string
+  tenantId: string
   captcha: Captcha
 }
 
@@ -14,6 +15,7 @@ const initialState: State = {
   login: false,
   loginName: '',
   loginFailureMsg: '',
+  tenantId: '',
   captcha: {
     key: '',
     base64: ''
@@ -35,7 +37,8 @@ export function reducer(state: State = initialState, action: Action): State {
         loading: false,
         login: true,
         loginName: action.user.name,
-        loginFailureMsg: ''
+        loginFailureMsg: '',
+        tenantId: action.user.tenantId
       }
     case fromLogin.LOGIN_FAILURE:
       return {
@@ -59,6 +62,7 @@ export const getLoading = (state: State) => state.loading
 // 是否已经登录
 export const getLogin = (state: State) => state.login
 export const getLoginName = (state: State) => state.loginName
+export const getTenantId = (state: State) => state.tenantId
 export const getLoginFailureMsg = (state: State) => state.loginFailureMsg
 export const getCaptchaUrl = (state: State) => state.captcha.base64
 export const getCaptchaKey = (state: State) => state.captcha.key

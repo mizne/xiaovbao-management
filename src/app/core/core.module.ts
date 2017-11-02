@@ -9,13 +9,10 @@ import { TranslatorService } from './translator/translator.service'
 import { ScrollService } from './services/scroll.service'
 import { ColorsService } from './services/colors.service'
 import { ACLService } from './acl/acl.service'
-import { TokenService } from './net/token/token.service'
-import { _HttpClient } from './services/http.client'
 import { TitleService } from '@core/services/title.service'
 import { LocalStorageService } from './services/localstorage.service'
 import { SMSService } from './services/sms.service'
 import { AuthGuard } from './services/auth-guard.service'
-
 
 @NgModule({
   imports: [],
@@ -27,7 +24,6 @@ import { AuthGuard } from './services/auth-guard.service'
     ScrollService,
     ColorsService,
     ACLService,
-    TokenService,
     TitleService,
     LocalStorageService,
     SMSService,

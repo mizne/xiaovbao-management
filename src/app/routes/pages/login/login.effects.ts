@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/exhaustMap'
-import 'rxjs/add/operator/mergeMap'
+import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/take'
 import 'rxjs/add/operator/withLatestFrom'
@@ -37,7 +36,7 @@ export class LoginEffects {
         captcha
       })
     )
-    .mergeMap(({ name, password, captchaKey, captcha }) => {
+    .switchMap(({ name, password, captchaKey, captcha }) => {
       return this.loginService
         .login(name, password, captchaKey, captcha)
         .map(user => new fromLogin.LoginSuccessAction(user))
@@ -51,21 +50,31 @@ export class LoginEffects {
   loginSuccess$ = this.actions$
     .ofType(fromLogin.LOGIN_SUCCESS)
     .map((action: fromLogin.LoginSuccessAction) => action.user)
-    .do(({ name, industry, token }) => {
-      this.router.navigate(['dashboard'])
-      this.localStorage.set('hasLogin', true)
+    .do(({ name, industry, token, tenantId }) => {
       this.localStorage.set('token', token)
+      this.localStorage.set('tenantId', tenantId)
+
+      this.router.navigate(['dashboard'])
       this.aclService.set({
         role: [industry]
       })
     })
 
   @Effect()
-  fetchCaptch$ = this.actions$.ofType(fromLogin.FETCH_CAPTCHA).mergeMap(() => {
+  fetchCaptch$ = this.actions$.ofType(fromLogin.FETCH_CAPTCHA).switchMap(() => {
     return this.loginService
       .fetchCaptcha()
       .map(captcha => new fromLogin.FetchCaptchaSuccessAction(captcha))
       .catch(e => Observable.of(new fromLogin.FetchCaptchaFailureAction()))
+  })
+
+  @Effect({ dispatch: false })
+  logout$ = this.actions$.ofType(fromLogin.LOGOUT)
+  .do(() => {
+    this.localStorage.remove('token')
+    this.localStorage.remove('tenantId')
+
+    this.router.navigate(['login'])
   })
 
   constructor(

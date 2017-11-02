@@ -24,6 +24,7 @@ export class AuthGuard implements CanActivate {
     }
 
     this.router.navigate(['login'])
+    console.warn('no token store in client!')
     return false
   }
 }
