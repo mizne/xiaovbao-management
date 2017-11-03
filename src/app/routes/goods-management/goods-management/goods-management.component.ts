@@ -33,7 +33,8 @@ import {
   FetchGoodsParams,
   OffShelfGoodsAction,
   OnShelfGoodsAction,
-  FetchGoodsUnitsAction
+  FetchGoodsUnitsAction,
+  EditGoodsAction
 } from './goods.action'
 
 import { AddGoodsTypeModalComponent } from '../modals/add-goods-type-modal.component'
@@ -261,8 +262,7 @@ export class GoodsManagementComponent implements OnInit {
       )
       .takeUntil(this.destroyService)
       .subscribe(e => {
-        const not = fn => v => !fn(v)
-        const fetchGoodsParams = R.pickBy(not(R.isNil), e) as FetchGoodsParams
+        const fetchGoodsParams = R.reject(R.isNil, e) as FetchGoodsParams
 
         console.log(fetchGoodsParams)
         this.store.dispatch(new FectchGoodsAction(fetchGoodsParams))
@@ -272,17 +272,16 @@ export class GoodsManagementComponent implements OnInit {
       this.initFetchData()
     })
   }
+
   private initEditGoods(): void {
     this.actionExecute$
       .filter(e => e.type === 'EDIT')
       .withLatestFrom(this.store.select(getAllGoodsTypes), (e, allGoodsType) => {
-        debugger
         const data = e.payload.data as Goods
         const goodsTypeId = allGoodsType.find(goodsType => goodsType.name === data.goodsTypeName).id
         return R.assoc('goodsTypeId', goodsTypeId, data)
       })
       .withLatestFrom(this.store.select(getAllGoodsUnits), (goods, allUnits) => {
-        debugger
         const goodsUnitId = allUnits.find(unit => unit.name === goods.goodsUnitName).id
         return R.assoc('goodsUnitId', goodsUnitId, goods)
       })
@@ -298,10 +297,10 @@ export class GoodsManagementComponent implements OnInit {
         })
       })
       .takeUntil(this.destroyService)
-      .subscribe(e => {
+      .subscribe((e) => {
         console.log(e)
         if (typeof e !== 'string') {
-
+          this.store.dispatch(new EditGoodsAction(e as Goods))
         }
       })
   }

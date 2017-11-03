@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { NzModalSubject } from 'ng-zorro-antd'
+import { NzModalSubject, NzNotificationService } from 'ng-zorro-antd'
 import { FileUploader } from 'ng2-file-upload'
 
 import { Subject } from 'rxjs/Subject';
@@ -14,6 +14,8 @@ import { Store } from '@ngrx/store'
 import { State, getAllGoodsTypes, getAllGoodsUnits, getAddGoodsUnitLoading } from '../reducers'
 import { AddGoodsUnitAction, FetchGoodsUnitsAction } from '../goods-management/goods.action'
 import { environment } from '../../../../environments/environment'
+
+import * as R from 'ramda'
 
 export enum GoodsModalActionType {
   CREATE, EDIT
@@ -197,6 +199,8 @@ export class AddGoodsModalComponent implements OnInit {
 
   uploadImageUrl = ''
 
+  private toEditId: string
+
   @Input() action: GoodsModalActionType
 
   @Input() data: Goods
@@ -204,18 +208,22 @@ export class AddGoodsModalComponent implements OnInit {
   constructor(
     private subject: NzModalSubject,
     private fb: FormBuilder,
-    private store: Store<State>
+    private store: Store<State>,
+    private notify: NzNotificationService
   ) {
     this.uploader.onAfterAddingFile = f => {
-      console.log(f)
       f.upload()
     }
 
     this.uploader.onSuccessItem = (fileItem, resp, status, headers) => {
-      const file_path = JSON.parse(resp).file_path
-      console.log(file_path)
-      this.uploadImageUrl = environment.SERVER_URL + `/${file_path}`
-      this.goodsForm.controls['listImageUrl'].setValue(this.uploadImageUrl)
+      try {
+        const file_path = JSON.parse(resp).file_path
+        console.log(file_path)
+        this.uploadImageUrl = environment.SERVER_URL + `/${file_path}`
+        this.goodsForm.controls['listImageUrl'].setValue(this.uploadImageUrl)
+      } catch (e) {
+        this.notify.error('上传图片', '上传图片失败，请稍后重试！')
+      }
     }
   }
 
@@ -228,7 +236,13 @@ export class AddGoodsModalComponent implements OnInit {
   }
 
   ok() {
-    this.subject.next(this.goodsForm.value)
+    if (this.action === GoodsModalActionType.CREATE) {
+      this.subject.next(this.goodsForm.value)
+    } 
+    if (this.action === GoodsModalActionType.EDIT) {
+      this.subject.next(R.assoc('id', this.toEditId, this.goodsForm.value))
+    }
+    
     this.subject.destroy('onOk')
   }
 
@@ -244,9 +258,6 @@ export class AddGoodsModalComponent implements OnInit {
     this.buildForm()
     this.initDataResource()
     this.initSubscriber()
-
-    console.log(this.action)
-    console.log(this.data)
   }
 
   private buildForm(): void {
@@ -268,6 +279,7 @@ export class AddGoodsModalComponent implements OnInit {
     }
 
     if (this.action === GoodsModalActionType.EDIT) {
+      
       this.goodsForm = this.fb.group({
         name: [this.data.name, Validators.required],
         buyPrice: [this.data.buyPrice, [Validators.required, Validators.pattern(/\d+/)]],
@@ -280,7 +292,7 @@ export class AddGoodsModalComponent implements OnInit {
         description: [this.data.description],
         listImageUrl: [this.data.listImageUrl, Validators.required],
       })
-
+      this.toEditId = this.data.id
       this.uploadImageUrl = this.data.listImageUrl
     }
     

@@ -15,6 +15,10 @@ export const ON_SHELF_GOODS = '[Goods] On Shelf Goods'
 export const ON_SHELF_GOODS_SUCCESS = '[Goods] On Shelf Goods Success'
 export const ON_SHELF_GOODS_FAILURE = '[Goods] On Shelf Goods Success'
 
+export const EDIT_GOODS = '[Goods] Edit Goods'
+export const EDIT_GOODS_SUCCESS = '[Goods] Edit Goods Success'
+export const EDIT_GOODS_FAILURE = '[Goods] Edit Goods Failure'
+
 export const FETCH_GOODS_COUNT = '[Goods] Fetch Goods Count'
 export const FETCH_GOODS_COUNT_SUCCESS = '[Goods] Fetch Goods Count Success'
 export const FETCH_GOODS_COUNT_FAILURE = '[Goods] Fetch Goods Count Failure'
@@ -83,6 +87,18 @@ export class OnShelfGoodsSuccessAction implements Action {
 }
 export class OnShelfGoodsFailureAction implements Action {
   readonly type = ON_SHELF_GOODS_FAILURE
+}
+
+
+export class EditGoodsAction implements Action {
+  readonly type = EDIT_GOODS
+  constructor(public goods: Goods) {}
+}
+export class EditGoodsSuccessAction implements Action {
+  readonly type = EDIT_GOODS_SUCCESS
+}
+export class EditGoodsFailureAction implements Action {
+  readonly type = EDIT_GOODS_FAILURE
 }
 
 
@@ -187,6 +203,10 @@ OffShelfGoodsFailureAction |
 OnShelfGoodsAction |
 OnShelfGoodsSuccessAction |
 OnShelfGoodsFailureAction |
+
+EditGoodsAction |
+EditGoodsSuccessAction |
+EditGoodsFailureAction |
 
 FetchGoodsCountAction |
 FetchGoodsCountSuccessAction |

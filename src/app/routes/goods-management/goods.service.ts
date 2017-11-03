@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/catch'
 
-import { Goods } from './models/goods.model'
+import { Goods, GoodsResp } from './models/goods.model'
 import { GoodsType } from './models/goodsType.model'
 import { GoodsUnit } from './models/goodsUnit.model'
 
@@ -33,23 +33,9 @@ export class GoodsService {
     }
     return this.http
       .get(this.goodsUrl + query)
-      .map(resp => (resp as APIResponse).result)
+      .map(resp => (resp as APIResponse).result as GoodsResp[])
       .map(result =>
-        result.map(e => ({
-          id: e.id,
-          name: e.name,
-          listImageUrl: e.image,
-          description: e.info,
-          goodsTypeName: e.menuName,
-          isActive: e.isActive,
-          price: e.price,
-          oldPrice: e.oldPrice,
-          vipPrice: e.vipPrice,
-          goodsUnitName: e.unit,
-          sellCount: e.sellCount,
-          totalCount: e.foodNum,
-          restCount: e.rest
-        }))
+        result.map(Goods.convertFromResp)
       )
       .catch(this.handleError)
   }
@@ -58,27 +44,10 @@ export class GoodsService {
     return this.http
       .post(this.goodsUrl, {
         tenantId,
-        food: {
-          name: goods.name,
-          image: goods.listImageUrl,
-          minuteImage: goods.detailImageUrl,
-          constPrice: goods.buyPrice,
-          oldPrice: goods.price,
-          vipPrice: goods.vipPrice,
-          price: goods.price,
-          foodNum: goods.totalCount,
-          unitId: goods.goodsUnitId,
-          info: goods.description,
-          menuId: goods.goodsTypeId,
-          isActive: goods.isActive
-        }
+        food: Goods.convertFromModel(goods)
       })
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
-  }
-
-  deleteGoods(tenantId: string, goodsId: string): Observable<any> {
-    return Observable.of()
   }
 
   offShelfGoods(tenantId: string, goodsId: string): Observable<any> {
@@ -92,7 +61,7 @@ export class GoodsService {
   editGoods(tenantId: string, goodsId: string, goods: Goods): Observable<any> {
     return this.http
     .put(this.goodsUrl, {
-      food: goods,
+      food: Goods.convertFromModel(goods),
       condition: {
         tenantId,
         id: goodsId
