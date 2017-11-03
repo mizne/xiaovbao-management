@@ -11,29 +11,29 @@ import 'rxjs/add/operator/takeUntil'
 import { DestroyService } from 'app/core/services/destroy.service'
 
 export interface PageChangeOption {
-  index: number
-  size: number
+  index: number // pageIndex
+  size: number // pageSize
 }
 
 export interface ActionExecuteOption {
   type: string
   payload: {
-    index: number
-    data: any
+    index: number // 当前行数据的index
+    data: any // 当前行数据
   }
 }
 
 export interface Column {
-  label: string
-  key: string
-  type?: string
-  transform?: Function
+  label: string // 当前列的 head显示
+  key: string // data的 key
+  type?: string // 当前列的 显示类型 譬如是image类型 则需img标签显示
+  transform?: Function // 根据当前行数据计算 显示的文本
 }
 
 export interface Action {
-  label: string
-  key: string
-  disabled?: Function
+  label: string // action的显示名称
+  key: string // action的标识 actionExecute会发射 此action的标识
+  disabled?: Function // 根据当前行数据计算 是否需要禁用此action
 }
 
 @Component({
@@ -75,7 +75,12 @@ export class WrapTableComponent implements OnInit {
 
   pageIndexSub: BehaviorSubject<number> = new BehaviorSubject<number>(1)
   pageSizeSub: BehaviorSubject<number> = new BehaviorSubject<number>(10)
-
+  /**
+ * 是否全部选中 待优化 这个有可能是通过外部的交互(譬如外部的搜索)触发改变
+ * 
+ * @type {Observable<boolean>}
+ * @memberof WrapTableComponent
+ */
   isAllSelected$: Observable<boolean>
   indeterminate$: Observable<boolean>
 
@@ -156,9 +161,7 @@ export class WrapTableComponent implements OnInit {
     return action.disabled(data)
   }
 
-  needShowAction(action: Action, data: any) {
-    
-  }
+  needShowAction(action: Action, data: any) {}
 
   toExecute(action: Action, data: any, index: number) {
     if (action.disabled && action.disabled(data)) {

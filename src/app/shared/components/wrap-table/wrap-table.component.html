@@ -25,7 +25,7 @@
       <td nz-td *ngFor="let column of _columns">
         <img *ngIf="column.type === 'IMAGE' as value; else elseBlock" [src]="data[column.key]" alt="">
         <ng-template #elseBlock>
-            <span>{{ column.transform ? column.transform(data[column.key]) : data[column.key] }}</span>
+            <span>{{ column.transform ? column.transform(data) : data[column.key] }}</span>
         </ng-template>
         
       </td>

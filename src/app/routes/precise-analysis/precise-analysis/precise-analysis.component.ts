@@ -110,8 +110,8 @@ export class PreciseAnalysisComponent implements OnInit {
     {
       label: '是否会员',
       key: 'isVip',
-      transform: (value) => {
-        return value ? '是' : '否'
+      transform: (rowDada) => {
+        return rowDada.isVip ? '是' : '否'
       }
     }
   ]

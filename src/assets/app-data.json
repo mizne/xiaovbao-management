@@ -51,6 +51,14 @@
           "children": []
         },
         {
+          "text": "订单管理",
+          "translate": "order-management",
+          "link": "/order-management",
+          "icon": "icon-note",
+          "acl": ["hotel"],
+          "children": []
+        },
+        {
           "text": "互动营销",
           "translate": "interactive-marketing",
           "link": "/interactive-marketing",

@@ -16,6 +16,10 @@ const modals = [
   AddGoodsModalComponent
 ]
 
+const effects = [
+  GoodsEffects
+]
+
 const routes: Routes = [
   { path: '', component: GoodsManagementComponent }
 ]
@@ -25,7 +29,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('goodsManagement', reducers),
-    EffectsModule.forFeature([GoodsEffects])
+    EffectsModule.forFeature(effects)
   ],
   exports: [],
   declarations: [

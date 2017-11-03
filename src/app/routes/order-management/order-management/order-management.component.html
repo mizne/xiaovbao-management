@@ -1,0 +1,23 @@
+<div class="content__title">
+  <h1>
+    订单管理
+  </h1>
+</div>
+<div nz-row [nzGutter]="16">
+  <div nz-col [nzMd]="24">
+    <nz-card>
+      <ng-template #body>
+        <app-wrap-table 
+        [pageIndexAndSizeChange]="pageIndexAndSizeChange$" 
+        [actionExecute]="actionExecute$" 
+        [showCheckbox]="false"
+          [dataSource]="currentOrders$" 
+          [loading]="fetchOrderLoading$" 
+          [total]="orderTotalCount$" 
+          [columns]="columns" 
+          [actions]="actions">
+        </app-wrap-table>
+      </ng-template>
+    </nz-card>
+  </div>
+</div>

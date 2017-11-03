@@ -112,7 +112,7 @@ export class GoodsManagementComponent implements OnInit {
   >()
   currentGoods$: Observable<any>
   fetchGoodsLoading$: Observable<boolean>
-  GoodsTotalCount$: Observable<number>
+  goodsTotalCount$: Observable<number>
 
   constructor(
     private message: NzMessageService,
@@ -126,7 +126,6 @@ export class GoodsManagementComponent implements OnInit {
     this.buildForm()
     this.initDataSource()
     this.initSubscriber()
-    // this.initFetchData()
   }
 
   toAddGoodsType(): void {
@@ -138,10 +137,6 @@ export class GoodsManagementComponent implements OnInit {
   }
 
   search() {
-    Object.keys(this.searchForm.controls).forEach(e => {
-      this.searchForm.controls[e].markAsDirty()
-    })
-
     this.searchSub.next({
       goodsName: this.searchForm.value.name,
       goodsType: this.searchForm.value.type
@@ -167,7 +162,7 @@ export class GoodsManagementComponent implements OnInit {
   private initDataSource() {
     this.goodsTypes$ = this.store.select(getAllGoodsTypes)
     this.currentGoods$ = this.store.select(getCurrentGoods)
-    this.GoodsTotalCount$ = this.store.select(getGoodsTotalCount)
+    this.goodsTotalCount$ = this.store.select(getGoodsTotalCount)
     this.fetchGoodsLoading$ = this.store.select(getGoodsLoading).share()
   }
 

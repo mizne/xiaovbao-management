@@ -20,6 +20,7 @@
     "management": "Management",
     "activity-management": "ActivityManagement",
     "goods-management": "GoodsManagement",
+    "order-management": "OrderManagement",
     "interactive-marketing": "InteractiveMarketing",
     "hongbaojie": "HongBaoJie",
     "lottery": "Lottery",

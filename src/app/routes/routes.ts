@@ -42,6 +42,11 @@ export const routes: Routes = [
           './goods-management/goods-management.module#GoodsManagementModule'
       },
       {
+        path: 'order-management',
+        loadChildren:
+          './order-management/order-management.module#OrderManagementModule'
+      },
+      {
         path: 'customer-management',
         loadChildren:
           './customer-management/customer-management.module#CustomerManagementModule'
