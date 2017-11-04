@@ -150,11 +150,6 @@
           "icon": "icon-chart",
           "acl": ["education", "supermarket", "hotel", "annualMeeting", "wedding"],
           "children": [
-            {
-              "text": "统计报表",
-              "link": "/management-analysis/statistical_report",
-              "translate": "statistical-report"
-            }
           ]
         }
       ]
