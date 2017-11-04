@@ -23,7 +23,7 @@ export const routes: Routes = [
       { path: 'dashboard', redirectTo: 'index-page', pathMatch: 'full' },
       {
         path: 'index-page',
-        component: IndexPageComponent
+        loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
       {
         path: 'activity-management',
