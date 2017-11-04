@@ -7,7 +7,7 @@ import { reducers } from './reducers'
 import { PreciseAnalysisEffects } from './precise-analysis/precise-analysis.effects'
 
 import { PreciseAnalysisComponent } from './precise-analysis/precise-analysis.component';
-import { StatisticsService } from './statistics.service'
+import { PreciseAnalysisService } from './precise-analysis.service'
 
 const effects = [
   PreciseAnalysisEffects
@@ -32,7 +32,7 @@ const routes: Routes = [
     PreciseAnalysisComponent,
     ...modals
   ],
-  providers: [StatisticsService],
+  providers: [PreciseAnalysisService],
   entryComponents: [
     ...modals
   ]

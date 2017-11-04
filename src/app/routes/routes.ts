@@ -11,7 +11,7 @@ import { ForgetComponent } from './pages/forget/forget.component'
 // import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 // import { Page404Component } from './pages/404/404.component';
 // import { Page500Component } from './pages/500/500.component';
-import { DashboardV1Component } from './dashboard/v1/v1.component'
+import { IndexPageComponent } from './dashboard/index/index-page.component'
 
 export const routes: Routes = [
   {
@@ -19,12 +19,11 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
-      { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
+      { path: '', redirectTo: 'index-page', pathMatch: 'full' },
+      { path: 'dashboard', redirectTo: 'index-page', pathMatch: 'full' },
       {
-        path: 'dashboard/v1',
-        component: DashboardV1Component,
-        data: { translate: 'dashboard_v1' }
+        path: 'index-page',
+        component: IndexPageComponent
       },
       {
         path: 'activity-management',

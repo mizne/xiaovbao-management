@@ -1,16 +1,21 @@
 import * as fromQrcode from './qrcode.action'
 import { Qrcode } from '../models/qrcode.model'
+import { Table } from '../models/table.model'
 
 export interface State {
   loading: boolean
   qrcodes: Qrcode[]
   totalCount: number
+
+  tables: Table[]
 }
 
 const initialState: State = {
   loading: false,
   qrcodes: [],
-  totalCount: 0
+  totalCount: 0,
+
+  tables: []
 }
 
 export function reducer(
@@ -40,6 +45,12 @@ export function reducer(
         ...state,
         totalCount: action.count
       }
+
+    case fromQrcode.FETCH_TABLE_SUCCESS: 
+      return {
+        ...state,
+        tables: action.tables
+      }
     default:
       return state
   }
@@ -48,3 +59,4 @@ export function reducer(
 export const getLoading = (state: State) => state.loading
 export const getQrcodes = (state: State) => state.qrcodes
 export const getTotalCount = (state: State) => state.totalCount
+export const getTables = (state: State) => state.tables

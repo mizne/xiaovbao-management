@@ -9,7 +9,6 @@ import { GoodsEffects } from './goods-management/goods.effects'
 import { GoodsManagementComponent } from './goods-management/goods-management.component';
 import { AddGoodsTypeModalComponent } from './modals/add-goods-type-modal.component'
 import { AddGoodsModalComponent } from './modals/add-goods-modal.component'
-import { GoodsService } from './goods.service'
 
 const modals = [
   AddGoodsTypeModalComponent,
@@ -36,7 +35,7 @@ const routes: Routes = [
     GoodsManagementComponent,
     ...modals
   ],
-  providers: [GoodsService],
+  providers: [],
   entryComponents: [
     ...modals
   ]

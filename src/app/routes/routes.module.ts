@@ -4,11 +4,11 @@ import { SharedModule } from '@shared/shared.module'
 import { PagesModule } from './pages/pages.module'
 
 import { routes } from './routes'
-import { DashboardV1Component } from './dashboard/v1/v1.component'
+import { IndexPageComponent } from './dashboard/index/index-page.component'
 
 @NgModule({
   imports: [SharedModule, RouterModule.forRoot(routes), PagesModule],
-  declarations: [DashboardV1Component],
+  declarations: [IndexPageComponent],
   exports: [RouterModule]
 })
 export class RoutesModule {}

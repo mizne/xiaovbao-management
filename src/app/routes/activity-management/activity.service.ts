@@ -7,64 +7,61 @@ import 'rxjs/add/operator/catch';
 
 import * as R from 'ramda'
 
-import { Activity } from './models/activity.model'
+import { Activity, ActivityType, ActivityStatus } from './models/activity.model'
 import { DiscountActivity } from './models/discount-activity.model'
 import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
 @Injectable()
 export class ActivityService {
-    private fetchActivityUrl = '/admin/goodsPromotion'
-    private fetchActivityCountUrl = '/admin/goodsPromotionCount'
+    private discountActivityUrl = '/admin/goodsPromotion'
+    private discountActivityCountUrl = '/admin/goodsPromotionCount'
 
     constructor(private http: HttpClient) {
     }
 
     fetchActivity(tenantId: string): Observable<Activity[]> {
-      const query = `
-      ?tenantId=${tenantId}
-      `
-      return this.http.get(this.fetchActivityUrl + query)
-      .map(resp => (resp as APIResponse).result)
-      .map(e => e.map(this.convert))
-      .catch(this.handleError)
-    }
-
-    fetchActivityCount(tenantId: string): Observable<number> {
-      const query = `?tenantId=${tenantId}`
-      
-      return this.http.get(this.fetchActivityCountUrl + query)
-      .map(resp => (resp as APIResponse).result)
-      .catch(this.handleError)
-    }
-
-
-    fetchDiscountActivity(tenantId: string): Observable<DiscountActivity[]> {
       return Observable.of([
         {
-          id: '11',
-          goodsId: '22',
-          goodsName: 'testGoodsName',
-          originalPrice: 11,
-          discount: 0.6,
-          activityPrice: 8,
-          purchaseLimitCount: 3,
-          target: 'all',
-          qrcodeTemplateId: 'templateId'
+          id: '1',
+          type: ActivityType.DISCOUNT,
+          name: '折扣商品',
+          status: ActivityStatus.PROCESSING
         }
       ])
     }
 
-    fetchDiscountActivityCount(tenantId: string): Observable<number> {
-      return Observable.of(11)
+    fetchActivityCount(tenantId: string): Observable<number> {
+      return Observable.of(1)
     }
 
-    private convert(srcObj): Activity {
-      return {
-        id: srcObj.id as string,
-        type: srcObj.type as number,
-        name: srcObj.name as string,
-        status: srcObj.status as string
-      }
+
+    fetchDiscountActivity(tenantId: string, pageIndex: number = 1, pageSize: number = 10): Observable<DiscountActivity[]> {
+      const query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
+      return this.http.get(this.discountActivityUrl + `?tenantId=${tenantId}`)
+      .map(resp => (resp as APIResponse).result)
+      .map(res => res.map(DiscountActivity.convertFromResp))
+      .catch(this.handleError)
+    }
+
+    fetchDiscountActivityCount(tenantId: string): Observable<number> {
+      return this.http.get(this.discountActivityCountUrl + `?tenantId=${tenantId}`)
+      .map(resp => (resp as APIResponse).result)
+      .catch(this.handleError)
+    }
+
+    createDiscountActivity(tenantId: string, activity: DiscountActivity): Observable<any> {
+      return this.http.post(this.discountActivityUrl, {
+        tenantId,
+        ...DiscountActivity.convertFromModel(activity)
+      })
+      .map(resp => (resp as APIResponse).result)
+      .catch(this.handleError)
+    }
+
+    deleteDiscountActivity(tenantId: string, activityId: string) {
+      return this.http.delete(this.discountActivityUrl + `?tenantId=${tenantId}&id=${activityId}`)
+      .map(resp => (resp as APIResponse).result)
+      .catch(this.handleError)
     }
 
     private handleError(error: any) {

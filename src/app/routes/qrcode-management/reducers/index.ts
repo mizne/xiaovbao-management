@@ -26,4 +26,8 @@ export const getQrcodesTotalCount = createSelector(
   getQrcodeState,
   fromQrcode.getTotalCount
 )
+export const getTables = createSelector(
+  getQrcodeState,
+  fromQrcode.getTables
+)
 

@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/catch'
 
-import { Goods, GoodsResp } from './models/goods.model'
-import { GoodsType } from './models/goodsType.model'
-import { GoodsUnit } from './models/goodsUnit.model'
+import { Goods, GoodsResp } from 'app/routes/goods-management/models/goods.model'
+import { GoodsType } from 'app/routes/goods-management/models/goodsType.model'
+import { GoodsUnit } from 'app/routes/goods-management/models/goodsUnit.model'
 
 import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
@@ -26,10 +26,10 @@ export class GoodsService {
   ): Observable<Goods[]> {
     let query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
     if (goodsName) {
-      query += `&goodsName=${goodsName}`
+      query += `&name=${goodsName}`
     }
     if (goodsType) {
-      query += `&goodsType=${goodsType}`
+      query += `&menuId=${goodsType}`
     }
     return this.http
       .get(this.goodsUrl + query)
@@ -75,10 +75,10 @@ export class GoodsService {
   fetchGoodsCount(tenantId: string, goodsName?: string, goodsType?: string): Observable<number> {
     let query = `/?tenantId=${tenantId}`
     if (goodsName) {
-      query += `&goodsName=${goodsName}`
+      query += `&name=${goodsName}`
     }
     if (goodsType) {
-      query += `&goodsType=${goodsType}`
+      query += `&menuId=${goodsType}`
     }
 
     return this.http

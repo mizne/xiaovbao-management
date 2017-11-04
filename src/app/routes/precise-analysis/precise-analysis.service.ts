@@ -11,7 +11,7 @@ import { PreciseAnalysis } from './models/precise-analysis.model'
 import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
 @Injectable()
-export class StatisticsService {
+export class PreciseAnalysisService {
     private fetchPreciseAnalysisUrl = '/admin/customerEchats'
     private fetchPreciseAnalysisCountUrl = '/admin/customerEchatsCount'
 

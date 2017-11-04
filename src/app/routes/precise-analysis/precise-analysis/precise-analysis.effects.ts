@@ -2,6 +2,8 @@ import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/concatMap';
+
 
 import { NzNotificationService } from 'ng-zorro-antd'
 
@@ -10,7 +12,7 @@ import { Effect, Actions } from '@ngrx/effects'
 import { of } from 'rxjs/observable/of'
 
 import * as fromPreciseAnalysis from './precise-analysis.action'
-import { StatisticsService } from '../statistics.service'
+import { PreciseAnalysisService } from '../precise-analysis.service'
 import { LocalStorageService } from 'app/core/services/localstorage.service'
 import { SMSService } from 'app/core/services/sms.service'
 
@@ -23,7 +25,7 @@ export class PreciseAnalysisEffects {
   fetchPreciseAnalysis$ = this.actions$.ofType(fromPreciseAnalysis.FETCH_PRECISE_ANALYSIS)
   .map((action: fromPreciseAnalysis.FectchPreciseAnalysisAction) => action.payload)
   .switchMap(({ action, startDate, endDate, pageIndex, pageSize }) => {
-    return this.statisticsService.fetchPreciseAnalysis({ 
+    return this.preciseAnalysisService.fetchPreciseAnalysis({ 
       tenantId: this.local.tenantId, 
       action, 
       startDate, 
@@ -39,7 +41,7 @@ export class PreciseAnalysisEffects {
   fetchPreciseAnalysisCount$ = this.actions$.ofType(fromPreciseAnalysis.FETCH_PRECISE_ANALYSIS_COUNT)
   .map((action: fromPreciseAnalysis.FetchPreciseAnalysisCountAction) => action.payload)
   .switchMap(({ action, startDate, endDate }) => {
-    return this.statisticsService.fetchPreciseAnalysisCount({ 
+    return this.preciseAnalysisService.fetchPreciseAnalysisCount({ 
       tenantId: this.local.tenantId,
       action, 
       startDate, 
@@ -96,7 +98,7 @@ export class PreciseAnalysisEffects {
 
   constructor(
     private actions$: Actions,
-    private statisticsService: StatisticsService,
+    private preciseAnalysisService: PreciseAnalysisService,
     private smsService: SMSService,
     private local: LocalStorageService,
     private store: Store<State>,

@@ -12,22 +12,22 @@ export class Order {
   createdAt?: string
   acceptAt?: string
   payAt?: string
-  paymentMethod?: string
+  payMode?: string
 
   static convertFromResp(orderResp: OrderResp): Order {
     return R.reject(R.isNil, {
-      id: orderResp.id,
+      id: String(orderResp.id),
       tradeNo: orderResp.trade_no,
       remark: orderResp.info,
       bizType: orderResp.bizType,
       phone: orderResp.phone,
-      foods: orderResp.foods.map(Order.convertFoodFromResp),
+      foods: orderResp.foods.concat(orderResp.foods).map(Order.convertFoodFromResp),
       status: orderResp.status,
       orderAmount: orderResp.total_amount,
       createdAt: orderResp.receiveTime,
       acceptAt: orderResp.acceptTime,
       payAt: orderResp.payTime,
-      paymentMethod: orderResp.paymentMethod
+      payMode: orderResp.paymentMethod
     })
   }
 

@@ -11,6 +11,8 @@ import { DiscountActivityEffects } from './discount-activity/discount-activity.e
 import { ActivityService } from './activity.service'
 import { ActivityManagementComponent } from './activity-management/activity-management.component';
 import { DiscountActivityComponent } from './discount-activity/discount-activity.component';
+import { SelectGoodsModalComponent } from './modals/select-goods-modal.component'
+import { AddDiscountActivityModalComponent } from './modals/add-discount-activity-modal.component'
 
 const effects = [
   ActivityEffects,
@@ -18,6 +20,8 @@ const effects = [
 ]
 
 const modals = [
+  SelectGoodsModalComponent,
+  AddDiscountActivityModalComponent
 ]
 
 const routes: Routes = [
@@ -33,7 +37,11 @@ const routes: Routes = [
     EffectsModule.forFeature(effects)
   ],
   exports: [],
-  declarations: [ActivityManagementComponent, DiscountActivityComponent],
+  declarations: [
+    ActivityManagementComponent, 
+    DiscountActivityComponent,
+    ...modals
+  ],
   providers: [ActivityService],
   entryComponents: [
     ...modals

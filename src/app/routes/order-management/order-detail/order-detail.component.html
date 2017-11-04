@@ -1,0 +1,82 @@
+<div class="content__title">
+  <h1>
+    订单详情
+  </h1>
+</div>
+<div *ngIf="currentOrder$ | async as order; else noOrderBlock">
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="24">
+      <nz-card>
+        <ng-template #title>
+          基本信息
+        </ng-template>
+        <ng-template #body>
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzMd]="12">
+              <label for="">下单时间：</label>
+              <span class="ml-lg">{{order.createdAt | moment}}</span>
+            </div>
+            <div nz-col [nzMd]="12">
+              <label for="">电话号码：</label>
+              <span class="ml-lg">{{order.phone}}</span>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="16" class="mt-lg">
+            <div nz-col [nzMd]="12">
+              <label for="">订单金额：</label>
+              <span class="ml-lg">{{order.orderAmount}}</span>
+            </div>
+            <div nz-col [nzMd]="12">
+              <label for="">订单备注：</label>
+              <span class="ml-lg">{{order.remark}}</span>
+            </div>
+          </div>
+        </ng-template>
+      </nz-card>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="24">
+      <nz-card>
+        <ng-template #title>
+          详细信息
+        </ng-template>
+        <ng-template #body>
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzMd]="12">
+              <label for="">购买商品：</label>
+              <span [ngClass]="{'ml-lg': isFirst}" *ngFor="let food of order.foods; last as isLast; first as isFirst;">
+                {{food.name}}
+                <span *ngIf="!isLast" nz-table-divider></span>
+              </span>
+            </div>
+            <div nz-col [nzMd]="12">
+              <label for="">支付方式：</label>
+              <span class="ml-lg">{{order.payMode}}</span>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="16" class="mt-lg">
+            <div nz-col [nzMd]="12">
+              <label for="">订单状态：</label>
+              <span class="ml-lg">
+                {{order.status | orderStatus}}
+              </span>
+            </div>
+            <div nz-col [nzMd]="12">
+              <label for="">支付时间：</label>
+              <span class="ml-lg">{{order.payAt | moment}}</span>
+            </div>
+          </div>
+
+
+        </ng-template>
+      </nz-card>
+    </div>
+  </div>
+</div>
+<ng-template #noOrderBlock>
+  <p>还没有此订单!</p>
+</ng-template>

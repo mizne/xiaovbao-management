@@ -41,3 +41,31 @@ export const getDiscountActivityTotalCount = createSelector(
   getDiscountActivityState,
   fromDiscountActivity.getTotalCount
 )
+export const getCurrentGoods = createSelector(
+  getDiscountActivityState,
+  fromDiscountActivity.getCurrentGoods
+)
+export const getFetchGoodsLoading = createSelector(
+  getDiscountActivityState,
+  fromDiscountActivity.getFetchGoodsLoading
+)
+export const getGoodsTotalCount = createSelector(
+  getDiscountActivityState,
+  fromDiscountActivity.getGoodsTotalCount
+)
+export const getToAddActivities = createSelector(
+  getDiscountActivityState,
+  fromDiscountActivity.getToAddActivities
+)
+export const getToAddActivitiesTotalCount = createSelector(
+  getDiscountActivityState,
+  fromDiscountActivity.getToAddActivitiesTotalCount
+)
+export const getToAddActivitiesToShow = createSelector(
+  getDiscountActivityState,
+  fromDiscountActivity.getToAddactivitiesToShow
+)
+export const getQrcodeTpls = createSelector(
+  getDiscountActivityState,
+  fromDiscountActivity.getQrcodeTpls
+)

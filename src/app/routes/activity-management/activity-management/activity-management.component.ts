@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService, NzModalService } from 'ng-zorro-antd'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 
 import { Subject } from 'rxjs/Subject'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
@@ -44,7 +44,8 @@ export class ActivityManagementComponent implements OnInit {
     private message: NzMessageService,
     private modalService: NzModalService,
     private store: Store<State>,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -52,20 +53,8 @@ export class ActivityManagementComponent implements OnInit {
     this.fetchData()
   }
 
-  private toEdit(id): void {
-    console.log(`store dispatch to edit activity: ${id}`)
-  }
-
-  private toDelete(id: string): void {
-    this.modalService.open({
-      title: '删除活动',
-      content: '确定删除这项活动么?',
-      onOk: () => {
-        console.log('store dispatch to delete activity: ' + id)
-      },
-      onCancel() {
-      }
-    })
+  viewActivity(): void {
+    this.router.navigate(['discount'], { relativeTo: this.route })
   }
 
   private initDataSource() {
@@ -85,47 +74,6 @@ export class ActivityManagementComponent implements OnInit {
   }
 
   toCreateDiscountActivity(): void {
-    this.router.navigate(['activity-management', 'discount'])
-  }
-
-  toEditGoods(activity: Activity): void {
-    // const subscription = this.modalService.open({
-    //   title: '编辑商品',
-    //   content: AddGoodsTypeModalComponent,
-    //   footer: false,
-    //   componentParams: {
-    //     action: 'edit'
-    //   }
-    // })
-    // subscription.subscribe(result => {
-    //   if (typeof result !== 'string') {
-    //     console.log('to edit goods: ', result)
-    //   }
-    //   if (result === 'onDestroy') {
-    //     subscription.unsubscribe()
-    //   }
-    // })
-  }
-
-  ensureDelGoods(id: string): void {}
-
-  pageIndexChange(pageIndex) {
-    console.log('page index: ' + this.pageIndex)
-    this.store.dispatch(
-      new FectchActivityAction({
-        pageIndex: this.pageIndex,
-        pageSize: this.pageSize
-      })
-    )
-  }
-
-  pageSizeChange(pageSize) {
-    console.log('page size: ' + this.pageSize)
-    this.store.dispatch(
-      new FectchActivityAction({
-        pageIndex: this.pageIndex,
-        pageSize: this.pageSize
-      })
-    )
+    this.router.navigate(['discount'], { relativeTo: this.route })
   }
 }

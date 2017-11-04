@@ -13,6 +13,9 @@ import { TitleService } from '@core/services/title.service'
 import { LocalStorageService } from './services/localstorage.service'
 import { SMSService } from './services/sms.service'
 import { AuthGuard } from './services/auth-guard.service'
+import { GoodsService } from './services/goods.service'
+import { QrcodeService } from './services/qrcode.service'
+import { StatisticsService } from './services/statistics.service'
 
 @NgModule({
   imports: [],
@@ -28,6 +31,9 @@ import { AuthGuard } from './services/auth-guard.service'
     LocalStorageService,
     SMSService,
     AuthGuard,
+    GoodsService,
+    QrcodeService,
+    StatisticsService
   ],
   declarations: [],
   exports: []

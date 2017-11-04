@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-
+import { Router, ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/skip'
 import 'rxjs/add/operator/first'
@@ -26,7 +26,6 @@ import {
   PageChangeOption,
   ActionExecuteOption
 } from 'app/shared/components/wrap-table/wrap-table.component'
-
 import { DestroyService } from 'app/core/services/destroy.service'
 
 @Component({
@@ -70,7 +69,9 @@ export class OrderManagementComponent implements OnInit {
 
   constructor(
     private store: Store<State>,
-    private destroyService: DestroyService
+    private destroyService: DestroyService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -113,7 +114,7 @@ export class OrderManagementComponent implements OnInit {
 
   private initViewAction(): void {
     this.actionExecute$.filter(e => e.type === 'VIEW').subscribe(e => {
-      console.log(e.payload.data)
+      this.router.navigate([e.payload.data.tradeNo], {relativeTo: this.route})
     })
   }
 

@@ -37,10 +37,6 @@ export class RegisterEffects {
   registrySuccess$ = this.actions$.ofType(fromRegister.REGISTRY_SUCCESS)
   .do(() => {
     this.router.navigate(['register-success'])
-    // this.notificationService.success('注册成功', '恭喜注册成功, 4秒后自动跳转登录')
-    // window.setTimeout(() => {
-    //   this.router.navigate(['login'])
-    // }, 4e3)
   })
 
   constructor(

@@ -167,7 +167,7 @@ export enum GoodsModalActionType {
                   <i class="anticon anticon-upload"></i>
                 </button>
 
-                <img *ngIf="uploadImageUrl" [src]="uploadImageUrl" width="100px" height="100px">
+                <img class="mt-sm" *ngIf="uploadImageUrl" [src]="uploadImageUrl" width="100px" height="100px">
               </ng-template>
             </nz-card>
             <nz-input [hidden]="true" formControlName="listImageUrl" [nzType]="'text'" [nzSize]="'large'">

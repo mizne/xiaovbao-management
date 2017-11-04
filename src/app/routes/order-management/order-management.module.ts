@@ -6,9 +6,10 @@ import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { reducers } from './reducers'
 import { OrderEffects } from './order-management/order-management.effects'
+import { OrderService } from './order.service';
 
 import { OrderManagementComponent } from './order-management/order-management.component';
-import { OrderService } from './order.service'
+import { OrderDetailComponent } from './order-detail/order-detail.component'
 
 const modals = [
 ]
@@ -18,7 +19,8 @@ const effects = [
 ]
 
 const routes: Routes = [
-  { path: '', component: OrderManagementComponent }
+  { path: '', component: OrderManagementComponent },
+  { path: ':tradeNo', component: OrderDetailComponent }
 ]
 
 @NgModule({
@@ -29,7 +31,7 @@ const routes: Routes = [
     EffectsModule.forFeature(effects)
   ],
   exports: [],
-  declarations: [OrderManagementComponent],
+  declarations: [OrderManagementComponent, OrderDetailComponent],
   providers: [OrderService],
   entryComponents: [
     ...modals

@@ -129,7 +129,7 @@ export class WrapTableComponent implements OnInit {
             user._selected = select.selected
           }
         }
-        return dataItems.filter(e => e._selected).map(e => e.id)
+        return dataItems.filter(e => !e._disabled).filter(e => e._selected).map(e => e.id)
       })
       .share()
       .takeUntil(this.destroyService)

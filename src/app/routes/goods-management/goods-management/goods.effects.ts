@@ -11,7 +11,7 @@ import { Effect, Actions } from '@ngrx/effects'
 import { of } from 'rxjs/observable/of'
 
 import * as fromGoods from './goods.action'
-import { GoodsService } from '../goods.service'
+import { GoodsService } from 'app/core/services/goods.service'
 
 import { LocalStorageService } from 'app/core/services/localstorage.service'
 
@@ -20,7 +20,9 @@ export class GoodsEffects {
   @Effect()
   fetchGoods$ = this.actions$
     .ofType(fromGoods.FETCH_GOODS)
-    .map((action: fromGoods.FectchGoodsAction) => action.payload)
+    .map(
+      (action: fromGoods.FetchGoodsAction) => action.payload
+    )
     .switchMap(({ pageIndex, pageSize, goodsName, goodsType }) => {
       return this.goodsService
         .fetchGoods(
@@ -168,7 +170,7 @@ export class GoodsEffects {
         .offShelfGoods(this.local.tenantId, goodsId)
         .concatMap(e => [
           new fromGoods.OffShelfGoodsSuccessAction(),
-          new fromGoods.FectchGoodsAction()
+          new fromGoods.FetchGoodsAction()
         ])
         .catch(e => of(new fromGoods.OffShelfGoodsFailureAction()))
     })
@@ -194,7 +196,7 @@ export class GoodsEffects {
         .onShelfGoods(this.local.tenantId, goodsId)
         .concatMap(e => [
           new fromGoods.OnShelfGoodsSuccessAction(),
-          new fromGoods.FectchGoodsAction()
+          new fromGoods.FetchGoodsAction()
         ])
         .catch(e => of(new fromGoods.OnShelfGoodsFailureAction()))
     })
@@ -225,7 +227,7 @@ export class GoodsEffects {
         .editGoods(this.local.tenantId, goods.id, goods)
         .concatMap(() => [
           new fromGoods.EditGoodsSuccessAction(),
-          new fromGoods.FectchGoodsAction()
+          new fromGoods.FetchGoodsAction()
         ])
         .catch(e => of(new fromGoods.EditGoodsFailureAction()))
     })

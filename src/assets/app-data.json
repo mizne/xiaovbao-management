@@ -21,9 +21,9 @@
           "icon": "icon-speedometer",
           "children": [
             {
-              "text": "仪表盘V1",
-              "link": "/dashboard/v1",
-              "translate": "dashboard_v1"
+              "text": "首页",
+              "link": "/index-page",
+              "translate": "index-page"
             }
           ]
         }
@@ -40,7 +40,8 @@
           "link": "/activity-management",
           "icon": "icon-chemistry",
           "acl": ["hotel", "education", "supermarket"],
-          "children": []
+          "children": [
+          ]
         },
         {
           "text": "商品管理",

@@ -24,7 +24,7 @@ import {
 } from '../reducers'
 
 import {
-  FectchGoodsAction,
+  FetchGoodsAction,
   FectchGoodsTypesAction,
   FetchGoodsCountAction,
   AddGoodsTypeAction,
@@ -193,7 +193,7 @@ export class GoodsManagementComponent implements OnInit {
         fetchGoodsCountParams.goodsType = e.goodsType
       }
 
-      this.store.dispatch(new FectchGoodsAction(fetchGoodsParams))
+      this.store.dispatch(new FetchGoodsAction(fetchGoodsParams))
       this.store.dispatch(new FetchGoodsCountAction(fetchGoodsCountParams))
     })
   }
@@ -260,7 +260,7 @@ export class GoodsManagementComponent implements OnInit {
         const fetchGoodsParams = R.reject(R.isNil, e) as FetchGoodsParams
 
         console.log(fetchGoodsParams)
-        this.store.dispatch(new FectchGoodsAction(fetchGoodsParams))
+        this.store.dispatch(new FetchGoodsAction(fetchGoodsParams))
       })
 
     this.pageIndexAndSizeChange$.first().subscribe(e => {
@@ -358,7 +358,7 @@ export class GoodsManagementComponent implements OnInit {
 
   private initFetchData(): void {
     this.store.dispatch(
-      new FectchGoodsAction({
+      new FetchGoodsAction({
         pageIndex: 1,
         pageSize: 10
       })

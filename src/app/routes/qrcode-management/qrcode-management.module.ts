@@ -8,7 +8,8 @@ import { QrcodeEffects } from './qrcode-management/qrcode.effects'
 
 import { QrcodeManagementComponent } from './qrcode-management/qrcode-management.component';
 import { AddQrcodeModalComponent } from './modals/add-qrcode-modal.component'
-import { QrcodeService } from './qrcode.service'
+
+import { TableService } from './table.service'
 
 const effects = [
   QrcodeEffects
@@ -34,7 +35,7 @@ const routes: Routes = [
     QrcodeManagementComponent,
     ...modals
   ],
-  providers: [QrcodeService],
+  providers: [TableService],
   entryComponents: [
     ...modals
   ]

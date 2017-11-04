@@ -19,7 +19,7 @@
 
     <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as dataIndex">
       <td *ngIf="_showCheckbox" nz-td [nzCheckbox]="true">
-        <label nz-checkbox [ngModel]="data._selected" (ngModelChange)="singleChange([data.id, $event])">
+        <label nz-checkbox [nzDisabled]="data._disabled" [ngModel]="data._selected" (ngModelChange)="singleChange([data.id, $event])">
         </label>
       </td>
       <td nz-td *ngFor="let column of _columns">

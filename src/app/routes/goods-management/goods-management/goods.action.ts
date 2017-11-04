@@ -49,11 +49,11 @@ export interface FetchGoodsParams {
   goodsName?: string,
   goodsType?: string 
 }
-const emptyFetchGoodsParams: FetchGoodsParams = {
+export const emptyFetchGoodsParams: FetchGoodsParams = {
   pageIndex: 1,
   pageSize: 10
 }
-export class FectchGoodsAction implements Action {
+export class FetchGoodsAction implements Action {
   readonly type = FETCH_GOODS
   constructor(public payload: FetchGoodsParams = emptyFetchGoodsParams) {}
 }
@@ -106,7 +106,7 @@ export interface FetchGoodsCountParams {
   goodsName?: string,
   goodsType?: string
 }
-const emptyFetchGoodsCountParams: FetchGoodsCountParams = {
+export const emptyFetchGoodsCountParams: FetchGoodsCountParams = {
   goodsName: '',
   goodsType: ''
 }
@@ -192,7 +192,7 @@ export class FetchGoodsUnitsFailureAction implements Action {
 
 
 export type Actions =
-FectchGoodsAction |
+FetchGoodsAction |
 FetchGoodsSuccessAction |
 FetchGoodsFailureAction |
 

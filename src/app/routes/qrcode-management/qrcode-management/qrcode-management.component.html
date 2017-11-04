@@ -8,11 +8,11 @@
       <nz-card>
           <ng-template #body>
               <div class="mb-sm text-right">
-                  <button nz-button [nzType]="'primary'" (click)="addQrcode()">
+                  <button nz-button [nzType]="'primary'" (click)="toCreateQrcode()">
                       <span>添加二维码</span>
                   </button>
               </div>
-              <nz-table #nzTable
+              <!-- <nz-table #nzTable
                   [nzAjaxData]="showQrcodes$ | async"
                   [nzShowSizeChanger]="true"
                   [nzLoading]="loading$ | async"
@@ -45,7 +45,19 @@
                           </td>
                       </tr>
                   </tbody>
-              </nz-table>
+              </nz-table> -->
+
+
+              <app-wrap-table 
+              [pageIndexAndSizeChange]="pageIndexAndSizeChange$" 
+              [actionExecute]="actionExecute$" 
+              [showCheckbox]="false"
+                [dataSource]="currentQrcodeTpls$" 
+                [loading]="fetchQrcodeTplsLoading$" 
+                [total]="qrcodeTplsTotalCount$" 
+                [columns]="columns"
+                [actions]="actions">
+              </app-wrap-table>
           </ng-template>
       </nz-card>
   </div>

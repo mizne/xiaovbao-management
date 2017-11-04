@@ -70,27 +70,22 @@
       <tbody nz-tbody>
         <tr nz-tbody-tr *ngFor="let i of nzTable.data">
           <td nz-td>
-            <span *ngIf="i.type === 0">
+            <div *ngIf="i.type === 0">
               <img src="assets/img/jian.png" alt="">
-            </span>
-            <span *ngIf="i.type === 1">
+            </div>
+            <div *ngIf="i.type === 1">
               <img src="assets/img/xink.gif" alt="">
-            </span>
-            <span *ngIf="i.type === 2">
+            </div>
+            <div *ngIf="i.type === 2">
               <img src="assets/img/zhe.png" alt="">
-            </span>
-            {{i.name}}
+            </div>
+            <div class="mt-sm">{{i.name}}</div>
           </td>
           <td nz-td>{{i.status}}</td>
 
           <td nz-td>
             <span>
-              <a (click)="toEditGoods(data)">{{ 'edit' | translate }}</a>
-              <span nz-table-divider></span>
-              <nz-popconfirm [nzTitle]="'Are you sure to delete?' | translate" [nzOkText]="'ok' | translate" [nzCancelText]="'cancel' | translate"
-                (nzOnConfirm)="ensureDelete(data.id)">
-                <a nz-popconfirm>{{ 'delete' | translate }}</a>
-              </nz-popconfirm>
+              <a (click)="viewActivity(data)">{{ 'view' | translate }}</a>
             </span>
           </td>
         </tr>

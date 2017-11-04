@@ -38,8 +38,8 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       .handle(req)
       .do((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          if (event.body && new RegExp(environment.SERVER_URL, 'i').test(event.url)) {
-            if (event.body.resCode !== 0) {
+          if (this.requestWithSelf(event.url)) {
+            if (event.body && event.body.resCode !== 0) {
               console.error(`API Error; ${event.body.resMsg}`)
               throw new Error(event.body.resCode)
             }
@@ -66,6 +66,10 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
         return Observable.throw(res)
       })
+  }
+
+  private requestWithSelf(url: string): boolean {
+    return new RegExp(environment.SERVER_URL, 'i').test(url)
   }
 }
 
