@@ -16,12 +16,27 @@ import { LocalStorageService } from 'app/core/services/localstorage.service'
 @Injectable()
 export class IndexPageEffects {
   @Effect()
-  fetchStatistics$ = this.actions$.ofType(fromIndexPage.FETCH_STATISTICS)
-  .map((action: fromIndexPage.FectchStatisticsAction) => action.payload)
-  .switchMap(({ action, startDate, endDate, pageIndex, pageSize }) => {
+  fetchTodayStatistics$ = this.actions$.ofType(fromIndexPage.FETCH_TODAY_STATISTICS)
+  .switchMap(() => {
     return this.statisticsService.fetchOrderStatisticsOfToday(this.local.tenantId)
-    .map(statistics => new fromIndexPage.FetchStatisticsSuccessAction(statistics))
-    .catch(e => of(new fromIndexPage.FetchStatisticsFailureAction()))
+    .map(statistics => new fromIndexPage.FetchTodayStatisticsSuccessAction(statistics))
+    .catch(e => of(new fromIndexPage.FetchTodayStatisticsFailureAction()))
+  })
+
+  @Effect()
+  fetchMonthStatistics$ = this.actions$.ofType(fromIndexPage.FETCH_MONTH_STATISTICS)
+  .switchMap(() => {
+    return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.local.tenantId)
+    .map(statistics => new fromIndexPage.FetchMonthStatisticsSuccessAction(statistics))
+    .catch(e => of(new fromIndexPage.FetchMonthStatisticsFailureAction()))
+  })
+
+  @Effect()
+  fetchYearStatistics$ = this.actions$.ofType(fromIndexPage.FETCH_YEAR_STATISTICS)
+  .switchMap(() => {
+    return this.statisticsService.fetchOrderStatisticsOfThisYear(this.local.tenantId)
+    .map(statistics => new fromIndexPage.FetchYearStatisticsSuccessAction(statistics))
+    .catch(e => of(new fromIndexPage.FetchYearStatisticsFailureAction()))
   })
 
 

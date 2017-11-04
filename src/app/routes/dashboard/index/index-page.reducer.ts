@@ -3,12 +3,16 @@ import { Statistics } from '../models/statistics.model'
 
 export interface State {
   loading: boolean
-  statistics: Statistics[]
+  todayStatistics: Statistics[]
+  monthStatisstics: Statistics[]
+  yearStatistics: Statistics[]
 }
 
 const initialState: State = {
   loading: false,
-  statistics: []
+  todayStatistics: [],
+  monthStatisstics: [],
+  yearStatistics: []
 }
 
 export function reducer(
@@ -16,19 +20,31 @@ export function reducer(
   action: fromIndexPage.Actions
 ): State {
   switch (action.type) {
-    case fromIndexPage.FETCH_STATISTICS:
+    case fromIndexPage.FETCH_TODAY_STATISTICS:
       return {
         ...state,
         loading: true
       }
-
-    case fromIndexPage.FETCH_STATISTICS_SUCCESS:
+    case fromIndexPage.FETCH_TODAY_STATISTICS_SUCCESS:
       return {
         ...state,
         loading: false,
-        statistics: action.statistics
+        todayStatistics: action.statistics
       }
-    case fromIndexPage.FETCH_STATISTICS_FAILURE:
+    case fromIndexPage.FETCH_MONTH_STATISTICS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        monthStatisstics: action.statistics
+      }
+    case fromIndexPage.FETCH_YEAR_STATISTICS_SUCCESS:
+      return {
+        ...state,
+        yearStatistics: action.statistics
+      }
+    case fromIndexPage.FETCH_TODAY_STATISTICS_FAILURE:
+    case fromIndexPage.FETCH_MONTH_STATISTICS_FAILURE: 
+    case fromIndexPage.FETCH_YEAR_STATISTICS_FAILURE: 
       return {
         ...state,
         loading: false
@@ -40,4 +56,6 @@ export function reducer(
 }
 
 export const getLoading = (state: State) => state.loading
-export const getStatistics = (state: State) => state.statistics
+export const getTodayStatistics = (state: State) => state.todayStatistics
+export const getMonthStatistics = (state: State) => state.monthStatisstics
+export const getYearStatistics = (state: State) => state.yearStatistics

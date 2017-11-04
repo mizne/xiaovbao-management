@@ -60,6 +60,30 @@
           "children": []
         },
         {
+          "text": "进销存管理",
+          "translate": "jinxiaocun-management",
+          "link": "/jinxiaocun-management",
+          "icon": "icon-graph",
+          "acl": ["hotel"],
+          "children": [
+            {
+              "text": "进货管理",
+              "link": "/jinxiaocun-management/purchase",
+              "translate": "purchase-management"
+            },
+            {
+              "text": "销售管理",
+              "link": "/jinxiaocun-management/sales",
+              "translate": "sales-management"
+            },
+            {
+              "text": "库存管理",
+              "link": "/jinxiaocun-management/stock",
+              "translate": "stock-management"
+            }
+          ]
+        },
+        {
           "text": "互动营销",
           "translate": "interactive-marketing",
           "link": "/interactive-marketing",

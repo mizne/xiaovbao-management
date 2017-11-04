@@ -46,6 +46,11 @@ export const routes: Routes = [
           './order-management/order-management.module#OrderManagementModule'
       },
       {
+        path: 'jinxiaocun-management',
+        loadChildren:
+          './jinxiaocun-management/jinxiaocun-management.module#JinXiaoCunManagementModule'
+      },
+      {
         path: 'customer-management',
         loadChildren:
           './customer-management/customer-management.module#CustomerManagementModule'

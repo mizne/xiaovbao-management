@@ -18,10 +18,16 @@ export const getDashboardModule = createFeatureSelector<IndexPageState>('dashboa
 
 export const getIndexPageState = createSelector(getDashboardModule, (state: IndexPageState) => state.indexPage)
 export const getIndexPageLoading = createSelector(getIndexPageState, fromIndexPage.getLoading)
-export const getCurrentStatistics = createSelector(
+export const getTodayStatistics = createSelector(
   getIndexPageState,
-  fromIndexPage.getStatistics
+  fromIndexPage.getTodayStatistics
 )
-
-
+export const getMonthStatistics = createSelector(
+  getIndexPageState,
+  fromIndexPage.getMonthStatistics
+)
+export const getYearStatistics = createSelector(
+  getIndexPageState,
+  fromIndexPage.getYearStatistics
+)
 
