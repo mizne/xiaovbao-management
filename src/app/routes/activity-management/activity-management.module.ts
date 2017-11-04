@@ -13,6 +13,7 @@ import { ActivityManagementComponent } from './activity-management/activity-mana
 import { DiscountActivityComponent } from './discount-activity/discount-activity.component';
 import { SelectGoodsModalComponent } from './modals/select-goods-modal.component'
 import { AddDiscountActivityModalComponent } from './modals/add-discount-activity-modal.component'
+import { ActivityStatusPipe } from './pipes/activity-status.pipe'
 
 const effects = [
   ActivityEffects,
@@ -40,6 +41,7 @@ const routes: Routes = [
   declarations: [
     ActivityManagementComponent, 
     DiscountActivityComponent,
+    ActivityStatusPipe,
     ...modals
   ],
   providers: [ActivityService],

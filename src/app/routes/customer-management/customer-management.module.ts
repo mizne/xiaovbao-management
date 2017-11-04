@@ -10,6 +10,7 @@ import { VipEffects } from './vip/vip.effects'
 import { AccountComponent } from './account/account.component';
 import { VipComponent } from './vip/vip.component'
 import { VipLevelPipe } from './pipes/vip-level.pipe'
+import { BooleanPipe } from './pipes/boolean.pipe'
 import { EditAccountModalComponent } from './modals/edit-account-modal.component'
 import { EditVipModalComponent } from './modals/edit-vip-modal.component'
 import { EditVipLevelSettingsModalComponent } from './modals/edit-vip-level-settings-modal.component'
@@ -45,6 +46,7 @@ const routes: Routes = [
     AccountComponent,
     VipComponent,
     VipLevelPipe,
+    BooleanPipe,
     ...modals
   ],
   providers: [

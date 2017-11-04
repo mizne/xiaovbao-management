@@ -23,7 +23,6 @@ import { ApiErrorInterceptor } from './core/interceptors/api-error-interceptor'
 import { TokenInterceptor } from './core/interceptors/token.interceptor'
 
 import { environment } from '../environments/environment';
-import { DiscountActivityComponent } from './app/routes/activity-management/discount-activity/discount-activity.component'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -37,7 +36,7 @@ export function StartupServiceFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent, DiscountActivityComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

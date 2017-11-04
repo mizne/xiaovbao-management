@@ -65,6 +65,9 @@ export class EditAccountModalComponent implements OnInit {
   _consumpAmount = 1
 
   @Input()
+  action
+
+  @Input()
   set phone(value: string) {
     this._phone = value
   }

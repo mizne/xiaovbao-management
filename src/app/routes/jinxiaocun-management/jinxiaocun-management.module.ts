@@ -16,7 +16,17 @@ import { StockComponent } from './stock-management/stock.component'
 import { PurchaseService } from './services/purchase.service'
 import { SalesService } from './services/sales.service'
 
+import { EditAccountModalComponent } from './modals/edit-account-modal.component'
+import { EditVipLevelSettingsModalComponent } from './modals/edit-vip-level-settings-modal.component'
+import { EditVipModalComponent } from './modals/edit-vip-modal.component'
+
+import { BooleanPipe } from './pipes/boolean.pipe'
+import { VipLevelPipe } from './pipes/vip-level.pipe'
+
 const modals = [
+  EditAccountModalComponent,
+  EditVipLevelSettingsModalComponent,
+  EditVipModalComponent
 ]
 
 const effects = [
@@ -43,6 +53,8 @@ const routes: Routes = [
     PurchaseComponent,
     SalesComponent,
     StockComponent,
+    BooleanPipe,
+    VipLevelPipe,
     ...modals
   ],
   providers: [
