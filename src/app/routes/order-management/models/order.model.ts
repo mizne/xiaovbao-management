@@ -21,7 +21,7 @@ export class Order {
       remark: orderResp.info,
       bizType: orderResp.bizType,
       phone: orderResp.phone,
-      foods: orderResp.foods.concat(orderResp.foods).map(Order.convertFoodFromResp),
+      foods: orderResp.foods.map(Order.convertFoodFromResp),
       status: orderResp.status,
       orderAmount: orderResp.total_amount,
       createdAt: orderResp.receiveTime,
