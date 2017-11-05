@@ -9,18 +9,18 @@ import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 
 import { Store } from '@ngrx/store'
-import { 
-  State, 
-  getDiscountActivityLoading, 
-  getDiscountActivities, 
+import {
+  State,
+  getDiscountActivityLoading,
+  getDiscountActivities,
   getDiscountActivityTotalCount,
   getCurrentGoods,
   getToAddActivities,
   getToAddActivitiesToShow,
   getToAddActivitiesTotalCount
  } from '../reducers'
-import { 
-  FectchDiscountActivityAction, 
+import {
+  FectchDiscountActivityAction,
   FetchDiscountActivityCountAction,
   SelectGoodsAction,
   GetToAddActivityToShowAction,

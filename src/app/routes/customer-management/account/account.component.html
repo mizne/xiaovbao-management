@@ -33,7 +33,7 @@
                     <tbody nz-tbody>
                         <tr nz-tbody-tr *ngFor="let data of nzTable.data">
                             <td nz-td>
-                              {{data.date | date:'y/MM/dd'}}
+                              {{data.date | moment}}
                             </td>
 
                             <td nz-td>{{data.phone}}</td>
