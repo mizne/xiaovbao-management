@@ -24,26 +24,24 @@ export enum GoodsModalActionType {
 @Component({
   selector: 'app-add-goods-modal',
   template: `
-    <div class="custome-modal-container">
+    <div class="custome-modal-container pr-lg">
       <form nz-form [nzType]="'horizontal'" [formGroup]="goodsForm">
         <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
+          <div nz-form-label nz-col [nzSpan]="4">
             <label nz-form-item-required>名称</label>
           </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
             <nz-input formControlName="name" [nzType]="'text'" [nzSize]="'large'">
             </nz-input>
             <div nz-form-explain *ngIf="getFormControlError('name', 'required')">
               {{ 'Please input your name!' | translate }}
             </div>
           </div>
-        </div>
 
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
+          <div nz-form-label nz-col [nzSpan]="4">
             <label nz-form-item-required>进价</label>
           </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('buyPrice')" nzHasFeedback>
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('buyPrice')" nzHasFeedback>
             <nz-input formControlName="buyPrice" [nzType]="'number'" [nzSize]="'large'">
             </nz-input>
             <div nz-form-explain *ngIf="getFormControlError('buyPrice', 'required')">
@@ -51,15 +49,16 @@ export enum GoodsModalActionType {
             </div>
             <div nz-form-explain *ngIf="getFormControlError('buyPrice', 'pattern')">
               {{ 'Wrong price format!' | translate }}
+            </div>
           </div>
-          </div>
+
         </div>
 
         <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
+          <div nz-form-label nz-col [nzSpan]="4">
             <label nz-form-item-required>单价</label>
           </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('price')" nzHasFeedback>
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('price')" nzHasFeedback>
             <nz-input formControlName="price" [nzType]="'number'" [nzSize]="'large'">
             </nz-input>
             <div nz-form-explain *ngIf="getFormControlError('price', 'required')">
@@ -67,73 +66,68 @@ export enum GoodsModalActionType {
             </div>
             <div nz-form-explain *ngIf="getFormControlError('price', 'pattern')">
               {{ 'Wrong price format!' | translate }}
+            </div>
           </div>
-          </div>
-        </div>
 
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
+          <div nz-form-label nz-col [nzSpan]="4">
             <label nz-form-item-required>会员价</label>
           </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('vipPrice')" nzHasFeedback>
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('vipPrice')" nzHasFeedback>
             <nz-input formControlName="vipPrice" [nzType]="'number'" [nzSize]="'large'">
             </nz-input>
           </div>
+
         </div>
 
         <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
+          <div nz-form-label nz-col [nzSpan]="4">
+            <label nz-form-item-required>单位</label>
+          </div>
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('goodsUnitId')" nzHasFeedback>
+            <nz-select formControlName="goodsUnitId" [nzSize]="'large'">
+              <nz-option *ngFor="let unit of allGoodsUnits$ | async" [nzLabel]="unit.name" [nzValue]="unit.id"></nz-option>
+            </nz-select>
+          </div>
+          <div nz-form-label nz-col [nzSpan]="4">
             <label nz-form-item-required>可售数量</label>
           </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('totalCount')" nzHasFeedback>
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('totalCount')" nzHasFeedback>
             <nz-input formControlName="totalCount" [nzType]="'number'" [nzSize]="'large'">
             </nz-input>
           </div>
         </div>
 
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
-            <label nz-form-item-required>单位</label>
-          </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('goodsUnitId')" nzHasFeedback>
-            <nz-select formControlName="goodsUnitId" [nzSize]="'large'">
-              <nz-option *ngFor="let unit of allGoodsUnits$ | async" [nzLabel]="unit.name" [nzValue]="unit.id"></nz-option>
-            </nz-select>
-          </div>
-        </div>
-
         <div nz-form-item nz-row [nzGutter]="8" class="pl-lg pr-lg">
-          <div nz-col [nzSpan]="8">
+          <div nz-col [nzSpan]="4">
             <i class="anticon anticon-question-circle"></i>
             <label>没有可用单位?</label>
           </div>
-          <div nz-col class="gutter-row" [nzSpan]="8">
+          <div nz-col class="gutter-row" [nzSpan]="4">
             <nz-input [formControl]="addGoodsUnitControl" [nzType]="'text'" [nzSize]="'large'">
             </nz-input>
           </div>
-          <div nz-col class="gutter-row" [nzSpan]="8">
-            <button nz-button [nzType]="'primary'" [nzLoading]="addGoodsUnitLoading$ | async" 
+          <div nz-col class="gutter-row" [nzSpan]="4">
+            <button nz-button [nzType]="'primary'" [nzLoading]="addGoodsUnitLoading$ | async"
             [disabled]="addGoodsUnitControl.invalid" (click)="addUnit()">{{ 'add' | translate }}</button>
           </div>
-        </div>
 
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
+          <div nz-form-label nz-col [nzSpan]="4">
             <label nz-form-item-required>商品类别</label>
           </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('goodsTypeId')" nzHasFeedback>
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('goodsTypeId')" nzHasFeedback>
             <nz-select formControlName="goodsTypeId" [nzSize]="'large'">
-              <nz-option *ngFor="let goodsType of allGoodsTypes$ | async" 
+              <nz-option *ngFor="let goodsType of allGoodsTypes$ | async"
               [nzLabel]="goodsType.name" [nzValue]="goodsType.id"></nz-option>
             </nz-select>
           </div>
+
         </div>
 
         <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="6">
+          <div nz-form-label nz-col [nzSpan]="4">
             <label nz-form-item-required>状态</label>
           </div>
-          <div nz-form-control nz-col [nzSpan]="14">
+          <div nz-form-control nz-col [nzSpan]="8">
             <nz-radio-group formControlName="isActive">
               <label nz-radio [nzValue]="true">
                 <span>上架</span>
@@ -143,16 +137,15 @@ export enum GoodsModalActionType {
               </label>
             </nz-radio-group>
           </div>
-        </div>
 
-        <div nz-form-item nz-row>
-          <div nz-col [nzSpan]="6" nz-form-label>
+          <div nz-col [nzSpan]="4" nz-form-label>
             <label>备注</label>
           </div>
-          <div nz-col [nzSpan]="14" nz-form-control [nzValidateStatus]="getFormControl('description')">
+          <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('description')">
             <nz-input formControlName="description" [nzRows]="3" [nzType]="'textarea'" [nzPlaceHolder]="'填写点商品备注'" [nzSize]="'large'">
             </nz-input>
           </div>
+
         </div>
 
         <div nz-form-item nz-row>
@@ -238,11 +231,11 @@ export class AddGoodsModalComponent implements OnInit {
   ok() {
     if (this.action === GoodsModalActionType.CREATE) {
       this.subject.next(this.goodsForm.value)
-    } 
+    }
     if (this.action === GoodsModalActionType.EDIT) {
       this.subject.next(R.assoc('id', this.toEditId, this.goodsForm.value))
     }
-    
+
     this.subject.destroy('onOk')
   }
 
@@ -279,7 +272,7 @@ export class AddGoodsModalComponent implements OnInit {
     }
 
     if (this.action === GoodsModalActionType.EDIT) {
-      
+
       this.goodsForm = this.fb.group({
         name: [this.data.name, Validators.required],
         buyPrice: [this.data.buyPrice, [Validators.required, Validators.pattern(/\d+/)]],
@@ -295,7 +288,7 @@ export class AddGoodsModalComponent implements OnInit {
       this.toEditId = this.data.id
       this.uploadImageUrl = this.data.listImageUrl
     }
-    
+
   }
 
   private initDataResource(): void {

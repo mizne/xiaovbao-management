@@ -226,6 +226,7 @@ export class GoodsManagementComponent implements OnInit {
         return this.modalService.open({
           title: '添加商品',
           content: AddGoodsModalComponent,
+          wrapClassName: 'modal-lg',
           footer: false,
           maskClosable: false,
           componentParams: {
@@ -284,6 +285,7 @@ export class GoodsManagementComponent implements OnInit {
         return this.modalService.open({
           title: '编辑商品',
           content: AddGoodsModalComponent,
+          wrapClassName: 'modal-lg',
           footer: false,
           componentParams: {
             action: GoodsModalActionType.EDIT,
