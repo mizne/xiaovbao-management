@@ -5,8 +5,6 @@ import { FileUploader } from 'ng2-file-upload'
 
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/first'
-import 'rxjs/add/operator/filter'
 
 import { Store } from '@ngrx/store'
 import { State, getQrcodeTpls } from '../reducers'

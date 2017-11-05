@@ -1,11 +1,6 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/operator/concatMap'
-import 'rxjs/add/operator/map'
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 import { NzNotificationService } from 'ng-zorro-antd'
 
 import * as fromQrcode from './qrcode.action'
@@ -23,7 +18,7 @@ export class QrcodeEffects {
       return this.qrcodeService
         .fetchQrcodes(this.local.tenantId, pageIndex, pageSize)
         .map(qrcodes => new fromQrcode.FetchQrcodesSuccessAction(qrcodes))
-        .catch(e => of(new fromQrcode.FetchQrcodesFailureAction()))
+        .catch(e => Observable.of(new fromQrcode.FetchQrcodesFailureAction()))
     })
 
   @Effect()
@@ -33,7 +28,7 @@ export class QrcodeEffects {
       return this.qrcodeService
         .fetchQrcodesCount(this.local.tenantId)
         .map(count => new fromQrcode.FetchQrcodeCountSuccessAction(count))
-        .catch(e => of(new fromQrcode.FetchQrcodeCountFailureAction()))
+        .catch(e => Observable.of(new fromQrcode.FetchQrcodeCountFailureAction()))
     })
 
   @Effect()
@@ -48,7 +43,7 @@ export class QrcodeEffects {
           new fromQrcode.FectchQrcodesAction(),
           new fromQrcode.FetchQrcodeCountAction()
         ])
-        .catch(e => of(new fromQrcode.DeleteQrcodeFailureAction()))
+        .catch(e => Observable.of(new fromQrcode.DeleteQrcodeFailureAction()))
     })
   @Effect({ dispatch: false })
   delQrcodeSuccess$ = this.actions$
@@ -74,7 +69,7 @@ export class QrcodeEffects {
           new fromQrcode.EditQrcodeSuccessAction(),
           new fromQrcode.FectchQrcodesAction()
         ])
-        .catch(e => of(new fromQrcode.EditQrcodeFailureAction()))
+        .catch(e => Observable.of(new fromQrcode.EditQrcodeFailureAction()))
     })
   @Effect({ dispatch: false })
   editQrcodeSuccess$ = this.actions$
@@ -94,7 +89,7 @@ export class QrcodeEffects {
     return this.tableService
       .fetchQrcodes(this.local.tenantId)
       .map(tables => new fromQrcode.FetchTableSuccessAction(tables))
-      .catch(e => of(new fromQrcode.FetchTableFailureAction()))
+      .catch(e => Observable.of(new fromQrcode.FetchTableFailureAction()))
   })
 
   constructor(

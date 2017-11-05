@@ -5,11 +5,6 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd'
 import { Subject } from 'rxjs/Subject'
 
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/of'
-import 'rxjs/add/observable/combineLatest'
-import 'rxjs/add/operator/startWith'
-import 'rxjs/add/operator/first'
-import 'rxjs/add/operator/skip'
 
 import * as R from 'ramda'
 

@@ -1,9 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/catch';
 
 import * as R from 'ramda'
 
@@ -36,7 +33,7 @@ export class PreciseAnalysisService {
 
     fetchPreciseAnalysisCount({ tenantId, action, startDate, endDate }): Observable<number> {
       const query = `?tenantId=${tenantId}&action=${action}&startDate=${startDate}&endDate=${endDate}`
-      
+
       return this.http.get(this.fetchPreciseAnalysisCountUrl + query)
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)

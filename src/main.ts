@@ -7,6 +7,7 @@ import { environment } from './environments/environment';
 import { hmrBootstrap } from './hmr';
 
 import './app/core/preloader/preloader';
+import './rxjs-imports.ts'
 
 if (environment.production) {
   enableProdMode();

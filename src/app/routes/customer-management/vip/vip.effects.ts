@@ -1,12 +1,6 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/concatMap'
-
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 
 import { NzNotificationService } from 'ng-zorro-antd'
 
@@ -25,7 +19,7 @@ export class VipEffects {
       return this.vipService
         .fetchVips(this.local.tenantId, pageIndex, pageSize)
         .map(vips => new fromVip.FetchVipsSuccessAction(vips))
-        .catch(e => of(new fromVip.FetchVipsFailureAction()))
+        .catch(e => Observable.of(new fromVip.FetchVipsFailureAction()))
     })
 
   @Effect()
@@ -35,7 +29,7 @@ export class VipEffects {
       this.vipService
         .fetchVipsCount(this.local.tenantId)
         .map(count => new fromVip.FetchVipsCountSuccessAction(count))
-        .catch(e => of(new fromVip.FetchVipsCountFailureAction()))
+        .catch(e => Observable.of(new fromVip.FetchVipsCountFailureAction()))
     )
 
   @Effect()
@@ -46,7 +40,7 @@ export class VipEffects {
       return this.smsService
         .sendSMS(this.local.tenantId, phones)
         .map(res => new fromVip.SendSMSSuccessAction())
-        .catch(e => of(new fromVip.SendSMSFailureAction()))
+        .catch(e => Observable.of(new fromVip.SendSMSFailureAction()))
     })
 
   @Effect({ dispatch: false })
@@ -70,7 +64,7 @@ export class VipEffects {
           new fromVip.DeleteVipSuccessAction(),
           new fromVip.FectchVipsAction({ pageIndex, pageSize })
         ])
-        .catch(e => of(new fromVip.DeleteVipFailureAction()))
+        .catch(e => Observable.of(new fromVip.DeleteVipFailureAction()))
     })
 
   @Effect({ dispatch: false })

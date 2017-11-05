@@ -6,9 +6,6 @@ import { ThemesService } from './core/services/themes.service';
 import { TranslatorService } from './core/translator/translator.service';
 import { TitleService } from '@core/services/title.service';
 
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
 
 
 

@@ -1,13 +1,8 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/map'
-
-
 import { NzNotificationService } from 'ng-zorro-antd'
 
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 
 import * as fromIndexPage from './index-page.action'
 import { StatisticsService } from '../statistics.service'
@@ -20,7 +15,7 @@ export class IndexPageEffects {
   .switchMap(() => {
     return this.statisticsService.fetchOrderStatisticsOfToday(this.local.tenantId)
     .map(statistics => new fromIndexPage.FetchTodayStatisticsSuccessAction(statistics))
-    .catch(e => of(new fromIndexPage.FetchTodayStatisticsFailureAction()))
+    .catch(e => Observable.of(new fromIndexPage.FetchTodayStatisticsFailureAction()))
   })
 
   @Effect()
@@ -28,7 +23,7 @@ export class IndexPageEffects {
   .switchMap(() => {
     return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.local.tenantId)
     .map(statistics => new fromIndexPage.FetchMonthStatisticsSuccessAction(statistics))
-    .catch(e => of(new fromIndexPage.FetchMonthStatisticsFailureAction()))
+    .catch(e => Observable.of(new fromIndexPage.FetchMonthStatisticsFailureAction()))
   })
 
   @Effect()
@@ -36,7 +31,7 @@ export class IndexPageEffects {
   .switchMap(() => {
     return this.statisticsService.fetchOrderStatisticsOfThisYear(this.local.tenantId)
     .map(statistics => new fromIndexPage.FetchYearStatisticsSuccessAction(statistics))
-    .catch(e => of(new fromIndexPage.FetchYearStatisticsFailureAction()))
+    .catch(e => Observable.of(new fromIndexPage.FetchYearStatisticsFailureAction()))
   })
 
 

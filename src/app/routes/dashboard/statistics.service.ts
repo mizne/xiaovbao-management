@@ -1,10 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/catch'
 
 import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
-
 import * as moment from 'moment'
 
 @Injectable()
@@ -14,9 +12,9 @@ export class StatisticsService {
 
   /**
    * 获取 当天 所有订单统计信息
-   * 
-   * @param {string} tenantId 
-   * @returns {Observable<Array<any>>} 
+   *
+   * @param {string} tenantId
+   * @returns {Observable<Array<any>>}
    * @memberof StatisticsService
    */
   fetchOrderStatisticsOfToday(tenantId: string): Observable<Array<any>> {
@@ -36,9 +34,9 @@ export class StatisticsService {
 
   /**
    * 获取 当月 所有订单统计信息
-   * 
-   * @param {string} tenantId 
-   * @returns {Observable<Array<any>>} 
+   *
+   * @param {string} tenantId
+   * @returns {Observable<Array<any>>}
    * @memberof StatisticsService
    */
   fetchOrderStatisticsOfThisMonth(tenantId: string): Observable<Array<any>> {
@@ -65,9 +63,9 @@ export class StatisticsService {
 
   /**
    * 获取 当年 所有订单统计信息
-   * 
-   * @param {string} tenantId 
-   * @returns {Observable<Array<any>>} 
+   *
+   * @param {string} tenantId
+   * @returns {Observable<Array<any>>}
    * @memberof StatisticsService
    */
   fetchOrderStatisticsOfThisYear(tenantId: string): Observable<Array<any>> {
@@ -85,7 +83,7 @@ export class StatisticsService {
 
   /**
    * 获取 统计信息
-   * 
+   *
    * @private
    * @param {any} {
    *     tenantId,
@@ -93,8 +91,8 @@ export class StatisticsService {
    *     endTime,
    *     type,
    *     status
-   *   } 
-   * @returns {Observable<Array<any>>} 
+   *   }
+   * @returns {Observable<Array<any>>}
    * @memberof StatisticsService
    */
   private _fetchOrderStatistics({

@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/catch'
 
 import { Goods, GoodsResp } from 'app/routes/goods-management/models/goods.model'
 import { GoodsType } from 'app/routes/goods-management/models/goodsType.model'
@@ -39,7 +38,7 @@ export class GoodsService {
       )
       .catch(this.handleError)
   }
-  
+
   addGoods(tenantId: string, goods: Goods): Observable<any> {
     return this.http
       .post(this.goodsUrl, {

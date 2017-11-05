@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/withLatestFrom';
-
 
 import { Store } from '@ngrx/store'
 import { State, getCurrentOrders } from '../reducers'
@@ -32,7 +29,7 @@ export class OrderDetailComponent implements OnInit {
   private initDataSource(): void {
     this.currentOrder$ = this.route.params.map(e => e.tradeNo)
     .withLatestFrom(
-      this.store.select(getCurrentOrders), 
+      this.store.select(getCurrentOrders),
       (tradeNo, orders) => orders.find(e => e.tradeNo === tradeNo)
     )
   }

@@ -1,13 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core'
-
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/merge'
-import 'rxjs/add/operator/withLatestFrom'
-import 'rxjs/add/operator/distinctUntilChanged'
-import 'rxjs/add/operator/takeUntil'
-
 import { DestroyService } from 'app/core/services/destroy.service'
 
 export interface PageChangeOption {
@@ -77,7 +71,7 @@ export class WrapTableComponent implements OnInit {
   pageSizeSub: BehaviorSubject<number> = new BehaviorSubject<number>(10)
   /**
  * 是否全部选中 待优化 这个有可能是通过外部的交互(譬如外部的搜索)触发改变
- * 
+ *
  * @type {Observable<boolean>}
  * @memberof WrapTableComponent
  */

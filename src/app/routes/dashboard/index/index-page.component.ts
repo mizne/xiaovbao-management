@@ -3,10 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/interval'
-import 'rxjs/add/operator/take'
-import 'rxjs/add/observable/zip'
-import 'rxjs/add/observable/combineLatest'
+
 
 import { Store } from '@ngrx/store'
 import {
@@ -220,10 +217,10 @@ export class IndexPageComponent implements OnInit {
 
   /**
  * 转化 成适当的图表数据格式
- * 
+ *
  * @private
- * @param {any} result 
- * @returns {*} 
+ * @param {any} result
+ * @returns {*}
  * @memberof IndexPageComponent
  */
   private transform(result): any {
@@ -248,10 +245,10 @@ export class IndexPageComponent implements OnInit {
   }
   /**
  * 返回 计算某个属性值的 函数
- * 
+ *
  * @private
- * @param {string} field 
- * @returns {Function} 
+ * @param {string} field
+ * @returns {Function}
  * @memberof IndexPageComponent
  */
   private accumulateField(field: string): Function {

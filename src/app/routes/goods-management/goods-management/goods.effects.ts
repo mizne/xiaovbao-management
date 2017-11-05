@@ -1,14 +1,8 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/concatMap'
-
 import { NzNotificationService } from 'ng-zorro-antd'
 
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 
 import * as fromGoods from './goods.action'
 import { GoodsService } from 'app/core/services/goods.service'
@@ -33,7 +27,7 @@ export class GoodsEffects {
           goodsType
         )
         .map(goods => new fromGoods.FetchGoodsSuccessAction(goods))
-        .catch(e => of(new fromGoods.FetchGoodsFailureAction()))
+        .catch(e => Observable.of(new fromGoods.FetchGoodsFailureAction()))
     })
 
   @Effect()
@@ -44,7 +38,7 @@ export class GoodsEffects {
       return this.goodsService
         .fetchGoodsCount(this.local.tenantId, goodsName, goodsType)
         .map(count => new fromGoods.FetchGoodsCountSuccessAction(count))
-        .catch(e => of(new fromGoods.FetchGoodsCountFailureAction()))
+        .catch(e => Observable.of(new fromGoods.FetchGoodsCountFailureAction()))
     })
 
   @Effect()
@@ -56,7 +50,7 @@ export class GoodsEffects {
         .map(
           goodsTypes => new fromGoods.FetchGoodsTypesSuccessAction(goodsTypes)
         )
-        .catch(e => of(new fromGoods.FetchGoodsTypesFailureAction()))
+        .catch(e => Observable.of(new fromGoods.FetchGoodsTypesFailureAction()))
     })
 
   @Effect()
@@ -70,7 +64,7 @@ export class GoodsEffects {
           new fromGoods.AddGoodsTypeSuccessAction(goodsTypeName),
           new fromGoods.FectchGoodsTypesAction()
         ])
-        .catch(() => of(new fromGoods.AddGoodsTypeFailureAction(goodsTypeName)))
+        .catch(() => Observable.of(new fromGoods.AddGoodsTypeFailureAction(goodsTypeName)))
     })
 
   @Effect({ dispatch: false })
@@ -100,7 +94,7 @@ export class GoodsEffects {
           new fromGoods.AddGoodsSuccessAction(goods.name),
           new fromGoods.FetchGoodsCountAction()
         ])
-        .catch(() => of(new fromGoods.AddGoodsFailureAction(goods.name)))
+        .catch(() => Observable.of(new fromGoods.AddGoodsFailureAction(goods.name)))
     })
 
   @Effect({ dispatch: false })
@@ -128,7 +122,7 @@ export class GoodsEffects {
         .map(
           goodsUnits => new fromGoods.FetchGoodsUnitsSuccessAction(goodsUnits)
         )
-        .catch(e => of(new fromGoods.FetchGoodsUnitsFailureAction()))
+        .catch(e => Observable.of(new fromGoods.FetchGoodsUnitsFailureAction()))
     })
 
   @Effect()
@@ -142,7 +136,7 @@ export class GoodsEffects {
           new fromGoods.AddGoodsUnitSuccessAction(goodsUnit),
           new fromGoods.FetchGoodsUnitsAction()
         ])
-        .catch(e => of(new fromGoods.AddGoodsUnitFailureAction(goodsUnit)))
+        .catch(e => Observable.of(new fromGoods.AddGoodsUnitFailureAction(goodsUnit)))
     })
 
   @Effect({ dispatch: false })
@@ -172,7 +166,7 @@ export class GoodsEffects {
           new fromGoods.OffShelfGoodsSuccessAction(),
           new fromGoods.FetchGoodsAction()
         ])
-        .catch(e => of(new fromGoods.OffShelfGoodsFailureAction()))
+        .catch(e => Observable.of(new fromGoods.OffShelfGoodsFailureAction()))
     })
   @Effect({ dispatch: false })
   offShelfGoodsSuccess$ = this.actions$
@@ -198,7 +192,7 @@ export class GoodsEffects {
           new fromGoods.OnShelfGoodsSuccessAction(),
           new fromGoods.FetchGoodsAction()
         ])
-        .catch(e => of(new fromGoods.OnShelfGoodsFailureAction()))
+        .catch(e => Observable.of(new fromGoods.OnShelfGoodsFailureAction()))
     })
   @Effect({ dispatch: false })
   onShelfGoodsSuccess$ = this.actions$
@@ -215,7 +209,7 @@ export class GoodsEffects {
 
   /**
  * 待优化 编辑成功 获取第一页的十条数据
- * 
+ *
  * @memberof GoodsEffects
  */
   @Effect()
@@ -229,7 +223,7 @@ export class GoodsEffects {
           new fromGoods.EditGoodsSuccessAction(),
           new fromGoods.FetchGoodsAction()
         ])
-        .catch(e => of(new fromGoods.EditGoodsFailureAction()))
+        .catch(e => Observable.of(new fromGoods.EditGoodsFailureAction()))
     })
 
   @Effect({ dispatch: false })

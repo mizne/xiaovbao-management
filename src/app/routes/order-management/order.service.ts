@@ -1,8 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/catch'
-
 import { Order, OrderResp } from './models/order.model'
 
 import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
@@ -19,7 +17,7 @@ export class OrderService {
     pageSize: number,
   ): Observable<Order[]> {
     const query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
-    
+
     return this.http
       .get(this.orderUrl + query)
       .map(resp => (resp as APIResponse).result as OrderResp[])

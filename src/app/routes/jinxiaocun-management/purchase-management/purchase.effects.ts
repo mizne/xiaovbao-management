@@ -1,12 +1,6 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/concatMap'
-
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 
 import { NzNotificationService } from 'ng-zorro-antd'
 
@@ -25,7 +19,7 @@ export class PurchaseEffects {
       return this.purchaseService
         .fetchAccounts(this.local.tenantId, pageIndex, pageSize)
         .map(accounts => new fromAccount.FetchAccountsSuccessAction(accounts))
-        .catch(e => of(new fromAccount.FetchAccountsFailureAction()))
+        .catch(e => Observable.of(new fromAccount.FetchAccountsFailureAction()))
     })
 
   @Effect()
@@ -35,7 +29,7 @@ export class PurchaseEffects {
       this.purchaseService
         .fetchAccountsCount(this.local.tenantId)
         .map(count => new fromAccount.FetchAccountsCountSuccessAction(count))
-        .catch(e => of(new fromAccount.FetchAccountsCountFailureAction()))
+        .catch(e => Observable.of(new fromAccount.FetchAccountsCountFailureAction()))
     )
 
   @Effect()
@@ -46,7 +40,7 @@ export class PurchaseEffects {
       return this.smsService
         .sendSMS(this.local.tenantId, phones)
         .map(res => new fromAccount.SendSMSSuccessAction())
-        .catch(e => of(new fromAccount.SendSMSFailureAction()))
+        .catch(e => Observable.of(new fromAccount.SendSMSFailureAction()))
     })
 
   @Effect({ dispatch: false })
@@ -74,7 +68,7 @@ export class PurchaseEffects {
           new fromAccount.DeleteAccountSuccessAction(),
           new fromAccount.FectchAccountsAction({ pageIndex, pageSize })
         ])
-        .catch(e => of(new fromAccount.DeleteAccountFailureAction()))
+        .catch(e => Observable.of(new fromAccount.DeleteAccountFailureAction()))
     })
 
   @Effect({ dispatch: false })

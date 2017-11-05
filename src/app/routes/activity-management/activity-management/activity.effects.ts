@@ -1,11 +1,6 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/operator/map'
-
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 
 import * as fromActivity from './activity.action'
 import { ActivityService } from '../activity.service'
@@ -19,7 +14,7 @@ export class ActivityEffects {
   .switchMap(() => {
     return this.activityService.fetchActivity(this.local.tenantId)
     .map(activities => new fromActivity.FetchActivitySuccessAction(activities))
-    .catch(e => of(new fromActivity.FetchActivityFailureAction()))
+    .catch(e => Observable.of(new fromActivity.FetchActivityFailureAction()))
   })
 
   @Effect()
@@ -27,7 +22,7 @@ export class ActivityEffects {
   .switchMap(() => {
     return this.activityService.fetchActivityCount(this.local.tenantId)
     .map(count => new fromActivity.FetchActivityCountSuccessAction(count))
-    .catch(e => of(new fromActivity.FetchActivityCountFailureAction()))
+    .catch(e => Observable.of(new fromActivity.FetchActivityCountFailureAction()))
   })
 
   constructor(

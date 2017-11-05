@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/skip'
-import 'rxjs/add/operator/first'
-
 import { Subject } from 'rxjs/Subject'
 
 import { Store } from '@ngrx/store'

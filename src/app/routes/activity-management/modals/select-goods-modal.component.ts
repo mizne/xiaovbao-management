@@ -12,19 +12,14 @@ import { DestroyService } from 'app/core/services/destroy.service'
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/skip';
-import 'rxjs/add/operator/withLatestFrom';
-
-
 
 import { Store } from '@ngrx/store'
-import { 
-  State, 
-  getGoodsTotalCount, 
-  getFetchGoodsLoading, 
+import {
+  State,
+  getGoodsTotalCount,
+  getFetchGoodsLoading,
   getCurrentGoods,
-  getToAddActivities 
+  getToAddActivities
 } from '../reducers'
 import { FetchGoodsAction, FetchGoodsCountAction } from '../discount-activity/discount-activity.action'
 
@@ -32,12 +27,12 @@ import { FetchGoodsAction, FetchGoodsCountAction } from '../discount-activity/di
   selector: 'app-add-goods-type-modal',
   template: `
     <div class="custome-modal-container">
-    <app-wrap-table 
-      [pageIndexAndSizeChange]="pageIndexAndSizeChange$" 
-      [selectedIdsChange]="selectedIdsChange$" 
-      [dataSource]="currentGoods$" 
-      [loading]="fetchGoodsLoading$" 
-      [total]="goodsTotalCount$" 
+    <app-wrap-table
+      [pageIndexAndSizeChange]="pageIndexAndSizeChange$"
+      [selectedIdsChange]="selectedIdsChange$"
+      [dataSource]="currentGoods$"
+      [loading]="fetchGoodsLoading$"
+      [total]="goodsTotalCount$"
       [columns]="columns">
     </app-wrap-table>
 
@@ -101,7 +96,7 @@ export class SelectGoodsModalComponent implements OnInit {
   ngOnInit() {
     this.initDataSource()
     this.initSubscriber()
-    
+
   }
 
   private initDataSource(): void {

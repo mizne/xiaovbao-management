@@ -6,6 +6,14 @@
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
+    "rxjs-add": {
+      "options": [{
+        "allowEleswhere": false,
+        "allowUnused": false,
+        "file": "./src/rxjs-imports.ts"
+      }],
+      "severity": "error"
+    },
     "comment-format": [
       true,
       "check-space"

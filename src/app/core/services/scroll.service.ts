@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 import { DOCUMENT } from '@angular/platform-browser';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Observable } from 'rxjs/Observable';
 
 export const topMargin = 16;
 
@@ -27,7 +27,7 @@ export class ScrollService {
   }
 
   constructor( @Inject(DOCUMENT) private doc: any, private location: PlatformLocation) {
-    fromEvent(window, 'resize').subscribe(() => this._topOffset = null);
+    Observable.fromEvent(window, 'resize').subscribe(() => this._topOffset = null);
   }
 
   scroll() {

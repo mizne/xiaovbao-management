@@ -1,14 +1,8 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/concatMap'
-
 import { NzNotificationService } from 'ng-zorro-antd'
 
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 
 import * as fromOrder from './order-management.action'
 import { OrderService } from '../order.service'
@@ -29,7 +23,7 @@ export class OrderEffects {
           pageSize,
         )
         .map(orders => new fromOrder.FetchOrdersSuccessAction(orders))
-        .catch(e => of(new fromOrder.FetchOrdersFailureAction()))
+        .catch(e => Observable.of(new fromOrder.FetchOrdersFailureAction()))
     })
 
   @Effect()
@@ -39,7 +33,7 @@ export class OrderEffects {
       return this.orderService
         .fetchOrderCount(this.local.tenantId)
         .map(count => new fromOrder.FetchOrdersCountSuccessAction(count))
-        .catch(e => of(new fromOrder.FetchOrdersCountFailureAction()))
+        .catch(e => Observable.of(new fromOrder.FetchOrdersCountFailureAction()))
     })
 
   constructor(

@@ -3,18 +3,13 @@ import { FormGroup, FormBuilder } from '@angular/forms'
 import { NzMessageService, NzModalService } from 'ng-zorro-antd'
 
 import { Subject } from 'rxjs/Subject'
-
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/of'
-import 'rxjs/add/operator/startWith'
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/skip';
 
 
 import { Store } from '@ngrx/store'
 import { State, getCurrentQrcodes, getQrcodesTotalCount, getQrcodeLoading } from '../reducers'
-import { 
-  FectchQrcodesAction, 
+import {
+  FectchQrcodesAction,
   FetchQrcodeCountAction,
   CreateQrcodeAction,
   EditQrcodeAction,
@@ -22,9 +17,9 @@ import {
  } from './qrcode.action'
 
 import { Qrcode } from '../models/qrcode.model'
-import { 
-  AddQrcodeModalComponent, 
-  QrcodeModalActionType 
+import {
+  AddQrcodeModalComponent,
+  QrcodeModalActionType
 } from '../modals/add-qrcode-modal.component'
 
 
@@ -92,7 +87,7 @@ export class QrcodeManagementComponent implements OnInit {
   ngOnInit() {
     this.initDataSource()
     this.initSubscriber()
-    
+
   }
 
   toCreateQrcode() {

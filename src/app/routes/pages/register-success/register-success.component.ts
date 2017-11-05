@@ -4,10 +4,7 @@ import { Router } from '@angular/router'
 
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/interval'
-import 'rxjs/add/operator/startWith'
-import 'rxjs/add/operator/takeUntil'
-import 'rxjs/add/operator/takeWhile'
+
 
 @Component({
   selector: 'app-register-success',

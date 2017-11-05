@@ -4,9 +4,7 @@ import { Subject } from 'rxjs/Subject'
 import * as R from 'ramda'
 
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/skip';
-import 'rxjs/add/operator/takeUntil';
+
 
 import { Store } from '@ngrx/store'
 import {

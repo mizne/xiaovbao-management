@@ -7,9 +7,7 @@ import { SettingsService } from './settings.service';
 import { ACLService } from '../acl/acl.service';
 import { TitleService } from '@core/services/title.service';
 
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/withLatestFrom';
+
 
 /**
  * 用于应用启动时

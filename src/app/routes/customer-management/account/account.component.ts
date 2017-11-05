@@ -3,9 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
 import { NzMessageService, NzModalService } from 'ng-zorro-antd'
 
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/of'
-import 'rxjs/add/observable/combineLatest'
-import 'rxjs/add/operator/startWith'
+
 import { Store } from '@ngrx/store'
 import { State, getCurrentAccounts, getAccountLoading, getAccountsTotalCount } from '../reducers'
 import { FectchAccountsAction, FectchAccountsCountAction, SendSMSAction, EnsureDeleteAccountAction } from './account.action'

@@ -13,7 +13,6 @@ import { Router } from '@angular/router'
 import { NzModalService } from 'ng-zorro-antd'
 
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/catch'
 
 import { LocalStorageService } from 'app/core/services/localstorage.service'
 import { LoginService } from 'app/routes/pages/services/login.service'

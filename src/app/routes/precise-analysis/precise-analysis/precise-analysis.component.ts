@@ -7,15 +7,8 @@ import { Subject } from 'rxjs/Subject'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/combineLatest'
-
 import { Observer } from 'rxjs/Observer'
 
-import 'rxjs/add/observable/of'
-import 'rxjs/add/observable/merge'
-import 'rxjs/add/operator/skip'
-
-import 'rxjs/add/operator/startWith'
 import { Store } from '@ngrx/store'
 import {
   State,

@@ -1,13 +1,6 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/switchMap'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/concatMap'
-
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
-
+import { Observable } from 'rxjs/Observable';
 import { NzNotificationService } from 'ng-zorro-antd'
 
 import * as fromDiscountActivity from './discount-activity.action'
@@ -36,7 +29,7 @@ export class DiscountActivityEffects {
             )
         )
         .catch(e =>
-          of(new fromDiscountActivity.FetchDiscountActivityFailureAction())
+          Observable.of(new fromDiscountActivity.FetchDiscountActivityFailureAction())
         )
     })
 
@@ -53,7 +46,7 @@ export class DiscountActivityEffects {
             )
         )
         .catch(e =>
-          of(new fromDiscountActivity.FetchDiscountActivityCountFailureAction())
+          Observable.of(new fromDiscountActivity.FetchDiscountActivityCountFailureAction())
         )
     })
 
@@ -76,7 +69,7 @@ export class DiscountActivityEffects {
           new fromDiscountActivity.FetchDiscountActivityCountAction()
         ])
         .catch(e =>
-          of(
+          Observable.of(
             new fromDiscountActivity.CreateDiscountActivityFailureAction(
               discountActivity.goodsName
             )
@@ -119,7 +112,7 @@ export class DiscountActivityEffects {
           new fromDiscountActivity.FetchDiscountActivityCountAction()
         ])
         .catch(e =>
-          of(new fromDiscountActivity.DeleteDiscountActivityFailureAction())
+          Observable.of(new fromDiscountActivity.DeleteDiscountActivityFailureAction())
         )
     })
   @Effect({ dispatch: false })
@@ -149,7 +142,7 @@ export class DiscountActivityEffects {
           goodsType
         )
         .map(goods => new fromDiscountActivity.FetchGoodsSuccessAction(goods))
-        .catch(e => of(new fromDiscountActivity.FetchGoodsFailureAction([])))
+        .catch(e => Observable.of(new fromDiscountActivity.FetchGoodsFailureAction([])))
     })
 
   @Effect()
@@ -162,7 +155,7 @@ export class DiscountActivityEffects {
         .map(
           count => new fromDiscountActivity.FetchGoodsCountSuccessAction(count)
         )
-        .catch(e => of(new fromDiscountActivity.FetchGoodsCountFailureAction()))
+        .catch(e => Observable.of(new fromDiscountActivity.FetchGoodsCountFailureAction()))
     })
 
   @Effect()
@@ -176,7 +169,7 @@ export class DiscountActivityEffects {
             new fromDiscountActivity.FetchQrcodeTemplateSuccessAction(qrcodes)
         )
         .catch(e =>
-          of(new fromDiscountActivity.FetchQrcodeTemplateFailureAction())
+          Observable.of(new fromDiscountActivity.FetchQrcodeTemplateFailureAction())
         )
     })
 

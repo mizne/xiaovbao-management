@@ -1,15 +1,8 @@
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/concatMap';
-
-
 import { NzNotificationService } from 'ng-zorro-antd'
 
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { of } from 'rxjs/observable/of'
+import { Observable } from 'rxjs/observable'
 
 import * as fromPreciseAnalysis from './precise-analysis.action'
 import { PreciseAnalysisService } from '../precise-analysis.service'
@@ -25,29 +18,29 @@ export class PreciseAnalysisEffects {
   fetchPreciseAnalysis$ = this.actions$.ofType(fromPreciseAnalysis.FETCH_PRECISE_ANALYSIS)
   .map((action: fromPreciseAnalysis.FectchPreciseAnalysisAction) => action.payload)
   .switchMap(({ action, startDate, endDate, pageIndex, pageSize }) => {
-    return this.preciseAnalysisService.fetchPreciseAnalysis({ 
-      tenantId: this.local.tenantId, 
-      action, 
-      startDate, 
-      endDate, 
-      pageIndex, 
-      pageSize 
+    return this.preciseAnalysisService.fetchPreciseAnalysis({
+      tenantId: this.local.tenantId,
+      action,
+      startDate,
+      endDate,
+      pageIndex,
+      pageSize
     })
     .map(preciseAnalysis => new fromPreciseAnalysis.FetchPreciseAnalysisSuccessAction(preciseAnalysis))
-    .catch(e => of(new fromPreciseAnalysis.FetchPreciseAnalysisFailureAction()))
+    .catch(e => Observable.of(new fromPreciseAnalysis.FetchPreciseAnalysisFailureAction()))
   })
 
   @Effect()
   fetchPreciseAnalysisCount$ = this.actions$.ofType(fromPreciseAnalysis.FETCH_PRECISE_ANALYSIS_COUNT)
   .map((action: fromPreciseAnalysis.FetchPreciseAnalysisCountAction) => action.payload)
   .switchMap(({ action, startDate, endDate }) => {
-    return this.preciseAnalysisService.fetchPreciseAnalysisCount({ 
+    return this.preciseAnalysisService.fetchPreciseAnalysisCount({
       tenantId: this.local.tenantId,
-      action, 
-      startDate, 
+      action,
+      startDate,
       endDate })
     .map(count => new fromPreciseAnalysis.FetchPreciseAnalysisCountSuccessAction(count))
-    .catch(e => of(new fromPreciseAnalysis.FetchPreciseAnalysisCountFailureAction()))
+    .catch(e => Observable.of(new fromPreciseAnalysis.FetchPreciseAnalysisCountFailureAction()))
   })
 
   @Effect()
@@ -56,7 +49,7 @@ export class PreciseAnalysisEffects {
   .switchMap((phones) => {
     return this.smsService.sendSMS(this.local.tenantId, phones)
     .map(e => new fromPreciseAnalysis.SendSMSSuccessAction())
-    .catch(e => of(new fromPreciseAnalysis.SendSMSFailureAction()))
+    .catch(e => Observable.of(new fromPreciseAnalysis.SendSMSFailureAction()))
   })
 
   @Effect({ dispatch: false })
@@ -79,7 +72,7 @@ export class PreciseAnalysisEffects {
     console.log('batch send sms, phones: ', phones)
     return this.smsService.sendSMS(this.local.tenantId, phones)
     .map(e => new fromPreciseAnalysis.BatchSendSMSSuccessAction(phones.length))
-    .catch(e => of(new fromPreciseAnalysis.BatchSendSMSFailureAction()))
+    .catch(e => Observable.of(new fromPreciseAnalysis.BatchSendSMSFailureAction()))
   })
 
   @Effect({ dispatch: false })
