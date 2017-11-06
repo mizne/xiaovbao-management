@@ -2,7 +2,7 @@ import { NzNotificationService } from 'ng-zorro-antd'
 
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { Observable } from 'rxjs/observable'
+import { Observable } from 'rxjs/Observable'
 
 import * as fromGoods from './goods.action'
 import { GoodsService } from 'app/core/services/goods.service'

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { Observable } from 'rxjs/observable'
+import { Observable } from 'rxjs/Observable'
 import { NzNotificationService } from 'ng-zorro-antd'
 
 import * as fromQrcode from './qrcode.action'

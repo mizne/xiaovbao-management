@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
-import { Observable } from 'rxjs/observable'
+import { Observable } from 'rxjs/Observable'
 
 import * as fromActivity from './activity.action'
 import { ActivityService } from '../activity.service'
