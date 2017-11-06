@@ -66,8 +66,9 @@ export const routes: Routes = [
           './precise-analysis/precise-analysis.module#PreciseAnalysisModule'
       },
       {
-        path: 'elements',
-        loadChildren: './elements/elements.module#ElementsModule'
+        path: 'management-analysis',
+        loadChildren:
+          './management-analysis/management-analysis.module#ManagementAnalysisModule'
       }
     ]
   },

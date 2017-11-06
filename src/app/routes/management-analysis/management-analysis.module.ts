@@ -4,31 +4,31 @@ import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { reducers } from './reducers'
-import { IndexPageEffects } from './index/index-page.effects'
+import { ManagementAnalysisEffects } from './management-analysis/management-analysis.effects'
 
-import { IndexPageComponent } from './index/index-page.component';
-
-const effects = [
-  IndexPageEffects
-]
+import { ManagementAnalysisComponent } from './management-analysis/management-analysis.component'
 
 const modals = [
 ]
 
+const effects = [
+  ManagementAnalysisEffects
+]
+
 const routes: Routes = [
-  { path: '', component: IndexPageComponent }
+  { path: '', component: ManagementAnalysisComponent }
 ]
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('dashboard', reducers),
+    StoreModule.forFeature('managementAnalysis', reducers),
     EffectsModule.forFeature(effects)
   ],
   exports: [],
   declarations: [
-    IndexPageComponent,
+    ManagementAnalysisComponent,
     ...modals
   ],
   providers: [],
@@ -36,4 +36,4 @@ const routes: Routes = [
     ...modals
   ]
 })
-export class DashboardModule { }
+export class ManagementAnalysisModule { }

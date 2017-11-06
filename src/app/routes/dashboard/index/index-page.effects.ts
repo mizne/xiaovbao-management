@@ -5,7 +5,7 @@ import { Effect, Actions } from '@ngrx/effects'
 import { Observable } from 'rxjs/Observable'
 
 import * as fromIndexPage from './index-page.action'
-import { StatisticsService } from '../statistics.service'
+import { StatisticsService } from 'app/core/services/statistics.service'
 import { LocalStorageService } from 'app/core/services/localstorage.service'
 
 @Injectable()

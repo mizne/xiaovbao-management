@@ -16,6 +16,7 @@ import { AuthGuard } from './services/auth-guard.service'
 import { GoodsService } from './services/goods.service'
 import { QrcodeService } from './services/qrcode.service'
 import { LoggerFactory } from './services/logger.service'
+import { StatisticsService } from './services/statistics.service'
 
 @NgModule({
   imports: [],
@@ -33,7 +34,8 @@ import { LoggerFactory } from './services/logger.service'
     AuthGuard,
     GoodsService,
     QrcodeService,
-    LoggerFactory
+    LoggerFactory,
+    StatisticsService
   ],
   declarations: [],
   exports: []
