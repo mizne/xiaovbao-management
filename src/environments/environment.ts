@@ -8,4 +8,4 @@ import { environment as prodEnvironment } from './environment.prod'
 
 
 
-export { prodEnvironment as environment }
+export { devEnvironment as environment }

@@ -15,6 +15,7 @@ import { SMSService } from './services/sms.service'
 import { AuthGuard } from './services/auth-guard.service'
 import { GoodsService } from './services/goods.service'
 import { QrcodeService } from './services/qrcode.service'
+import { LoggerFactory } from './services/logger.service'
 
 @NgModule({
   imports: [],
@@ -32,6 +33,7 @@ import { QrcodeService } from './services/qrcode.service'
     AuthGuard,
     GoodsService,
     QrcodeService,
+    LoggerFactory
   ],
   declarations: [],
   exports: []

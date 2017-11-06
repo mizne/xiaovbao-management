@@ -1,9 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
-import * as fromOrder from '../order-management/order-management.reducer'
 import * as fromRoot from '../../../reducers'
+import * as fromOrder from '../order-management/order-management.reducer'
+import * as fromOrderDetail from '../order-detail/order-detail.reducer'
+
 
 export interface OrderState {
   order: fromOrder.State
+  orderDetail: fromOrderDetail.State
 }
 
 export interface State extends fromRoot.State {
@@ -11,7 +14,8 @@ export interface State extends fromRoot.State {
 }
 
 export const reducers = {
-  order: fromOrder.reducer
+  order: fromOrder.reducer,
+  orderDetail: fromOrderDetail.reducer
 }
 
 export const getOrderModuleState = createFeatureSelector<OrderState>('orderManagement')
@@ -25,5 +29,18 @@ export const getCurrentOrders = createSelector(
 export const getOrderTotalCount = createSelector(
   getOrderState,
   fromOrder.getOrderTotalCount
+)
+
+export const getOrderDetailState = createSelector(
+  getOrderModuleState,
+  (state: OrderState) => state.orderDetail
+)
+export const getOrderDetailLoading = createSelector(
+  getOrderDetailState,
+  fromOrderDetail.getLoading
+)
+export const getOrderDetail = createSelector(
+  getOrderDetailState,
+  fromOrderDetail.getOrderDetail
 )
 

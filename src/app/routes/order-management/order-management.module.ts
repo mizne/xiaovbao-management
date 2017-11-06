@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { reducers } from './reducers'
 import { OrderEffects } from './order-management/order-management.effects'
+import { OrderDetailEffects } from './order-detail/order-detail.effects'
 import { OrderService } from './order.service';
 
 import { OrderManagementComponent } from './order-management/order-management.component';
@@ -15,7 +16,8 @@ const modals = [
 ]
 
 const effects = [
-  OrderEffects
+  OrderEffects,
+  OrderDetailEffects
 ]
 
 const routes: Routes = [

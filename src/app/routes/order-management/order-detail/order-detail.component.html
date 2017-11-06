@@ -3,6 +3,8 @@
     订单详情
   </h1>
 </div>
+<nz-spin class="text-center" [nzTip]="'加载中...'" [nzSize]="'small'" [nzSpinning]="loading$ | async"></nz-spin>
+
 <div *ngIf="currentOrder$ | async as order; else noOrderBlock">
   <div nz-row [nzGutter]="16">
     <div nz-col [nzMd]="24">
@@ -45,12 +47,19 @@
         </ng-template>
         <ng-template #body>
           <div nz-row [nzGutter]="16">
-            <div nz-col [nzMd]="12">
+            <div nz-col [nzMd]="12" class="text-truncate">
               <label for="">购买商品：</label>
-              <span [ngClass]="{'ml-lg': isFirst}" *ngFor="let food of order.foods; last as isLast; first as isFirst;">
-                {{food.name}}
-                <span *ngIf="!isLast" nz-table-divider></span>
-              </span>
+              <nz-popover [nzTitle]="'商品列表'" [nzTrigger]="'hover'">
+                <span nz-popover [ngClass]="{'ml-lg': isFirst}" *ngFor="let food of order.foods; last as isLast; first as isFirst;">
+                  {{food.name}} x {{food.num}}
+                  <span *ngIf="!isLast" nz-table-divider></span>
+                </span>
+                <ng-template #nzTemplate>
+                  <div>
+                    <p *ngFor="let food of order.foods">{{food.name}} x {{food.num}}</p>
+                  </div>
+                </ng-template>
+              </nz-popover>
             </div>
             <div nz-col [nzMd]="12">
               <label for="">支付方式：</label>
@@ -78,5 +87,5 @@
   </div>
 </div>
 <ng-template #noOrderBlock>
-  <p>还没有此订单!</p>
+  <p [hidden]="loading$ | async">还没有此订单!</p>
 </ng-template>

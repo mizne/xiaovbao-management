@@ -15,6 +15,7 @@ import {
   FetchOrdersCountAction
 } from './order-management.action'
 
+import { Logger, LoggerFactory } from 'app/core/services/logger.service'
 import * as moment from 'moment'
 
 import {
@@ -64,12 +65,16 @@ export class OrderManagementComponent implements OnInit {
   fetchOrderLoading$: Observable<boolean>
   orderTotalCount$: Observable<number>
 
+  private logger: Logger
   constructor(
     private store: Store<State>,
     private destroyService: DestroyService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private loggerFactory: LoggerFactory
+  ) {
+    this.logger = loggerFactory.createLogger('order-management')
+  }
 
   ngOnInit() {
     this.initDataSource()
@@ -80,6 +85,7 @@ export class OrderManagementComponent implements OnInit {
     this.currentOrders$ = this.store.select(getCurrentOrders)
     this.fetchOrderLoading$ = this.store.select(getOrderLoading)
     this.orderTotalCount$ = this.store.select(getOrderTotalCount)
+    
   }
 
   private initSubscriber(): void {

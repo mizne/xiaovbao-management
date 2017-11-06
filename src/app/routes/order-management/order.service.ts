@@ -8,6 +8,7 @@ import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 @Injectable()
 export class OrderService {
   private orderUrl = '/admin/order'
+  private orderByTradeNoUrl = '/admin/orderByTrade_no'
   private orderCountUrl = '/admin/orderByCount'
   constructor(private http: HttpClient) {}
 
@@ -35,6 +36,16 @@ export class OrderService {
       .get(this.orderCountUrl + query)
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
+  }
+
+  fetchOrderDetail(tenantId: string, tradeNo: string): Observable<Order> {
+    const query = `?tenantId=${tenantId}&tradeNo=${tradeNo}`
+    
+    return this.http
+    .get(this.orderByTradeNoUrl + query)
+    .map(resp => (resp as APIResponse).result[0])
+    .map(Order.convertFromResp)
+    .catch(this.handleError)
   }
 
 
