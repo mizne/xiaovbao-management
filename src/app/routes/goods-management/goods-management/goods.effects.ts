@@ -204,7 +204,7 @@ export class GoodsEffects {
   onShelfGoodsFailure$ = this.actions$
     .ofType(fromGoods.ON_SHELF_GOODS_FAILURE)
     .do(() => {
-      this.notify.error('上架商品', '下架商品失败！')
+      this.notify.error('上架商品', '上架商品失败！')
     })
 
   /**
