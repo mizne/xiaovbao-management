@@ -256,6 +256,6 @@ export class ManagementAnalysisComponent implements OnInit {
       arr.reduce((accu, curr) => {
         accu += Number(curr[field].value)
         return accu
-      }, 0)
+      }, 0).toFixed(2)
   }
 }
