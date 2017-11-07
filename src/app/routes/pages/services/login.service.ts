@@ -42,7 +42,8 @@ export class LoginService {
         captcha,
         key: captchaKey,
         userName: name,
-        password
+        password,
+        mode: 'pc'// PC端登录需要 验证码
       })
       .map(res => (res as any).result)
       .map(e => ({
