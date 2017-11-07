@@ -200,6 +200,7 @@ export class GoodsEffects {
     .do(() => {
       this.notify.success('上架商品', '恭喜您 上架商品成功！')
     })
+    
   @Effect({ dispatch: false })
   onShelfGoodsFailure$ = this.actions$
     .ofType(fromGoods.ON_SHELF_GOODS_FAILURE)

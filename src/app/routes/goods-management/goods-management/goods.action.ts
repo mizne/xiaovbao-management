@@ -13,7 +13,7 @@ export const OFF_SHELF_GOODS_FAILURE = '[Goods] Off Shelf Goods Failure'
 
 export const ON_SHELF_GOODS = '[Goods] On Shelf Goods'
 export const ON_SHELF_GOODS_SUCCESS = '[Goods] On Shelf Goods Success'
-export const ON_SHELF_GOODS_FAILURE = '[Goods] On Shelf Goods Success'
+export const ON_SHELF_GOODS_FAILURE = '[Goods] On Shelf Goods Failure'
 
 export const EDIT_GOODS = '[Goods] Edit Goods'
 export const EDIT_GOODS_SUCCESS = '[Goods] Edit Goods Success'
