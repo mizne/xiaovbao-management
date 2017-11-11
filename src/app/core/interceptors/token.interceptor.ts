@@ -9,21 +9,14 @@ import {
   HttpErrorResponse
 } from '@angular/common/http'
 import { Router } from '@angular/router'
-
-import { NzModalService } from 'ng-zorro-antd'
-
 import { Observable } from 'rxjs/Observable'
-
 import { LocalStorageService } from 'app/core/services/localstorage.service'
-import { LoginService } from 'app/routes/pages/services/login.service'
-
 import { environment } from '../../../environments/environment'
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private url = `${environment.SERVER_URL}/api/test`
   private router: Router
-  private modalService: NzModalService
 
   constructor(private local: LocalStorageService, private injector: Injector) {}
 
