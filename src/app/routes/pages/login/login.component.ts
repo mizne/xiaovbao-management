@@ -84,15 +84,6 @@ export class LoginComponent implements OnInit {
         password: this.valForm.value.password
       }
 
-      // 如果是从微信里 绑定账户链接来的 则带上code去后台绑定openId和tenantId
-      const searchObj = this.util.objFrom(location.search)
-      if (searchObj.code) {
-        Object.assign(params, {
-          code: searchObj.code,
-          loginMode: 'wechat'
-        })
-      }
-
       this.store.dispatch(
         new LoginRequestAction(params)
       )

@@ -18,8 +18,6 @@ export class LoginRequestAction implements Action {
     captcha: string, 
     name: string, 
     password: string,
-    loginMode?: string,
-    code?: string
   }) {}
 }
 

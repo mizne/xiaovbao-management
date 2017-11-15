@@ -21,18 +21,16 @@ export class LoginEffects {
     .map((action: fromLogin.LoginRequestAction) => action.payload)
     .withLatestFrom(
       this.store.select(getCaptchaKey),
-      ({ name, password, captcha, loginMode, code }, captchaKey) => ({
+      ({ name, password, captcha }, captchaKey) => ({
         name,
         password,
         captchaKey,
         captcha,
-        loginMode,
-        code
       })
     )
-    .switchMap(({ name, password, captchaKey, captcha, loginMode, code }) => {
+    .switchMap(({ name, password, captchaKey, captcha }) => {
       return this.loginService
-        .login(name, password, captchaKey, captcha, loginMode, code)
+        .login(name, password, captchaKey, captcha)
         .map(user => new fromLogin.LoginSuccessAction(user))
         .catch(errorMsg => {
           const msg = errorMsgMap[errorMsg] || errorMsg

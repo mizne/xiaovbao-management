@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http'
 
 import { Observable } from 'rxjs/Observable'
 
-
 import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 import { Captcha } from '../models/captcha.model'
 import { User, ROLES } from '../models/user.model'
@@ -33,9 +32,7 @@ export class LoginService {
     name: string,
     password: string,
     captchaKey: string,
-    captcha: string,
-    loginMode?: string,
-    code?: string
+    captcha: string
   ): Observable<User> {
     // return Observable.of('login success').delay(1e3)
 
@@ -43,19 +40,12 @@ export class LoginService {
       captcha,
       key: captchaKey,
       userName: name,
-      password,
+      password
     }
 
-    if (loginMode === 'wechat') {
-      Object.assign(params, {
-        loginMode,
-        code
-      })
-    } else {
-      Object.assign(params, {
-        loginMode: 'pc'
-      })
-    }
+    Object.assign(params, {
+      loginMode: 'pc'
+    })
 
     return this.http
       .post(this.fetchCaptchaUrl, params)
@@ -71,15 +61,13 @@ export class LoginService {
   }
 
   private handleError(error: any) {
-    let errMsg = error.status ?
-    `${error.status}`
-    : error.message ? error.message
-    : '服务器繁忙 请稍候'
+    let errMsg = error.status
+      ? `${error.status}`
+      : error.message ? error.message : '服务器繁忙 请稍候'
 
     if (errMsg === '500') {
       errMsg = '服务器繁忙 请稍候'
     }
-
 
     console.error(errMsg) // log to console instead
     return Observable.throw(errMsg)
