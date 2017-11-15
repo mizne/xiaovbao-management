@@ -14,7 +14,13 @@ export const LOGOUT = '[Login] Logout'
 
 export class LoginRequestAction implements Action {
   readonly type = LOGIN_REQUEST
-  constructor(public payload: { captcha: string, name: string, password: string}) {}
+  constructor(public payload: { 
+    captcha: string, 
+    name: string, 
+    password: string,
+    loginMode?: string,
+    code?: string
+  }) {}
 }
 
 export class LoginSuccessAction implements Action {

@@ -33,18 +33,32 @@ export class LoginService {
     name: string,
     password: string,
     captchaKey: string,
-    captcha: string
+    captcha: string,
+    loginMode?: string,
+    code?: string
   ): Observable<User> {
     // return Observable.of('login success').delay(1e3)
 
-    return this.http
-      .post(this.fetchCaptchaUrl, {
-        captcha,
-        key: captchaKey,
-        userName: name,
-        password,
-        mode: 'pc'// PC端登录需要 验证码
+    const params = {
+      captcha,
+      key: captchaKey,
+      userName: name,
+      password,
+    }
+
+    if (loginMode === 'wechat') {
+      Object.assign(params, {
+        loginMode,
+        code
       })
+    } else {
+      Object.assign(params, {
+        loginMode: 'pc'
+      })
+    }
+
+    return this.http
+      .post(this.fetchCaptchaUrl, params)
       .map(res => (res as any).result)
       .map(e => ({
         name: e.name,

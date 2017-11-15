@@ -13,6 +13,8 @@ import {
 } from '../reducers'
 import { LoginRequestAction, FetchCaptchaAction } from './login.action'
 
+import { UtilsService } from 'app/core/services/utils.service'
+
 @Component({
   selector: 'app-pages-login',
   templateUrl: './login.component.html'
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit {
     public settings: SettingsService,
     private fb: FormBuilder,
     private router: Router,
-    private store: Store<State>
+    private store: Store<State>,
+    private util: UtilsService
   ) {
   }
 
@@ -75,12 +78,23 @@ export class LoginComponent implements OnInit {
       })
       console.log(this.valForm.value)
 
-      this.store.dispatch(
-        new LoginRequestAction({
-          captcha: this.valForm.value.captcha,
-          name: this.valForm.value.name,
-          password: this.valForm.value.password
+      const params = {
+        captcha: this.valForm.value.captcha,
+        name: this.valForm.value.name,
+        password: this.valForm.value.password
+      }
+
+      // 如果是从微信里 绑定账户链接来的 则带上code去后台绑定openId和tenantId
+      const searchObj = this.util.objFrom(location.search)
+      if (searchObj.code) {
+        Object.assign(params, {
+          code: searchObj.code,
+          loginMode: 'wechat'
         })
+      }
+
+      this.store.dispatch(
+        new LoginRequestAction(params)
       )
     }
   }

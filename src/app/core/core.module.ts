@@ -17,6 +17,7 @@ import { GoodsService } from './services/goods.service'
 import { QrcodeService } from './services/qrcode.service'
 import { LoggerFactory } from './services/logger.service'
 import { StatisticsService } from './services/statistics.service'
+import { UtilsService } from './services/utils.service'
 
 @NgModule({
   imports: [],
@@ -35,7 +36,8 @@ import { StatisticsService } from './services/statistics.service'
     GoodsService,
     QrcodeService,
     LoggerFactory,
-    StatisticsService
+    StatisticsService,
+    UtilsService,
   ],
   declarations: [],
   exports: []
