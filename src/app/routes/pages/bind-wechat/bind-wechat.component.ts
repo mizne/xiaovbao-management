@@ -11,6 +11,7 @@ import {
   getBindWechatPrompt,
   getShowBindWechatForm,
   getBindWechatFailureMsg,
+  getNeedShowBindWechatBtn,
 } from '../reducers'
 import { 
   ToShowBindWechatFormAction,
@@ -33,6 +34,8 @@ export class BindWechatComponent implements OnInit {
   showBindWechatForm$: Observable<boolean>
   bindWechatFailureMsg$: Observable<string>
 
+  needShowBindWechatBtn$: Observable<boolean>
+
   showBindWechatForm = false
   private code: string
   private state: string
@@ -54,6 +57,13 @@ export class BindWechatComponent implements OnInit {
     this.initSubscriber()
   }
 
+  toBindWechat() {
+    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?
+    appid=wx09b412b006792e2c&redirect_uri=http%3A%2F%2Fdeal.xiaovbao.cn%2Fwechatpay
+    &response_type=code&scope=snsapi_base
+    &state=bindWechat#wechat_redirect`
+  }
+
   private buildForm(): void {
     this.bindWechatForm = this.fb.group({
       name: [null, Validators.compose([Validators.required])],
@@ -66,6 +76,8 @@ export class BindWechatComponent implements OnInit {
     this.bindWechatPrompt$ = this.store.select(getBindWechatPrompt)
     this.showBindWechatForm$ = this.store.select(getShowBindWechatForm)
     this.bindWechatFailureMsg$ = this.store.select(getBindWechatFailureMsg)
+
+    this.needShowBindWechatBtn$ = this.store.select(getNeedShowBindWechatBtn)
   }
 
   private initLocationSearch(): void {

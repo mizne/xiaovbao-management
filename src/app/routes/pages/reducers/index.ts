@@ -65,3 +65,7 @@ export const getBindWechatFailureMsg = createSelector(
   getBindWechatState,
   fromBindWechat.getBindWechatFailureMsg
 )
+export const getNeedShowBindWechatBtn = createSelector(
+  getBindWechatState,
+  fromBindWechat.getNeedShowBindWechatBtn
+)

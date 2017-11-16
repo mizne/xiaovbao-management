@@ -49,6 +49,10 @@
         {{bindWechatPrompt$ | async}}
       </p>
     </ng-template>
+    <button class="mt-lg" *ngIf="needShowBindWechatBtn$ | async" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="toBindWechat()"
+      class="ant-btn__block">
+      <span>去绑定微信</span>
+    </button>
     <div class="p-lg text-center text-sm">
       &copy; {{ settings.app.year }} - {{ settings.app.name }}
       <br> {{ settings.app.description }}

@@ -5,13 +5,17 @@ export interface State {
   bindWechatPrompt: string
   showBindWechatForm: boolean
   bindWechatFailureMsg: string
+
+  needShowToBindWechatBtn: boolean
 }
 
 const initialState: State = {
   loading: false,
   bindWechatPrompt: '',
   showBindWechatForm: false,
-  bindWechatFailureMsg: ''
+  bindWechatFailureMsg: '',
+
+  needShowToBindWechatBtn: false
 }
 
 type Action = fromBindWechat.Actions
@@ -45,7 +49,8 @@ export function reducer(state: State = initialState, action: Action): State {
       return {
         ...state,
         loading: false,
-        showBindWechatForm: true,
+        showBindWechatForm: false,
+        needShowToBindWechatBtn: true,
         bindWechatFailureMsg: '微信帐号未绑定，请先绑定，才能更好地为您服务！'
       }
 
@@ -60,7 +65,7 @@ export function reducer(state: State = initialState, action: Action): State {
       return {
         ...state,
         loading: false,
-        bindWechatFailureMsg: `绑定微信帐号失败: ${action.resCode}`,
+        bindWechatFailureMsg: `绑定微信帐号失败`,
       }
     default:
       return state
@@ -71,3 +76,4 @@ export const getLoading = (state: State) => state.loading
 export const getBindWechatPrompt = (state: State) => state.bindWechatPrompt
 export const getShowBindWechatForm = (state: State) => state.showBindWechatForm
 export const getBindWechatFailureMsg = (state: State) => state.bindWechatFailureMsg
+export const getNeedShowBindWechatBtn = (state: State) => state.needShowToBindWechatBtn
