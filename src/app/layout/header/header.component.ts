@@ -10,7 +10,6 @@ import {
 import { ThemesService } from '@core/services/themes.service'
 import { ThemeType } from '@core/services/themes.service'
 import { TranslatorService } from '@core/translator/translator.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
 
 import { Store } from '@ngrx/store'
 import { State } from 'app/routes/pages/reducers'
@@ -47,7 +46,6 @@ export class HeaderComponent implements OnInit {
     private themeServ: ThemesService,
     private confirmServ: NzModalService,
     private messageServ: NzMessageService,
-    private local: LocalStorageService,
     private router: Router,
     private store: Store<State>
   ) {}
@@ -94,16 +92,6 @@ export class HeaderComponent implements OnInit {
   changeLang(lang: string) {
     this.tsServ.use(lang)
     this.settings.setLayout('lang', lang)
-  }
-
-  clearStorage() {
-    this.confirmServ.confirm({
-      title: 'Make sure clear all local storage?',
-      onOk: () => {
-        // this.storageServ.clear();
-        this.messageServ.success('Clear Finished!')
-      }
-    })
   }
 
   logout() {

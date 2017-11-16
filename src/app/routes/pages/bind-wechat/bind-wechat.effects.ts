@@ -11,7 +11,7 @@ import * as fromBindWechat from './bind-wechat.action'
 import { BindWechatService } from '../services/bind-wechat.service'
 import { ACLService } from 'app/core/acl/acl.service'
 import { MenuService } from 'app/core/services/menu.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 import { TitleService } from 'app/core/services/title.service'
 import { DESTINATION_MAP } from '../models/bind-wechat.model'
 
@@ -26,7 +26,7 @@ export class BindWechatEffects {
         .checkWechatHasBind(code)
         .map(user => {
           return new fromBindWechat.CheckWechatHasBindSuccessAction({
-            ...user,
+            user,
             destination
           })
         })
@@ -43,16 +43,11 @@ export class BindWechatEffects {
     .map(
       (action: fromBindWechat.CheckWechatHasBindSuccessAction) => action.payload
     )
-    .do(({ name, industry, token, tenantId, destination }) => {
+    .do(({ user, destination }) => {
       this.notify.success('微信帐号绑定', '您已成功绑定，马上跳转页面！')
-      this.localStorage.set('name', name)
-      this.localStorage.set('token', token)
-      this.localStorage.set('tenantId', tenantId)
-
+      this.tenantService.login(user)
       this.router.navigate([DESTINATION_MAP[destination]])
-      this.aclService.set({
-        role: [industry]
-      })
+      
     })
 
   @Effect({ dispatch: false })
@@ -72,7 +67,7 @@ export class BindWechatEffects {
         .map(
           user =>
             new fromBindWechat.BindWechatSuccessAction({
-              ...user,
+              user,
               destination
             })
         )
@@ -85,19 +80,14 @@ export class BindWechatEffects {
   bindWechatSuccess$ = this.actions$
     .ofType(fromBindWechat.BIND_WECHAT_SUCCESS)
     .map((action: fromBindWechat.BindWechatSuccessAction) => action.payload)
-    .do(({ name, industry, token, tenantId, destination }) => {
+    .do(({ user, destination }) => {
       this.notify.success('绑定微信账户', '恭喜您 绑定微信账户成功！')
 
-      this.localStorage.set('name', name)
-      this.localStorage.set('token', token)
-      this.localStorage.set('tenantId', tenantId)
+      this.tenantService.login(user)
 
       if (DESTINATION_MAP[destination]) {
         this.router.navigate([DESTINATION_MAP[destination]])
       }
-      this.aclService.set({
-        role: [industry]
-      })
     })
 
   @Effect({ dispatch: false })
@@ -114,7 +104,7 @@ export class BindWechatEffects {
     private store: Store<State>,
     private aclService: ACLService,
     private menuService: MenuService,
-    private localStorage: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService,
     private titleService: TitleService
   ) {}

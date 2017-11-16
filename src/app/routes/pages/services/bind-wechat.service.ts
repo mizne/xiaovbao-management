@@ -16,7 +16,8 @@ export class BindWechatService {
     const query = `?code=${code}`
     return this.http
       .get(this.bindWechatUrl + query)
-      .map(res => (res as APIResponse).result)
+      .map(res => (res as APIResponse).result[0])
+      .map(User.convertFromResp)
       .catch(this.handleError)
 
     // return Observable.of({
@@ -42,13 +43,7 @@ export class BindWechatService {
     return this.http
       .post(this.bindWechatUrl, params)
       .map(res => (res as any).result)
-      .map(e => ({
-        name: e.name,
-        role: ROLES[e.correspondingType],
-        industry: e.style,
-        token: e.token,
-        tenantId: e.tenantId
-      }))
+      .map(User.convertFromResp)
       .catch(this.handleError)
 
     // return Observable.of({

@@ -7,7 +7,7 @@ import { NzNotificationService } from 'ng-zorro-antd'
 import * as fromAccount from './purchase.action'
 import { PurchaseService } from '../services/purchase.service'
 import { SMSService } from 'app/core/services/sms.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class PurchaseEffects {
@@ -17,7 +17,7 @@ export class PurchaseEffects {
     .map((action: fromAccount.FectchAccountsAction) => action.payload)
     .switchMap(({ pageIndex, pageSize }) => {
       return this.purchaseService
-        .fetchAccounts(this.local.tenantId, pageIndex, pageSize)
+        .fetchAccounts(this.tenantService.tenantId, pageIndex, pageSize)
         .map(accounts => new fromAccount.FetchAccountsSuccessAction(accounts))
         .catch(e => Observable.of(new fromAccount.FetchAccountsFailureAction()))
     })
@@ -27,7 +27,7 @@ export class PurchaseEffects {
     .ofType(fromAccount.FETCH_ACCOUNTS_COUNT)
     .switchMap(() =>
       this.purchaseService
-        .fetchAccountsCount(this.local.tenantId)
+        .fetchAccountsCount(this.tenantService.tenantId)
         .map(count => new fromAccount.FetchAccountsCountSuccessAction(count))
         .catch(e => Observable.of(new fromAccount.FetchAccountsCountFailureAction()))
     )
@@ -38,7 +38,7 @@ export class PurchaseEffects {
     .map((action: fromAccount.SendSMSAction) => action.phones)
     .switchMap(phones => {
       return this.smsService
-        .sendSMS(this.local.tenantId, phones)
+        .sendSMS(this.tenantService.tenantId, phones)
         .map(res => new fromAccount.SendSMSSuccessAction())
         .catch(e => Observable.of(new fromAccount.SendSMSFailureAction()))
     })
@@ -63,7 +63,7 @@ export class PurchaseEffects {
     .map((action: fromAccount.EnsureDeleteAccountAction) => action.payload)
     .switchMap(({ id, pageIndex, pageSize }) => {
       return this.purchaseService
-        .delAccount(this.local.tenantId, id)
+        .delAccount(this.tenantService.tenantId, id)
         .concatMap(res => [
           new fromAccount.DeleteAccountSuccessAction(),
           new fromAccount.FectchAccountsAction({ pageIndex, pageSize })
@@ -90,6 +90,6 @@ export class PurchaseEffects {
     private purchaseService: PurchaseService,
     private smsService: SMSService,
     private notify: NzNotificationService,
-    private local: LocalStorageService
+    private tenantService: TenantService
   ) {}
 }

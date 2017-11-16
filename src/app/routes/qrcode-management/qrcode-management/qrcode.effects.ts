@@ -5,7 +5,7 @@ import { NzNotificationService } from 'ng-zorro-antd'
 
 import * as fromQrcode from './qrcode.action'
 import { QrcodeService } from 'app/core/services/qrcode.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 import { TableService } from '../table.service'
 
 @Injectable()
@@ -16,7 +16,7 @@ export class QrcodeEffects {
     .map((action: fromQrcode.FectchQrcodesAction) => action.payload)
     .switchMap(({ pageIndex, pageSize }) => {
       return this.qrcodeService
-        .fetchQrcodes(this.local.tenantId, pageIndex, pageSize)
+        .fetchQrcodes(this.tenantService.tenantId, pageIndex, pageSize)
         .map(qrcodes => new fromQrcode.FetchQrcodesSuccessAction(qrcodes))
         .catch(e => Observable.of(new fromQrcode.FetchQrcodesFailureAction()))
     })
@@ -26,7 +26,7 @@ export class QrcodeEffects {
     .ofType(fromQrcode.FETCH_QRCODE_COUNT)
     .switchMap(() => {
       return this.qrcodeService
-        .fetchQrcodesCount(this.local.tenantId)
+        .fetchQrcodesCount(this.tenantService.tenantId)
         .map(count => new fromQrcode.FetchQrcodeCountSuccessAction(count))
         .catch(e => Observable.of(new fromQrcode.FetchQrcodeCountFailureAction()))
     })
@@ -37,7 +37,7 @@ export class QrcodeEffects {
     .map((action: fromQrcode.DeleteQrcodeAction) => action.qrcodeId)
     .switchMap(id => {
       return this.qrcodeService
-        .delQrcode(this.local.tenantId, id)
+        .delQrcode(this.tenantService.tenantId, id)
         .concatMap(() => [
           new fromQrcode.DeleteQrcodeSuccessAction(),
           new fromQrcode.FectchQrcodesAction(),
@@ -64,7 +64,7 @@ export class QrcodeEffects {
     .map((action: fromQrcode.EditQrcodeAction) => action.qrcode)
     .switchMap(qrcode => {
       return this.qrcodeService
-        .editQrcode(this.local.tenantId, qrcode)
+        .editQrcode(this.tenantService.tenantId, qrcode)
         .concatMap(() => [
           new fromQrcode.EditQrcodeSuccessAction(),
           new fromQrcode.FectchQrcodesAction()
@@ -87,7 +87,7 @@ export class QrcodeEffects {
   @Effect()
   fetchTable$ = this.actions$.ofType(fromQrcode.FETCH_TABLE).switchMap(() => {
     return this.tableService
-      .fetchQrcodes(this.local.tenantId)
+      .fetchQrcodes(this.tenantService.tenantId)
       .map(tables => new fromQrcode.FetchTableSuccessAction(tables))
       .catch(e => Observable.of(new fromQrcode.FetchTableFailureAction()))
   })
@@ -96,7 +96,7 @@ export class QrcodeEffects {
     private actions$: Actions,
     private qrcodeService: QrcodeService,
     private tableService: TableService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService
   ) {}
 }

@@ -44,13 +44,7 @@ export class LoginService {
     return this.http
       .post(this.fetchCaptchaUrl, params)
       .map(res => (res as APIResponse).result[0])
-      .map(e => ({
-        name: e.name,
-        role: ROLES[e.correspondingType],
-        industry: e.style,
-        token: e.token,
-        tenantId: e.tenantId
-      }))
+      .map(User.convertFromResp)
       .catch(this.handleError)
   }
 

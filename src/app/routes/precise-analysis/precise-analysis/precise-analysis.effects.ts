@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable'
 
 import * as fromPreciseAnalysis from './precise-analysis.action'
 import { PreciseAnalysisService } from '../precise-analysis.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 import { SMSService } from 'app/core/services/sms.service'
 
 import { Store } from '@ngrx/store'
@@ -19,7 +19,7 @@ export class PreciseAnalysisEffects {
   .map((action: fromPreciseAnalysis.FectchPreciseAnalysisAction) => action.payload)
   .switchMap(({ action, startDate, endDate, pageIndex, pageSize }) => {
     return this.preciseAnalysisService.fetchPreciseAnalysis({
-      tenantId: this.local.tenantId,
+      tenantId: this.tenantService.tenantId,
       action,
       startDate,
       endDate,
@@ -35,7 +35,7 @@ export class PreciseAnalysisEffects {
   .map((action: fromPreciseAnalysis.FetchPreciseAnalysisCountAction) => action.payload)
   .switchMap(({ action, startDate, endDate }) => {
     return this.preciseAnalysisService.fetchPreciseAnalysisCount({
-      tenantId: this.local.tenantId,
+      tenantId: this.tenantService.tenantId,
       action,
       startDate,
       endDate })
@@ -47,7 +47,7 @@ export class PreciseAnalysisEffects {
   sendSMS$ = this.actions$.ofType(fromPreciseAnalysis.SEND_SMS)
   .map((action: fromPreciseAnalysis.SendSMSAction) => action.phones)
   .switchMap((phones) => {
-    return this.smsService.sendSMS(this.local.tenantId, phones)
+    return this.smsService.sendSMS(this.tenantService.tenantId, phones)
     .map(e => new fromPreciseAnalysis.SendSMSSuccessAction())
     .catch(e => Observable.of(new fromPreciseAnalysis.SendSMSFailureAction()))
   })
@@ -69,7 +69,7 @@ export class PreciseAnalysisEffects {
   .withLatestFrom(this.store.select(getCurrentPreciseAnalysis))
   .switchMap(([_, users]) => {
     const phones = users.filter(e => e.selected).map(e => e.phone)
-    return this.smsService.sendSMS(this.local.tenantId, phones)
+    return this.smsService.sendSMS(this.tenantService.tenantId, phones)
     .map(e => new fromPreciseAnalysis.BatchSendSMSSuccessAction(phones.length))
     .catch(e => Observable.of(new fromPreciseAnalysis.BatchSendSMSFailureAction()))
   })
@@ -92,7 +92,7 @@ export class PreciseAnalysisEffects {
     private actions$: Actions,
     private preciseAnalysisService: PreciseAnalysisService,
     private smsService: SMSService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private store: Store<State>,
     private notify: NzNotificationService
   ) {}

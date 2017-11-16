@@ -4,24 +4,27 @@ import { SettingsService } from '@core/services/settings.service'
 
 import { Store } from '@ngrx/store'
 import { State, getLoginName } from '../../routes/pages/reducers'
+import { LogoutAction } from 'app/routes/pages/login/login.action'
 import { Observable } from 'rxjs/Observable'
 
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {
-  loginName: string
   constructor(
     public settings: SettingsService,
     public msgSrv: NzMessageService,
     private store: Store<State>,
-    private localStorage: LocalStorageService
+    private tenantService: TenantService
   ) {}
 
   ngOnInit() {
-    this.loginName = this.localStorage.get('name')
+  }
+
+  logout() {
+    this.store.dispatch(new LogoutAction())
   }
 }

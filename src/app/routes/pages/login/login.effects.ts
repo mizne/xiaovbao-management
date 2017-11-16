@@ -10,8 +10,7 @@ import * as fromLogin from './login.action'
 import { LoginService } from '../services/login.service'
 import { ACLService } from 'app/core/acl/acl.service'
 import { MenuService } from 'app/core/services/menu.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
-
+import { TenantService } from 'app/core/services/tenant.service'
 import { ERROR_CODE_MAP } from '../models/user.model'
 
 @Injectable()
@@ -43,15 +42,10 @@ export class LoginEffects {
   loginSuccess$ = this.actions$
     .ofType(fromLogin.LOGIN_SUCCESS)
     .map((action: fromLogin.LoginSuccessAction) => action.user)
-    .do(({ name, industry, token, tenantId }) => {
-      this.localStorage.set('name', name)
-      this.localStorage.set('token', token)
-      this.localStorage.set('tenantId', tenantId)
+    .do((user) => {
+      this.tenantService.login(user)
 
       this.router.navigate(['dashboard'])
-      this.aclService.set({
-        role: [industry]
-      })
     })
 
   @Effect()
@@ -65,8 +59,7 @@ export class LoginEffects {
   @Effect({ dispatch: false })
   logout$ = this.actions$.ofType(fromLogin.LOGOUT)
   .do(() => {
-    this.localStorage.remove('token')
-    this.localStorage.remove('tenantId')
+    this.tenantService.logout()
 
     this.router.navigate(['login'])
   })
@@ -78,6 +71,6 @@ export class LoginEffects {
     private store: Store<State>,
     private aclService: ACLService,
     private menuService: MenuService,
-    private localStorage: LocalStorageService
+    private tenantService: TenantService,
   ) {}
 }

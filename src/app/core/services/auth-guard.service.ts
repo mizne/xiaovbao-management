@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router'
 
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 
 @Injectable()
@@ -14,12 +14,12 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private localStorage: LocalStorageService
+    private tenantService: TenantService
   ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.localStorage.get('token')) {
+    if (this.tenantService.token) {
       return true
     }
 

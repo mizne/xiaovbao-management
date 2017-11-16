@@ -6,14 +6,14 @@ import { Observable } from 'rxjs/Observable'
 
 import * as fromManagementAnalysis from './management-analysis.action'
 import { StatisticsService } from 'app/core/services/statistics.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class ManagementAnalysisEffects {
   @Effect()
   fetchTodayStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_TODAY_STATISTICS)
   .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfToday(this.local.tenantId)
+    return this.statisticsService.fetchOrderStatisticsOfToday(this.tenantService.tenantId)
     .map(statistics => new fromManagementAnalysis.FetchTodayStatisticsSuccessAction(statistics))
     .catch(e => Observable.of(new fromManagementAnalysis.FetchTodayStatisticsFailureAction()))
   })
@@ -21,7 +21,7 @@ export class ManagementAnalysisEffects {
   @Effect()
   fetchMonthStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_MONTH_STATISTICS)
   .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.local.tenantId)
+    return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.tenantService.tenantId)
     .map(statistics => new fromManagementAnalysis.FetchMonthStatisticsSuccessAction(statistics))
     .catch(e => Observable.of(new fromManagementAnalysis.FetchMonthStatisticsFailureAction()))
   })
@@ -29,7 +29,7 @@ export class ManagementAnalysisEffects {
   @Effect()
   fetchYearStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_YEAR_STATISTICS)
   .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfThisYear(this.local.tenantId)
+    return this.statisticsService.fetchOrderStatisticsOfThisYear(this.tenantService.tenantId)
     .map(statistics => new fromManagementAnalysis.FetchYearStatisticsSuccessAction(statistics))
     .catch(e => Observable.of(new fromManagementAnalysis.FetchYearStatisticsFailureAction()))
   })
@@ -38,7 +38,7 @@ export class ManagementAnalysisEffects {
   constructor(
     private actions$: Actions,
     private statisticsService: StatisticsService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService
   ) {}
 }

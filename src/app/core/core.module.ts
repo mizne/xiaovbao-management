@@ -18,6 +18,7 @@ import { QrcodeService } from './services/qrcode.service'
 import { LoggerFactory } from './services/logger.service'
 import { StatisticsService } from './services/statistics.service'
 import { UtilsService } from './services/utils.service'
+import { TenantService } from './services/tenant.service'
 
 @NgModule({
   imports: [],
@@ -38,6 +39,7 @@ import { UtilsService } from './services/utils.service'
     LoggerFactory,
     StatisticsService,
     UtilsService,
+    TenantService,
   ],
   declarations: [],
   exports: []

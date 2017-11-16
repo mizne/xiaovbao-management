@@ -14,7 +14,6 @@ import { NzModalService } from 'ng-zorro-antd'
 
 import { Observable } from 'rxjs/Observable'
 
-import { LocalStorageService } from 'app/core/services/localstorage.service'
 import { LoginService } from 'app/routes/pages/services/login.service'
 
 import { environment } from '../../../environments/environment'
@@ -25,7 +24,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   private router: Router
   private modalService: NzModalService
 
-  constructor(private local: LocalStorageService, private injector: Injector) {}
+  constructor( private injector: Injector) {}
 
   intercept(
     req: HttpRequest<any>,

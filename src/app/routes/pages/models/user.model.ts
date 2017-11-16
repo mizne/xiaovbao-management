@@ -1,7 +1,33 @@
-export interface User {
+import * as R from 'ramda'
+
+export class User {
   id?: string
+  name?: string
+  role?: string
+  aliasName?: string
+  industry?: string
+  token?: string
+  tenantId?: string
+
+  static convertFromResp(resp: UserResp): User {
+    return R.reject(R.isNil, {
+      id: resp.id,
+      name: resp.name,
+      role: ROLES[resp.correspondingType],
+      aliasName: resp.aliasName,
+      industry: resp.style,
+      token: resp.token,
+      tenantId: resp.tenantId
+    })
+  }
+}
+
+export interface UserResp {
+  id?: string,
   name: string
-  industry: string
+  aliasName: string
+  correspondingType: number
+  style: string
   token: string
   tenantId: string
 }

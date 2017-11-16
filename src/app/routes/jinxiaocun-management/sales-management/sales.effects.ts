@@ -7,7 +7,7 @@ import { NzNotificationService } from 'ng-zorro-antd'
 import * as fromVip from './sales.action'
 import { SalesService } from '../services/sales.service'
 import { SMSService } from 'app/core/services/sms.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class SalesEffects {
@@ -17,7 +17,7 @@ export class SalesEffects {
     .map((action: fromVip.FectchVipsAction) => action.payload)
     .switchMap(({ pageIndex, pageSize }) => {
       return this.salesService
-        .fetchVips(this.local.tenantId, pageIndex, pageSize)
+        .fetchVips(this.tenantService.tenantId, pageIndex, pageSize)
         .map(vips => new fromVip.FetchVipsSuccessAction(vips))
         .catch(e => Observable.of(new fromVip.FetchVipsFailureAction()))
     })
@@ -27,7 +27,7 @@ export class SalesEffects {
     .ofType(fromVip.FETCH_VIPS_COUNT)
     .switchMap(() =>
       this.salesService
-        .fetchVipsCount(this.local.tenantId)
+        .fetchVipsCount(this.tenantService.tenantId)
         .map(count => new fromVip.FetchVipsCountSuccessAction(count))
         .catch(e => Observable.of(new fromVip.FetchVipsCountFailureAction()))
     )
@@ -38,7 +38,7 @@ export class SalesEffects {
     .map((action: fromVip.SendSMSAction) => action.phones)
     .switchMap(phones => {
       return this.smsService
-        .sendSMS(this.local.tenantId, phones)
+        .sendSMS(this.tenantService.tenantId, phones)
         .map(res => new fromVip.SendSMSSuccessAction())
         .catch(e => Observable.of(new fromVip.SendSMSFailureAction()))
     })
@@ -59,7 +59,7 @@ export class SalesEffects {
     .map((action: fromVip.EnsureDeleteVipAction) => action.payload)
     .switchMap(({ id, pageIndex, pageSize }) => {
       return this.salesService
-        .delVip(this.local.tenantId, id)
+        .delVip(this.tenantService.tenantId, id)
         .concatMap(res => [
           new fromVip.DeleteVipSuccessAction(),
           new fromVip.FectchVipsAction({ pageIndex, pageSize })
@@ -82,6 +82,6 @@ export class SalesEffects {
     private salesService: SalesService,
     private smsService: SMSService,
     private notify: NzNotificationService,
-    private local: LocalStorageService
+    private tenantService: TenantService
   ) {}
 }

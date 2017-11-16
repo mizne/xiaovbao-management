@@ -8,7 +8,7 @@ import { ActivityService } from '../activity.service'
 import { GoodsService } from 'app/core/services/goods.service'
 import { QrcodeService } from 'app/core/services/qrcode.service'
 
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class DiscountActivityEffects {
@@ -21,7 +21,7 @@ export class DiscountActivityEffects {
     )
     .switchMap(({ pageIndex, pageSize }) => {
       return this.activityService
-        .fetchDiscountActivity(this.local.tenantId, pageIndex, pageSize)
+        .fetchDiscountActivity(this.tenantService.tenantId, pageIndex, pageSize)
         .map(
           activities =>
             new fromDiscountActivity.FetchDiscountActivitySuccessAction(
@@ -38,7 +38,7 @@ export class DiscountActivityEffects {
     .ofType(fromDiscountActivity.FETCH_DISCOUNT_ACTIVITY_COUNT)
     .switchMap(() => {
       return this.activityService
-        .fetchDiscountActivityCount(this.local.tenantId)
+        .fetchDiscountActivityCount(this.tenantService.tenantId)
         .map(
           count =>
             new fromDiscountActivity.FetchDiscountActivityCountSuccessAction(
@@ -59,7 +59,7 @@ export class DiscountActivityEffects {
     )
     .switchMap(discountActivity => {
       return this.activityService
-        .createDiscountActivity(this.local.tenantId, discountActivity)
+        .createDiscountActivity(this.tenantService.tenantId, discountActivity)
         .concatMap(e => [
           new fromDiscountActivity.CreateDiscountActivitySuccessAction(
             discountActivity.goodsName
@@ -105,7 +105,7 @@ export class DiscountActivityEffects {
     )
     .switchMap(id => {
       return this.activityService
-        .deleteDiscountActivity(this.local.tenantId, id)
+        .deleteDiscountActivity(this.tenantService.tenantId, id)
         .concatMap(e => [
           new fromDiscountActivity.DeleteDiscountActivitySuccessAction(),
           new fromDiscountActivity.FectchDiscountActivityAction(),
@@ -135,7 +135,7 @@ export class DiscountActivityEffects {
     .switchMap(({ pageIndex, pageSize, goodsName, goodsType }) => {
       return this.goodsService
         .fetchGoods(
-          this.local.tenantId,
+          this.tenantService.tenantId,
           pageIndex,
           pageSize,
           goodsName,
@@ -151,7 +151,7 @@ export class DiscountActivityEffects {
     .map((action: fromDiscountActivity.FetchGoodsCountAction) => action.payload)
     .switchMap(({ goodsName, goodsType }) => {
       return this.goodsService
-        .fetchGoodsCount(this.local.tenantId, goodsName, goodsType)
+        .fetchGoodsCount(this.tenantService.tenantId, goodsName, goodsType)
         .map(
           count => new fromDiscountActivity.FetchGoodsCountSuccessAction(count)
         )
@@ -163,7 +163,7 @@ export class DiscountActivityEffects {
     .ofType(fromDiscountActivity.FETCH_QRCODE_TEMPLATE)
     .switchMap(() => {
       return this.qrcodeService
-        .fetchQrcodes(this.local.tenantId)
+        .fetchQrcodes(this.tenantService.tenantId)
         .map(
           qrcodes =>
             new fromDiscountActivity.FetchQrcodeTemplateSuccessAction(qrcodes)
@@ -178,7 +178,7 @@ export class DiscountActivityEffects {
     private activityService: ActivityService,
     private goodsService: GoodsService,
     private qrcodeService: QrcodeService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService
   ) {}
 }

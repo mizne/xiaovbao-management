@@ -1,8 +1,9 @@
 import { Action } from '@ngrx/store'
 import { User } from '../models/user.model'
 
-export interface CheckSuccessResp extends User {
+export interface CheckSuccessResp {
   destination: string
+  user: User
 }
 
 export const TO_SHOW_BIND_WECHAT_FORM = '[BindWechat] To Show Bind Wechat Form'

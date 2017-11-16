@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable'
 import * as fromGoods from './goods.action'
 import { GoodsService } from 'app/core/services/goods.service'
 
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class GoodsEffects {
@@ -20,7 +20,7 @@ export class GoodsEffects {
     .switchMap(({ pageIndex, pageSize, goodsName, goodsType }) => {
       return this.goodsService
         .fetchGoods(
-          this.local.tenantId,
+          this.tenantService.tenantId,
           pageIndex,
           pageSize,
           goodsName,
@@ -36,7 +36,7 @@ export class GoodsEffects {
     .map((action: fromGoods.FetchGoodsCountAction) => action.payload)
     .switchMap(({ goodsName, goodsType }) => {
       return this.goodsService
-        .fetchGoodsCount(this.local.tenantId, goodsName, goodsType)
+        .fetchGoodsCount(this.tenantService.tenantId, goodsName, goodsType)
         .map(count => new fromGoods.FetchGoodsCountSuccessAction(count))
         .catch(e => Observable.of(new fromGoods.FetchGoodsCountFailureAction()))
     })
@@ -46,7 +46,7 @@ export class GoodsEffects {
     .ofType(fromGoods.FETCH_GOODS_TYPES)
     .switchMap(tenantId => {
       return this.goodsService
-        .fetchAllGoodsTypes(this.local.tenantId)
+        .fetchAllGoodsTypes(this.tenantService.tenantId)
         .map(
           goodsTypes => new fromGoods.FetchGoodsTypesSuccessAction(goodsTypes)
         )
@@ -59,7 +59,7 @@ export class GoodsEffects {
     .map((action: fromGoods.AddGoodsTypeAction) => action.goodsTypeName)
     .switchMap(goodsTypeName => {
       return this.goodsService
-        .addGoodsType(this.local.tenantId, goodsTypeName)
+        .addGoodsType(this.tenantService.tenantId, goodsTypeName)
         .concatMap(() => [
           new fromGoods.AddGoodsTypeSuccessAction(goodsTypeName),
           new fromGoods.FectchGoodsTypesAction()
@@ -89,7 +89,7 @@ export class GoodsEffects {
     .map((action: fromGoods.AddGoodsAction) => action.goods)
     .switchMap(goods => {
       return this.goodsService
-        .addGoods(this.local.tenantId, goods)
+        .addGoods(this.tenantService.tenantId, goods)
         .concatMap(() => [
           new fromGoods.AddGoodsSuccessAction(goods.name),
           new fromGoods.FetchGoodsCountAction()
@@ -118,7 +118,7 @@ export class GoodsEffects {
     .ofType(fromGoods.FETCH_GOODS_UNITS)
     .switchMap(() => {
       return this.goodsService
-        .fetchAllGoodsUnits(this.local.tenantId)
+        .fetchAllGoodsUnits(this.tenantService.tenantId)
         .map(
           goodsUnits => new fromGoods.FetchGoodsUnitsSuccessAction(goodsUnits)
         )
@@ -131,7 +131,7 @@ export class GoodsEffects {
     .map((action: fromGoods.AddGoodsUnitAction) => action.goodsUnit)
     .switchMap(goodsUnit => {
       return this.goodsService
-        .addGoodsUnit(this.local.tenantId, goodsUnit)
+        .addGoodsUnit(this.tenantService.tenantId, goodsUnit)
         .concatMap(e => [
           new fromGoods.AddGoodsUnitSuccessAction(goodsUnit),
           new fromGoods.FetchGoodsUnitsAction()
@@ -161,7 +161,7 @@ export class GoodsEffects {
     .map((action: fromGoods.OffShelfGoodsAction) => action.goodsId)
     .switchMap(goodsId => {
       return this.goodsService
-        .offShelfGoods(this.local.tenantId, goodsId)
+        .offShelfGoods(this.tenantService.tenantId, goodsId)
         .concatMap(e => [
           new fromGoods.OffShelfGoodsSuccessAction(),
           new fromGoods.FetchGoodsAction()
@@ -187,7 +187,7 @@ export class GoodsEffects {
     .map((action: fromGoods.OnShelfGoodsAction) => action.goodsId)
     .switchMap(goodsId => {
       return this.goodsService
-        .onShelfGoods(this.local.tenantId, goodsId)
+        .onShelfGoods(this.tenantService.tenantId, goodsId)
         .concatMap(e => [
           new fromGoods.OnShelfGoodsSuccessAction(),
           new fromGoods.FetchGoodsAction()
@@ -219,7 +219,7 @@ export class GoodsEffects {
     .map((action: fromGoods.EditGoodsAction) => action.goods)
     .switchMap(goods => {
       return this.goodsService
-        .editGoods(this.local.tenantId, goods.id, goods)
+        .editGoods(this.tenantService.tenantId, goods.id, goods)
         .concatMap(() => [
           new fromGoods.EditGoodsSuccessAction(),
           new fromGoods.FetchGoodsAction()
@@ -243,7 +243,7 @@ export class GoodsEffects {
   constructor(
     private actions$: Actions,
     private goodsService: GoodsService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService
   ) {}
 }

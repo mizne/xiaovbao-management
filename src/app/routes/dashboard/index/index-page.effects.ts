@@ -6,14 +6,14 @@ import { Observable } from 'rxjs/Observable'
 
 import * as fromIndexPage from './index-page.action'
 import { StatisticsService } from 'app/core/services/statistics.service'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class IndexPageEffects {
   @Effect()
   fetchTodayStatistics$ = this.actions$.ofType(fromIndexPage.FETCH_TODAY_STATISTICS)
   .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfToday(this.local.tenantId)
+    return this.statisticsService.fetchOrderStatisticsOfToday(this.tenantService.tenantId)
     .map(statistics => new fromIndexPage.FetchTodayStatisticsSuccessAction(statistics))
     .catch(e => Observable.of(new fromIndexPage.FetchTodayStatisticsFailureAction()))
   })
@@ -21,7 +21,7 @@ export class IndexPageEffects {
   @Effect()
   fetchMonthStatistics$ = this.actions$.ofType(fromIndexPage.FETCH_MONTH_STATISTICS)
   .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.local.tenantId)
+    return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.tenantService.tenantId)
     .map(statistics => new fromIndexPage.FetchMonthStatisticsSuccessAction(statistics))
     .catch(e => Observable.of(new fromIndexPage.FetchMonthStatisticsFailureAction()))
   })
@@ -29,7 +29,7 @@ export class IndexPageEffects {
   @Effect()
   fetchYearStatistics$ = this.actions$.ofType(fromIndexPage.FETCH_YEAR_STATISTICS)
   .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfThisYear(this.local.tenantId)
+    return this.statisticsService.fetchOrderStatisticsOfThisYear(this.tenantService.tenantId)
     .map(statistics => new fromIndexPage.FetchYearStatisticsSuccessAction(statistics))
     .catch(e => Observable.of(new fromIndexPage.FetchYearStatisticsFailureAction()))
   })
@@ -38,7 +38,7 @@ export class IndexPageEffects {
   constructor(
     private actions$: Actions,
     private statisticsService: StatisticsService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService
   ) {}
 }

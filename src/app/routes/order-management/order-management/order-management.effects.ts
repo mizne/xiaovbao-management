@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable'
 import * as fromOrder from './order-management.action'
 import { OrderService } from '../order.service'
 
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class OrderEffects {
@@ -18,7 +18,7 @@ export class OrderEffects {
     .switchMap(({ pageIndex, pageSize }) => {
       return this.orderService
         .fetchOrders(
-          this.local.tenantId,
+          this.tenantService.tenantId,
           pageIndex,
           pageSize,
         )
@@ -31,7 +31,7 @@ export class OrderEffects {
     .ofType(fromOrder.FETCH_ORDERS_COUNT)
     .switchMap(() => {
       return this.orderService
-        .fetchOrderCount(this.local.tenantId)
+        .fetchOrderCount(this.tenantService.tenantId)
         .map(count => new fromOrder.FetchOrdersCountSuccessAction(count))
         .catch(e => Observable.of(new fromOrder.FetchOrdersCountFailureAction()))
     })
@@ -39,7 +39,7 @@ export class OrderEffects {
   constructor(
     private actions$: Actions,
     private orderService: OrderService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService
   ) {}
 }

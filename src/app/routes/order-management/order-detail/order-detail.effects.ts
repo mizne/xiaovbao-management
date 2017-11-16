@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable'
 import * as fromOrderDetail from './order-detail.action'
 import { OrderService } from '../order.service'
 
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class OrderDetailEffects {
@@ -18,7 +18,7 @@ export class OrderDetailEffects {
     .switchMap((tradeNo) => {
       return this.orderService
         .fetchOrderDetail(
-          this.local.tenantId,
+          this.tenantService.tenantId,
           tradeNo
         )
         .map(order => new fromOrderDetail.FetchOrderDetailSuccessAction(order))
@@ -29,7 +29,7 @@ export class OrderDetailEffects {
   constructor(
     private actions$: Actions,
     private orderService: OrderService,
-    private local: LocalStorageService,
+    private tenantService: TenantService,
     private notify: NzNotificationService
   ) {}
 }

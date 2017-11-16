@@ -10,7 +10,7 @@ import {
 } from '@angular/common/http'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
-import { LocalStorageService } from 'app/core/services/localstorage.service'
+import { TenantService } from 'app/core/services/tenant.service'
 import { environment } from '../../../environments/environment'
 
 @Injectable()
@@ -18,7 +18,10 @@ export class TokenInterceptor implements HttpInterceptor {
   private url = `${environment.SERVER_URL}/api/test`
   private router: Router
 
-  constructor(private local: LocalStorageService, private injector: Injector) {}
+  constructor(
+    private injector: Injector,
+    private tenantService: TenantService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -33,7 +36,7 @@ export class TokenInterceptor implements HttpInterceptor {
       if (!this.requestWithAuth(req.url)) {
         cloneParams.headers = req.headers.set(
           'Authorization',
-          'Bearer ' + this.local.get('token')
+          'Bearer ' + this.tenantService.token
         )
       }
     } else {
