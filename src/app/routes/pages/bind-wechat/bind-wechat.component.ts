@@ -58,10 +58,10 @@ export class BindWechatComponent implements OnInit {
   }
 
   toBindWechat() {
-    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?
-    appid=wx09b412b006792e2c&redirect_uri=http%3A%2F%2Fdeal.xiaovbao.cn%2Fwechatpay
-    &response_type=code&scope=snsapi_base
-    &state=bindWechat#wechat_redirect`
+    // window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?
+    // appid=wx09b412b006792e2c&redirect_uri=http%3A%2F%2Fdeal.xiaovbao.cn%2Fwechatpay
+    // &response_type=code&scope=snsapi_base
+    // &state=bindWechat#wechat_redirect`
   }
 
   private buildForm(): void {

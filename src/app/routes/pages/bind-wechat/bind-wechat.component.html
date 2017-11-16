@@ -1,7 +1,6 @@
 <div class="wrapper">
   <div class="abs-center mt-lg width-lg">
-    <nz-card *ngIf="showBindWechatForm$ | async; else checkBindWechat;" [nzNoHovering]="true" [nzBordered]="false"
-      class="ant-card__primary ant-card__title-img">
+    <nz-card *ngIf="showBindWechatForm$ | async; else checkBindWechat;" [nzNoHovering]="true" [nzBordered]="false" class="ant-card__primary ant-card__title-img">
       <ng-template #title>
         <div class="text-center">
           <img src="./assets/img/logo.svg" style="height:20px;">
@@ -49,10 +48,14 @@
         {{bindWechatPrompt$ | async}}
       </p>
     </ng-template>
-    <button class="mt-lg" *ngIf="needShowBindWechatBtn$ | async" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="toBindWechat()"
-      class="ant-btn__block">
-      <span>去绑定微信</span>
-    </button>
+    <a class="mt-lg" *ngIf="needShowBindWechatBtn$ | async"
+     href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx09b412b006792e2c&redirect_uri=http%3A%2F%2Fdeal.xiaovbao.cn%2Fwechatpay&response_type=code&scope=snsapi_base&state=bindWechat#wechat_redirect">
+      <button nz-button [nzType]="'primary'" [nzSize]="'large'"
+        class="ant-btn__block">
+        <span>去绑定微信</span>
+      </button>
+    </a>
+
     <div class="p-lg text-center text-sm">
       &copy; {{ settings.app.year }} - {{ settings.app.name }}
       <br> {{ settings.app.description }}
