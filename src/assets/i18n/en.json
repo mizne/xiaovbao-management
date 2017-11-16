@@ -38,6 +38,7 @@
     "precise-analysis": "PreciseAnalysis",
     "management-analysis": "ManagementAnalysis",
     "statistical-report": "StatisticalReport",
+    "merchant-info": "MerchantInfo",
     "edit": "Edit",
     "delete": "Delete",
     "view": "View",

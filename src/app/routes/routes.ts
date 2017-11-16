@@ -70,6 +70,11 @@ export const routes: Routes = [
         path: 'management-analysis',
         loadChildren:
           './management-analysis/management-analysis.module#ManagementAnalysisModule'
+      },
+      {
+        path: 'merchant-info',
+        loadChildren:
+          './merchant-info/merchant-info.module#MerchantInfoModule'
       }
     ]
   },

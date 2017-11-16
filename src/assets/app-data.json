@@ -40,14 +40,13 @@
           "link": "/activity-management",
           "icon": "icon-chemistry",
           "acl": ["hotel", "education", "supermarket"],
-          "children": [
-          ]
+          "children": []
         },
         {
           "text": "商品管理",
           "translate": "goods-management",
           "link": "/goods-management",
-          "icon": "icon-note",
+          "icon": "anticon anticon-shopping-cart",
           "acl": ["education", "hotel", "supermarket"],
           "children": []
         },
@@ -112,7 +111,7 @@
           "text": "客户管理",
           "translate": "customer-management",
           "link": "/customer-management",
-          "icon": "icon-grid",
+          "icon": "anticon anticon-user-add",
           "acl": ["annualMeeting", "education", "hotel", "supermarket"],
           "children": [
             {
@@ -131,8 +130,14 @@
           "text": "二维码管理",
           "translate": "qrcode-management",
           "link": "/qrcode-management",
-          "icon": "icon-grid",
-          "acl": ["education", "supermarket", "hotel", "annualMeeting", "wedding"],
+          "icon": "anticon anticon-qrcode",
+          "acl": [
+            "education",
+            "supermarket",
+            "hotel",
+            "annualMeeting",
+            "wedding"
+          ],
           "children": []
         },
         {
@@ -140,7 +145,13 @@
           "translate": "precise-analysis",
           "link": "/precise-analysis",
           "icon": "icon-graduation",
-          "acl": ["education", "supermarket", "hotel", "annualMeeting", "wedding"],
+          "acl": [
+            "education",
+            "supermarket",
+            "hotel",
+            "annualMeeting",
+            "wedding"
+          ],
           "children": []
         },
         {
@@ -148,17 +159,29 @@
           "translate": "management-analysis",
           "link": "/management-analysis",
           "icon": "icon-chart",
-          "acl": ["education", "supermarket", "hotel", "annualMeeting", "wedding"],
-          "children": [
-          ]
+          "acl": [
+            "education",
+            "supermarket",
+            "hotel",
+            "annualMeeting",
+            "wedding"
+          ],
+          "children": []
         }
       ]
     },
     {
-      "text": "Settings",
+      "text": "设置",
       "translate": "settings",
       "group": true,
-      "children": []
+      "children": [
+        {
+          "text": "商家信息",
+          "link": "/merchant-info",
+          "translate": "merchant-info",
+          "icon": "anticon anticon-shop"
+        }
+      ]
     }
   ]
 }

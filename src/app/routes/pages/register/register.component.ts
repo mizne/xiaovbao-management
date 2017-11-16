@@ -8,6 +8,7 @@ import { State, getRegisterLoading } from '../reducers'
 import { RegistryRequestAction } from './register.action'
 
 import { Observable } from 'rxjs/Observable';
+import { UtilsService } from 'app/core/services/utils.service'
 
 
 @Component({
@@ -91,7 +92,8 @@ export class RegisterComponent implements OnInit {
     public settings: SettingsService,
     private fb: FormBuilder,
     private router: Router,
-    private store: Store<State>
+    private store: Store<State>,
+    private utils: UtilsService
   ) {}
 
   ngOnInit() {
@@ -108,7 +110,7 @@ export class RegisterComponent implements OnInit {
         null,
         Validators.compose([
           Validators.required,
-          Validators.pattern('^1[0-9]{10}$')
+          Validators.pattern(this.utils.phoneRe)
         ])
       ],
       role: [this.roles[0].value],

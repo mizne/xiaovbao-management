@@ -9,7 +9,7 @@ import { User, ROLES } from '../models/user.model'
 
 @Injectable()
 export class BindWechatService {
-  private bindWechatUrl = '/admin/bindWechat'
+  private bindWechatUrl = '/admin/bindOpenId'
   constructor(private http: HttpClient) {}
 
   checkWechatHasBind(code: string): Observable<User> {
@@ -42,7 +42,7 @@ export class BindWechatService {
 
     return this.http
       .post(this.bindWechatUrl, params)
-      .map(res => (res as any).result)
+      .map(res => (res as any).result[0])
       .map(User.convertFromResp)
       .catch(this.handleError)
 
