@@ -10,12 +10,13 @@ import { User, ROLES } from '../models/user.model'
 @Injectable()
 export class BindWechatService {
   private bindWechatUrl = '/admin/bindOpenId'
+  private checkWechat = '/admin/tenantIds'
   constructor(private http: HttpClient) {}
 
   checkWechatHasBind(code: string): Observable<User> {
     const query = `?code=${code}`
     return this.http
-      .get(this.bindWechatUrl + query)
+      .get(this.checkWechat + query)
       .map(res => (res as APIResponse).result[0])
       .map(User.convertFromResp)
       .catch(this.handleError)
