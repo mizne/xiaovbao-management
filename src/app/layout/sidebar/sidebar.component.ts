@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit {
     public settings: SettingsService,
     public msgSrv: NzMessageService,
     private store: Store<State>,
-    private tenantService: TenantService
+    public tenantService: TenantService
   ) {}
 
   ngOnInit() {
