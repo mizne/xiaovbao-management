@@ -36,14 +36,14 @@ export class BindWechatService {
     code: string
   ): Observable<User> {
     const params = {
-      userName: name,
+      userName,
       password,
       code
     }
 
     return this.http
       .post(this.bindWechatUrl, params)
-      .map(res => (res as any).result[0])
+      .map(res => (res as APIResponse).result[0])
       .map(User.convertFromResp)
       .catch(this.handleError)
 
