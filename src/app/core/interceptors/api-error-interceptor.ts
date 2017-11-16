@@ -45,9 +45,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         }
       })
       .catch(res => {
-        console.log(res)
         if (res instanceof HttpErrorResponse) {
-          console.log('resp status: ' + res.status)
           if (res.status === 401) {
             this.router = this.injector.get(Router)
             this.router.navigate(['login'])

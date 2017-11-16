@@ -115,7 +115,6 @@ export class BindWechatComponent implements OnInit {
       Object.keys(this.bindWechatForm.controls).forEach(e => {
         this.bindWechatForm.controls[e].markAsDirty()
       })
-      console.log(this.bindWechatForm.value)
 
       const params = {
         userName: this.bindWechatForm.value.name,

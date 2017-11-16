@@ -76,7 +76,6 @@ export class LoginComponent implements OnInit {
       Object.keys(this.valForm.controls).forEach(e => {
         this.valForm.controls[e].markAsDirty()
       })
-      console.log(this.valForm.value)
 
       const params = {
         captcha: this.valForm.value.captcha,

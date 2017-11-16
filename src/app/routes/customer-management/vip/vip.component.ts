@@ -154,7 +154,6 @@ export class VipComponent implements OnInit {
   }
 
   pageIndexChange(pageIndex) {
-    console.log('page index: ' + this.pageIndex)
     this.store.dispatch(
       new FectchVipsAction({
         pageIndex: this.pageIndex,
@@ -164,7 +163,6 @@ export class VipComponent implements OnInit {
   }
 
   pageSizeChange(pageSize) {
-    console.log('page size: ' + this.pageSize)
     this.store.dispatch(
       new FectchVipsAction({
         pageIndex: this.pageIndex,

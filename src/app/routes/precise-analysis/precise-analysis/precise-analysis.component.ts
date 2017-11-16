@@ -245,7 +245,6 @@ export class PreciseAnalysisComponent implements OnInit {
       .takeUntil(this.destroyService)
 
     batchSendSMS$.subscribe(phones => {
-      console.log(phones)
       this.ensureBatchSendSMS(phones)
     })
   }

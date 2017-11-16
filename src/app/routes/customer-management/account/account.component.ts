@@ -111,12 +111,10 @@ export class AccountComponent implements OnInit {
   }
 
   pageIndexChange(pageIndex) {
-    console.log('page index: ' + this.pageIndex)
     this.fetchAccounts()
   }
 
   pageSizeChange(pageSize) {
-    console.log('page size: ' + this.pageSize)
     this.fetchAccounts()
   }
 }

@@ -32,9 +32,6 @@ export class RegisterService {
     }
     return this.http.post(this.registryUrl, params)
     .map(res => (res as any).result)
-    .do((result) => {
-      console.log(result)
-    })
     .catch(this.handleError)
 
     // return Observable.of({

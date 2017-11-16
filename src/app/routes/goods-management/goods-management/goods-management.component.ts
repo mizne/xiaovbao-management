@@ -255,7 +255,6 @@ export class GoodsManagementComponent implements OnInit {
       .subscribe(e => {
         const fetchGoodsParams = R.reject(R.isNil, e) as FetchGoodsParams
 
-        console.log(fetchGoodsParams)
         this.store.dispatch(new FetchGoodsAction(fetchGoodsParams))
       })
 
@@ -290,7 +289,6 @@ export class GoodsManagementComponent implements OnInit {
       })
       .takeUntil(this.destroyService)
       .subscribe((e) => {
-        console.log(e)
         if (typeof e !== 'string') {
           this.store.dispatch(new EditGoodsAction(e as Goods))
         }
@@ -320,7 +318,6 @@ export class GoodsManagementComponent implements OnInit {
       })
       .takeUntil(this.destroyService)
       .subscribe(goodsId => {
-        console.log(`off shelf goods: ${goodsId}`)
         this.store.dispatch(new OffShelfGoodsAction(goodsId))
       })
   }
@@ -348,7 +345,6 @@ export class GoodsManagementComponent implements OnInit {
       })
       .takeUntil(this.destroyService)
       .subscribe(goodsId => {
-        console.log(`on shelf goods: ${goodsId}`)
         this.store.dispatch(new OnShelfGoodsAction(goodsId))
       })
   }

@@ -146,9 +146,6 @@ export class RegisterComponent implements OnInit {
     }
 
     if (this.valForm.valid) {
-      console.log('Valid!')
-      console.log(this.valForm.value)
-
       const params = {
         name: this.valForm.value.name,
         password: this.valForm.value.password,

@@ -211,7 +211,6 @@ export class AddGoodsModalComponent implements OnInit {
     this.uploader.onSuccessItem = (fileItem, resp, status, headers) => {
       try {
         const file_path = JSON.parse(resp).result[0]
-        console.log(file_path)
         this.uploadImageUrl = environment.SERVER_URL + `/${file_path}`
         this.goodsForm.controls['listImageUrl'].setValue(this.uploadImageUrl)
       } catch (e) {

@@ -69,7 +69,6 @@ export class PreciseAnalysisEffects {
   .withLatestFrom(this.store.select(getCurrentPreciseAnalysis))
   .switchMap(([_, users]) => {
     const phones = users.filter(e => e.selected).map(e => e.phone)
-    console.log('batch send sms, phones: ', phones)
     return this.smsService.sendSMS(this.local.tenantId, phones)
     .map(e => new fromPreciseAnalysis.BatchSendSMSSuccessAction(phones.length))
     .catch(e => Observable.of(new fromPreciseAnalysis.BatchSendSMSFailureAction()))

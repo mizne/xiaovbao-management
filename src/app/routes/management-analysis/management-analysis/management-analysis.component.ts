@@ -187,7 +187,6 @@ export class ManagementAnalysisComponent implements OnInit {
   }
 
   private patchDataToChart(chartData: ChartDataOption): void {
-    console.log(chartData)
     this.chartLabel = chartData.chartLabel
     this.chartData.forEach(e => {
       const f = chartData.chartData.find(g => g.label === e.label)
