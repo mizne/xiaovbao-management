@@ -44,7 +44,7 @@ export class BindWechatEffects {
       (action: fromBindWechat.CheckWechatHasBindSuccessAction) => action.payload
     )
     .do(({ user, destination }) => {
-      this.notify.success('微信帐号绑定', '您已成功绑定，马上跳转页面！')
+      // this.notify.success('微信帐号绑定', '您已成功绑定，马上跳转页面！')
       this.tenantService.login(user)
       this.router.navigate([DESTINATION_MAP[destination]])
       
@@ -54,7 +54,7 @@ export class BindWechatEffects {
   checkWechatHasBindFailure$ = this.actions$
     .ofType(fromBindWechat.CHECK_WECHAT_HAS_BIND_FAILURE)
     .do(() => {
-      this.notify.error('微信帐号绑定', '你还没有绑定微信帐号，马上去绑定！')
+      // this.notify.error('微信帐号绑定', '你还没有绑定微信帐号，马上去绑定！')
     })
 
   @Effect()
@@ -81,7 +81,7 @@ export class BindWechatEffects {
     .ofType(fromBindWechat.BIND_WECHAT_SUCCESS)
     .map((action: fromBindWechat.BindWechatSuccessAction) => action.payload)
     .do(({ user, destination }) => {
-      this.notify.success('绑定微信账户', '恭喜您 绑定微信账户成功！')
+      // this.notify.success('绑定微信账户', '恭喜您 绑定微信账户成功！')
 
       this.tenantService.login(user)
 
@@ -94,7 +94,7 @@ export class BindWechatEffects {
   bindWechatFailure$ = this.actions$
     .ofType(fromBindWechat.BIND_WECHAT_FAILURE)
     .do(() => {
-      this.notify.error('绑定微信账户', '绑定微信账户失败！')
+      // this.notify.error('绑定微信账户', '绑定微信账户失败！')
     })
 
   constructor(
