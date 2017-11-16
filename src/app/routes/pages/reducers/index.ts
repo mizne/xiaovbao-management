@@ -1,11 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
+import * as fromRoot from '../../../reducers'
 import * as fromLogin from '../login/login.reducer'
 import * as fromRegister from '../register/register.reducer'
-import * as fromRoot from '../../../reducers'
+import * as fromBindWechat from '../bind-wechat/bind-wechat.reducer'
 
 export interface PagesState {
   login: fromLogin.State
   register: fromRegister.State
+  bindWechat: fromBindWechat.State
 }
 
 export interface State extends fromRoot.State {
@@ -14,7 +16,8 @@ export interface State extends fromRoot.State {
 
 export const reducers = {
   login: fromLogin.reducer,
-  register: fromRegister.reducer
+  register: fromRegister.reducer,
+  bindWechat: fromBindWechat.reducer
 }
 
 export const getPagesModuleState = createFeatureSelector<PagesState>('pages')
@@ -39,4 +42,26 @@ export const getRegisterState = createSelector(
 export const getRegisterLoading = createSelector(
   getRegisterState,
   fromRegister.getLoading
+)
+
+
+export const getBindWechatState = createSelector(
+  getPagesModuleState,
+  (state: PagesState) => state.bindWechat
+)
+export const getBindWechatLoading = createSelector(
+  getBindWechatState,
+  fromBindWechat.getLoading
+)
+export const getBindWechatPrompt = createSelector(
+  getBindWechatState,
+  fromBindWechat.getBindWechatPrompt
+)
+export const getShowBindWechatForm = createSelector(
+  getBindWechatState,
+  fromBindWechat.getShowBindWechatForm
+)
+export const getBindWechatFailureMsg = createSelector(
+  getBindWechatState,
+  fromBindWechat.getBindWechatFailureMsg
 )

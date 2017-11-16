@@ -8,18 +8,22 @@ import { EffectsModule } from '@ngrx/effects'
 import { reducers } from './reducers'
 import { LoginEffects } from './login/login.effects'
 import { RegisterEffects } from './register/register.effects'
+import { BindWechatEffects } from './bind-wechat/bind-wechat.effects'
 import { LoginService } from './services/login.service'
 import { RegisterService } from './services/register.service'
+import { BindWechatService } from './services/bind-wechat.service'
 
 import { RegisterComponent } from './register/register.component'
 import { RegisterSuccessComponent } from './register-success/register-success.component'
 import { LoginComponent } from './login/login.component'
 import { LockComponent } from './lock/lock.component'
 import { ForgetComponent } from './forget/forget.component'
+import { BindWechatComponent } from './bind-wechat/bind-wechat.component'
 
 const effects = [
   LoginEffects,
-  RegisterEffects
+  RegisterEffects,
+  BindWechatEffects,
 ]
 
 @NgModule({
@@ -33,11 +37,13 @@ const effects = [
     RegisterSuccessComponent,
     LoginComponent,
     LockComponent,
-    ForgetComponent
+    ForgetComponent,
+    BindWechatComponent,
   ],
   providers: [
     LoginService,
-    RegisterService
+    RegisterService,
+    BindWechatService,
   ]
 })
 export class PagesModule {}

@@ -1,0 +1,57 @@
+<div class="wrapper">
+  <div class="abs-center mt-lg width-lg">
+    <nz-card *ngIf="showBindWechatForm$ | async; else checkBindWechat;" [nzNoHovering]="true" [nzBordered]="false"
+      class="ant-card__primary ant-card__title-img">
+      <ng-template #title>
+        <div class="text-center">
+          <img src="./assets/img/logo.svg" style="height:20px;">
+        </div>
+      </ng-template>
+      <ng-template #body>
+        <div>
+          <div class="mb-sm text-center text-error">{{bindWechatFailureMsg$ | async}}</div>
+          <form nz-form [formGroup]="bindWechatForm" (ngSubmit)="submit()" role="form">
+            <div nz-form-item>
+              <div nz-form-control [nzValidateStatus]="bindWechatForm.controls.name">
+                <nz-input formControlName="name" [nzPlaceHolder]="'用户名'" [nzSize]="'large'">
+                  <ng-template #suffix>
+                    <i class="anticon anticon-user"></i>
+                  </ng-template>
+                </nz-input>
+                <div nz-form-explain *ngIf="getFormControlValidator('name', 'required')">用户名必填</div>
+              </div>
+            </div>
+            <div nz-form-item>
+              <div nz-form-control [nzValidateStatus]="bindWechatForm.controls.password">
+                <nz-input formControlName="password" [nzPlaceHolder]="'密码'" [nzType]="'password'" [nzSize]="'large'">
+                  <ng-template #suffix>
+                    <i class="anticon anticon-lock"></i>
+                  </ng-template>
+                </nz-input>
+                <div nz-form-explain *ngIf="getFormControlValidator('password', 'required')">密码必填</div>
+              </div>
+            </div>
+
+            <div nz-form-item nz-row>
+              <div nz-col [nzSpan]="24">
+                <button nz-button [disabled]="!bindWechatForm.valid" [nzLoading]="loading$ | async" [nzType]="'primary'" [nzSize]="'large'"
+                  class="ant-btn__block">
+                  <span>绑定微信</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </nz-card>
+    <ng-template #checkBindWechat>
+      <p class="text-center">
+        {{bindWechatPrompt$ | async}}
+      </p>
+    </ng-template>
+    <div class="p-lg text-center text-sm">
+      &copy; {{ settings.app.year }} - {{ settings.app.name }}
+      <br> {{ settings.app.description }}
+    </div>
+  </div>
+</div>

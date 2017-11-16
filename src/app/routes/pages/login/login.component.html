@@ -13,7 +13,7 @@
             <div nz-form-control [nzValidateStatus]="valForm.controls.name">
               <nz-input formControlName="name" [nzPlaceHolder]="'用户名'" [nzSize]="'large'">
                 <ng-template #suffix>
-                  <i class="anticon anticon-mail"></i>
+                  <i class="anticon anticon-user"></i>
                 </ng-template>
               </nz-input>
               <div nz-form-explain *ngIf="getFormControlValidator('name', 'required')">用户名必填</div>

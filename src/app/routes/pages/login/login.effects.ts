@@ -43,6 +43,7 @@ export class LoginEffects {
     .ofType(fromLogin.LOGIN_SUCCESS)
     .map((action: fromLogin.LoginSuccessAction) => action.user)
     .do(({ name, industry, token, tenantId }) => {
+      this.localStorage.set('name', name)
       this.localStorage.set('token', token)
       this.localStorage.set('tenantId', tenantId)
 

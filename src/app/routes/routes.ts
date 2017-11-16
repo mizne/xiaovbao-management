@@ -8,6 +8,7 @@ import { LockComponent } from './pages/lock/lock.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { RegisterSuccessComponent } from './pages/register-success/register-success.component'
 import { ForgetComponent } from './pages/forget/forget.component'
+import { BindWechatComponent } from './pages/bind-wechat/bind-wechat.component'
 // import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 // import { Page404Component } from './pages/404/404.component';
 // import { Page500Component } from './pages/500/500.component';
@@ -85,5 +86,6 @@ export const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'forget', component: ForgetComponent, data: { translate: 'forget' } },
-  { path: 'lock', component: LockComponent, data: { translate: 'lock' } }
+  { path: 'lock', component: LockComponent, data: { translate: 'lock' } },
+  { path: 'bind-wechat', component: BindWechatComponent }
 ]
