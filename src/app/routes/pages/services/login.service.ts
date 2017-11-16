@@ -7,12 +7,6 @@ import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 import { Captcha } from '../models/captcha.model'
 import { User, ROLES } from '../models/user.model'
 
-export const errorMsgMap = {
-  10000: '用户名和密码不匹配',
-  10001: '验证码错误',
-  10002: '验证码过期，请点击验证码重新获取'
-}
-
 @Injectable()
 export class LoginService {
   private fetchCaptchaUrl = '/admin/login'
@@ -49,7 +43,7 @@ export class LoginService {
 
     return this.http
       .post(this.fetchCaptchaUrl, params)
-      .map(res => (res as any).result)
+      .map(res => (res as APIResponse).result[0])
       .map(e => ({
         name: e.name,
         role: ROLES[e.correspondingType],

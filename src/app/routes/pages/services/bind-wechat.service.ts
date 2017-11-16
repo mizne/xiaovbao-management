@@ -13,8 +13,9 @@ export class BindWechatService {
   constructor(private http: HttpClient) {}
 
   checkWechatHasBind(code: string): Observable<User> {
+    const query = `?code=${code}`
     return this.http
-      .get(this.bindWechatUrl)
+      .get(this.bindWechatUrl + query)
       .map(res => (res as APIResponse).result)
       .catch(this.handleError)
 

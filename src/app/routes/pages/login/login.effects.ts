@@ -7,11 +7,12 @@ import { Store } from '@ngrx/store'
 import { State, getCaptchaKey } from '../reducers'
 
 import * as fromLogin from './login.action'
-import { LoginService, errorMsgMap } from '../services/login.service'
+import { LoginService } from '../services/login.service'
 import { ACLService } from 'app/core/acl/acl.service'
 import { MenuService } from 'app/core/services/menu.service'
 import { LocalStorageService } from 'app/core/services/localstorage.service'
 
+import { ERROR_CODE_MAP } from '../models/user.model'
 
 @Injectable()
 export class LoginEffects {
@@ -33,7 +34,7 @@ export class LoginEffects {
         .login(name, password, captchaKey, captcha)
         .map(user => new fromLogin.LoginSuccessAction(user))
         .catch(errorMsg => {
-          const msg = errorMsgMap[errorMsg] || errorMsg
+          const msg = ERROR_CODE_MAP[errorMsg] || errorMsg
           return Observable.of(new fromLogin.LoginFailureAction(msg))
         })
     })
