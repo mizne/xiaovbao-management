@@ -51,7 +51,7 @@ export function reducer(state: State = initialState, action: Action): State {
         loading: false,
         showBindWechatForm: false,
         needShowToBindWechatBtn: true,
-        bindWechatFailureMsg: '微信帐号未绑定，请先绑定，才能更好地为您服务！'
+        bindWechatPrompt: '微信帐号未绑定，请先绑定，才能更好地为您服务！'
       }
 
     case fromBindWechat.BIND_WECHAT_SUCCESS:

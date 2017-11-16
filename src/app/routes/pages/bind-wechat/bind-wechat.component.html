@@ -48,7 +48,7 @@
         {{bindWechatPrompt$ | async}}
       </p>
     </ng-template>
-    <a class="mt-lg" *ngIf="needShowBindWechatBtn$ | async"
+    <a class="mt-lg d-block" *ngIf="needShowBindWechatBtn$ | async"
      href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx09b412b006792e2c&redirect_uri=http%3A%2F%2Fdeal.xiaovbao.cn%2Fwechatpay&response_type=code&scope=snsapi_base&state=bindWechat#wechat_redirect">
       <button nz-button [nzType]="'primary'" [nzSize]="'large'"
         class="ant-btn__block">
