@@ -61,7 +61,7 @@ export class LoginService {
         loginMode: 'wechat'
       })
       const { code } = this.utils.objFrom(location.search)
-      if (code) {
+      if (typeof code === 'string') {
         Object.assign(ret, { code })
       }
     }

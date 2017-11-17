@@ -11,16 +11,18 @@ import {
   getBindWechatPrompt,
   getShowBindWechatForm,
   getBindWechatFailureMsg,
-  getNeedShowBindWechatBtn,
+  getNeedShowBindWechatBtn
 } from '../reducers'
-import { 
+import {
   ToShowBindWechatFormAction,
-  CheckWechatHasBindAction, 
-  BindWehcatAction,
+  CheckWechatHasBindAction,
+  BindWehcatAction
 } from './bind-wechat.action'
 import { UtilsService } from 'app/core/services/utils.service'
 import { DestroyService } from 'app/core/services/destroy.service'
 import { BindWechatState } from '../models/bind-wechat.model'
+
+import * as R from 'ramda'
 
 @Component({
   selector: 'app-pages-bind-wechat',
@@ -45,10 +47,9 @@ export class BindWechatComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private store: Store<State>,
-    private util: UtilsService,
-    private destroyService: DestroyService,
-  ) {
-  }
+    private utils: UtilsService,
+    private destroyService: DestroyService
+  ) {}
 
   ngOnInit() {
     this.buildForm()
@@ -67,7 +68,7 @@ export class BindWechatComponent implements OnInit {
   private buildForm(): void {
     this.bindWechatForm = this.fb.group({
       name: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.required],
+      password: [null, Validators.required]
     })
   }
 
@@ -81,35 +82,41 @@ export class BindWechatComponent implements OnInit {
   }
 
   private initLocationSearch(): void {
-    const searchObj = this.util.objFrom(location.search)
-    this.code = searchObj.code
-    this.state = searchObj.state
+    const { code, state } = this.utils.objFrom(location.search)
+    if (typeof code === 'string') {
+      this.code = code
+    }
+    if (typeof state === 'string') {
+      this.state = state
+    }
 
     switch (this.state) {
       case BindWechatState.BIND_WECHAT:
         this.store.dispatch(new ToShowBindWechatFormAction())
-        break;
+        break
       case BindWechatState.ORDER:
-        this.store.dispatch(new CheckWechatHasBindAction({
-          code: this.code,
-          destination: this.state
-        }))
+        this.store.dispatch(
+          new CheckWechatHasBindAction({
+            code: this.code,
+            destination: this.state
+          })
+        )
         break
       default:
         console.error(`Unknwon bind wechat state: ${this.state}`)
-        break;
+        break
     }
-
   }
 
   private initSubscriber(): void {
-    this.store.select(getShowBindWechatForm)
-    .takeUntil(this.destroyService)
-    .subscribe((isFailed) => {
-      if (isFailed) {
-        this.showBindWechatForm = true
-      }
-    })
+    this.store
+      .select(getShowBindWechatForm)
+      .takeUntil(this.destroyService)
+      .subscribe(isFailed => {
+        if (isFailed) {
+          this.showBindWechatForm = true
+        }
+      })
   }
 
   getFormControl(key: string) {
