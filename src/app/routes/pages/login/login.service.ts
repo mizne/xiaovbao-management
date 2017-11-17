@@ -8,13 +8,15 @@ import { Captcha } from '../models/captcha.model'
 import { User, ROLES } from '../models/user.model'
 
 import { UADetectorService } from 'app/core/services/ua-detector.service'
+import { UtilsService } from 'app/core/services/utils.service'
 
 @Injectable()
 export class LoginService {
   private fetchCaptchaUrl = '/admin/login'
   constructor(
     private http: HttpClient,
-    private ua: UADetectorService
+    private ua: UADetectorService,
+    private utils: UtilsService
   ) {}
 
   fetchCaptcha(): Observable<Captcha> {
@@ -34,29 +36,36 @@ export class LoginService {
     captcha: string
   ): Observable<User> {
     // return Observable.of('login success').delay(1e3)
-
-    const params = {
+    const paramsAttachBrowserInfo = this.attachBrowserInfo({
       captcha,
       key: captchaKey,
       userName: name,
       password
-    }
-
-    if (this.ua.isPCBrowser()) {
-      Object.assign(params, {
-        loginMode: 'pc'
-      })
-    } else if (this.ua.isWechat()) {
-      Object.assign(params, {
-        loginMode: 'wechat'
-      })
-    }
+    })
 
     return this.http
-      .post(this.fetchCaptchaUrl, params)
+      .post(this.fetchCaptchaUrl, paramsAttachBrowserInfo)
       .map(res => (res as APIResponse).result[0])
       .map(User.convertFromResp)
       .catch(this.handleError)
+  }
+
+  private attachBrowserInfo(originalParams: { [key: string]: string }) {
+    const ret = { ...originalParams }
+    if (this.ua.isPCBrowser()) {
+      Object.assign(ret, {
+        loginMode: 'pc'
+      })
+    } else if (this.ua.isWechat()) {
+      Object.assign(ret, {
+        loginMode: 'wechat'
+      })
+      const { code } = this.utils.objFrom(location.search)
+      if (code) {
+        Object.assign(ret, { code })
+      }
+    }
+    return ret
   }
 
   private handleError(error: any) {

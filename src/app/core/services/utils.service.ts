@@ -5,12 +5,24 @@ declare const qq: any
 @Injectable()
 export class UtilsService {
   constructor() {}
-
+  /**
+ * 获取 验证电话号码的 正则
+ * 
+ * @readonly
+ * @type {RegExp}
+ * @memberof UtilsService
+ */
   get phoneRe(): RegExp {
     return /^1[0-9]{10}$/
   }
-
-  objFrom(search) {
+  /**
+ * 将location的search参数 转化为 键值对的对象结构
+ * 
+ * @param {string} search 
+ * @returns {{[key: string]: string}} 
+ * @memberof UtilsService
+ */
+  objFrom(search: string): { [key: string]: string | string[] } {
     if (!search) {
       return {}
     }
@@ -27,7 +39,12 @@ export class UtilsService {
       return accu
     }, {})
   }
-
+  /**
+ * 获取当前用户的qq地图 位置经纬度
+ * 
+ * @returns {Promise<{ lat: number; lng: number }>} 
+ * @memberof UtilsService
+ */
   fetchQQLatLng(): Promise<{ lat: number; lng: number }> {
     return new Promise((resolve, reject) => {
       if ('geolocation' in navigator) {
