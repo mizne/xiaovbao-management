@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import * as uaDetector from '../ua-detector'
+import * as uaDetector from 'ua-discover'
 
 @Injectable()
 export class UADetectorService {

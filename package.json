@@ -40,6 +40,7 @@
     "screenfull": "^3.3.1",
     "simple-line-icons": "^2.4.1",
     "store": "^2.0.12",
+    "ua-discover": "^1.0.0",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
