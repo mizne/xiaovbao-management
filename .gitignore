@@ -11,6 +11,9 @@
 # config
 /src/config
 
+# environments
+/src/environments
+
 # IDEs and editors
 /.idea
 .project
