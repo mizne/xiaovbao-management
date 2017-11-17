@@ -7,10 +7,15 @@ import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 import { Captcha } from '../models/captcha.model'
 import { User, ROLES } from '../models/user.model'
 
+import { UADetectorService } from 'app/core/services/ua-detector.service'
+
 @Injectable()
 export class LoginService {
   private fetchCaptchaUrl = '/admin/login'
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private ua: UADetectorService
+  ) {}
 
   fetchCaptcha(): Observable<Captcha> {
     return this.http
@@ -37,9 +42,15 @@ export class LoginService {
       password
     }
 
-    Object.assign(params, {
-      loginMode: 'pc'
-    })
+    if (this.ua.isPCBrowser()) {
+      Object.assign(params, {
+        loginMode: 'pc'
+      })
+    } else if (this.ua.isWechat()) {
+      Object.assign(params, {
+        loginMode: 'wechat'
+      })
+    }
 
     return this.http
       .post(this.fetchCaptchaUrl, params)

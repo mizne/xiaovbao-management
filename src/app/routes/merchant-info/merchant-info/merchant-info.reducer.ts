@@ -1,54 +1,49 @@
-import * as fromManagementAnalysis from './merchant-info.action'
-import { Statistics } from '../../dashboard/models/statistics.model'
+import * as fromMerchantInfo from './merchant-info.action'
+import { MerchantInfo } from '../models/merchat-info.model'
 
 export interface State {
   loading: boolean
-  todayStatistics: Statistics[]
-  monthStatisstics: Statistics[]
-  yearStatistics: Statistics[]
+  merchantInfo: MerchantInfo
 }
+
 
 const initialState: State = {
   loading: false,
-  todayStatistics: [],
-  monthStatisstics: [],
-  yearStatistics: []
+  merchantInfo: null
 }
 
 export function reducer(
   state: State = initialState,
-  action: fromManagementAnalysis.Actions
+  action: fromMerchantInfo.Actions
 ): State {
   switch (action.type) {
-    // case fromManagementAnalysis.FETCH_TODAY_STATISTICS:
-    //   return {
-    //     ...state,
-    //     loading: true
-    //   }
-    // case fromManagementAnalysis.FETCH_TODAY_STATISTICS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     todayStatistics: action.statistics
-    //   }
-    // case fromManagementAnalysis.FETCH_MONTH_STATISTICS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     monthStatisstics: action.statistics
-    //   }
-    // case fromManagementAnalysis.FETCH_YEAR_STATISTICS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     yearStatistics: action.statistics
-    //   }
-    // case fromManagementAnalysis.FETCH_TODAY_STATISTICS_FAILURE:
-    // case fromManagementAnalysis.FETCH_MONTH_STATISTICS_FAILURE: 
-    // case fromManagementAnalysis.FETCH_YEAR_STATISTICS_FAILURE: 
-    //   return {
-    //     ...state,
-    //     loading: false
-    //   }
+    case fromMerchantInfo.FETCH_MERCHANT_INFO:
+      return {
+        ...state,
+        loading: true
+      }
+    case fromMerchantInfo.FETCH_MERCHANT_INFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        merchantInfo: action.merchantInfo
+      }
+    case fromMerchantInfo.FETCH_MERCHANT_INFO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+      }
+    case fromMerchantInfo.EDIT_MERCHANT_INFO:
+      return {
+        ...state,
+        loading: true
+      }
+    case fromMerchantInfo.EDIT_MERCHANT_INFO_SUCCESS:
+    case fromMerchantInfo.EDIT_MERCHANT_INFO_FAILURE: 
+      return {
+        ...state,
+        loading: false
+      }
 
     default:
       return state
@@ -56,6 +51,4 @@ export function reducer(
 }
 
 export const getLoading = (state: State) => state.loading
-export const getTodayStatistics = (state: State) => state.todayStatistics
-export const getMonthStatistics = (state: State) => state.monthStatisstics
-export const getYearStatistics = (state: State) => state.yearStatistics
+export const getMerchantInfo = (state: State) => state.merchantInfo

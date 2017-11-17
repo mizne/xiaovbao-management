@@ -8,6 +8,8 @@ import { MerchantInfo, MerchantInfoResp } from './models/merchat-info.model'
 @Injectable()
 export class MerchantInfoService {
   private merchantInfoUrl = '/admin/deal/tenantInfo'
+  private changePasswordUrl = '/admin/changePassword'
+
   constructor(private http: HttpClient) {}
 
   fetchMerchantInfo(
@@ -26,11 +28,25 @@ export class MerchantInfoService {
     // }).delay(3e3)
   }
 
-  updateMerchantInfp(tenantId: string, merchantInfo: MerchantInfo): Observable<any> {
-    return this.http.post(this.merchantInfoUrl, MerchantInfo.convertFromModel(merchantInfo))
+  editMerchantInfo(tenantId: string, merchantInfo: MerchantInfo): Observable<any> {
+    return this.http.put(this.merchantInfoUrl, {
+      tenantConfig: MerchantInfo.convertFromModel(merchantInfo),
+      condition: {
+        tenantId
+      }
+    })
     .map(res => (res as APIResponse).result)
     .catch(this.handleError)
+  }
 
+  changePassword(tenantId: string, oldPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(this.changePasswordUrl, {
+      oldPassword,
+      newPassword,
+      tenantId
+    })
+    .map(res => (res as APIResponse).result)
+    .catch(this.handleError)
   }
 
   private handleError(error: any) {

@@ -10,7 +10,7 @@ import { MerchantInfoEffects } from './merchant-info/merchant-info.effects'
 import { MerchantInfoComponent } from './merchant-info/merchant-info.component'
 
 import { MerchantInfoService } from './merchat-info.service'
-import { environment } from '../../../environments/environment'
+import { qqMapAPiKey } from '../../../config'
 
 const modals = [
 ]
@@ -27,7 +27,7 @@ const routes: Routes = [
   imports: [
     SharedModule,
     AqmModule.forRoot({
-      apiKey: environment.qqMapAPiKey
+      apiKey: qqMapAPiKey
     }),
     RouterModule.forChild(routes),
     StoreModule.forFeature('merchantInfo', reducers),

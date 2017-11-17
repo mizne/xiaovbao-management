@@ -4,5 +4,4 @@ export const environment = {
   loggerLevel: 6,
   production: true,
   hmr: false,
-  qqMapAPiKey: 'P2KBZ-AEUCF-4VFJP-JLLMO-NXG4K-J7B2T'
 }

@@ -19,6 +19,7 @@ import { LoggerFactory } from './services/logger.service'
 import { StatisticsService } from './services/statistics.service'
 import { UtilsService } from './services/utils.service'
 import { TenantService } from './services/tenant.service'
+import { UADetectorService } from './services/ua-detector.service'
 
 @NgModule({
   imports: [],
@@ -40,6 +41,7 @@ import { TenantService } from './services/tenant.service'
     StatisticsService,
     UtilsService,
     TenantService,
+    UADetectorService,
   ],
   declarations: [],
   exports: []

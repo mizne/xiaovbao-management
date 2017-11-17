@@ -20,5 +20,13 @@ export const getMerchantInfoState = createSelector(
   getMerchantInfoModule, 
   (state: MerchantInfoState) => state.merchantInfo
 )
+export const getMerchantInfo = createSelector(
+  getMerchantInfoState,
+  fromMerchantInfo.getMerchantInfo
+)
+export const getLoading = createSelector(
+  getMerchantInfoState,
+  fromMerchantInfo.getLoading
+)
 
 
