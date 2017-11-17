@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store'
 import { State, getCaptchaKey } from '../reducers'
 
 import * as fromRegister from './register.action'
-import { RegisterService } from '../services/register.service'
+import { RegisterService } from './register.service'
 
 import { ACLService } from 'app/core/acl/acl.service'
 import { MenuService } from 'app/core/services/menu.service'

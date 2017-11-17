@@ -52,12 +52,11 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
     private utils: UtilsService,
     private zone: NgZone
   ) {
-
-
-    
   }
 
   onReady(mapNative: any) {
+    this.fetchLatLng()
+
     mapNative.setOptions({
       zoom: 12,
       center: new qq.maps.LatLng(this.currentLatLng.lat, this.currentLatLng.lng)
@@ -126,7 +125,7 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.fetchLatLng()
+    
     this.buildForm()
     this.initUploader()
     this.initSubscriber()

@@ -96,6 +96,14 @@
               <aqm-map #map [options]="mapOptions" (ready)="onReady($event)" style="height:500px;"></aqm-map>
             </div>
 
+            <div nz-form-item nz-row>
+              <div nz-col [nzSpan]="24">
+                <button nz-button [nzLoading]="loading$ | async" [nzType]="'primary'" [nzSize]="'large'" class="ant-btn__block">
+                  <span>保存</span>
+                </button>
+              </div>
+            </div>
+
           </form>
         </div>
         <div nz-col [nzSpan]="8">

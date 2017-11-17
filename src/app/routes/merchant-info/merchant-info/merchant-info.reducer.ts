@@ -20,35 +20,35 @@ export function reducer(
   action: fromManagementAnalysis.Actions
 ): State {
   switch (action.type) {
-    case fromManagementAnalysis.FETCH_TODAY_STATISTICS:
-      return {
-        ...state,
-        loading: true
-      }
-    case fromManagementAnalysis.FETCH_TODAY_STATISTICS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        todayStatistics: action.statistics
-      }
-    case fromManagementAnalysis.FETCH_MONTH_STATISTICS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        monthStatisstics: action.statistics
-      }
-    case fromManagementAnalysis.FETCH_YEAR_STATISTICS_SUCCESS:
-      return {
-        ...state,
-        yearStatistics: action.statistics
-      }
-    case fromManagementAnalysis.FETCH_TODAY_STATISTICS_FAILURE:
-    case fromManagementAnalysis.FETCH_MONTH_STATISTICS_FAILURE: 
-    case fromManagementAnalysis.FETCH_YEAR_STATISTICS_FAILURE: 
-      return {
-        ...state,
-        loading: false
-      }
+    // case fromManagementAnalysis.FETCH_TODAY_STATISTICS:
+    //   return {
+    //     ...state,
+    //     loading: true
+    //   }
+    // case fromManagementAnalysis.FETCH_TODAY_STATISTICS_SUCCESS:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     todayStatistics: action.statistics
+    //   }
+    // case fromManagementAnalysis.FETCH_MONTH_STATISTICS_SUCCESS:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     monthStatisstics: action.statistics
+    //   }
+    // case fromManagementAnalysis.FETCH_YEAR_STATISTICS_SUCCESS:
+    //   return {
+    //     ...state,
+    //     yearStatistics: action.statistics
+    //   }
+    // case fromManagementAnalysis.FETCH_TODAY_STATISTICS_FAILURE:
+    // case fromManagementAnalysis.FETCH_MONTH_STATISTICS_FAILURE: 
+    // case fromManagementAnalysis.FETCH_YEAR_STATISTICS_FAILURE: 
+    //   return {
+    //     ...state,
+    //     loading: false
+    //   }
 
     default:
       return state

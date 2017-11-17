@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store'
 import { State, getCaptchaKey } from '../reducers'
 
 import * as fromLogin from './login.action'
-import { LoginService } from '../services/login.service'
+import { LoginService } from './login.service'
 import { ACLService } from 'app/core/acl/acl.service'
 import { MenuService } from 'app/core/services/menu.service'
 import { TenantService } from 'app/core/services/tenant.service'

@@ -14,7 +14,7 @@ import { NzModalService } from 'ng-zorro-antd'
 
 import { Observable } from 'rxjs/Observable'
 
-import { LoginService } from 'app/routes/pages/services/login.service'
+import { LoginService } from 'app/routes/pages/login/login.service'
 
 import { environment } from '../../../environments/environment'
 

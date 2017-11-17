@@ -24,57 +24,67 @@ export const routes: Routes = [
       { path: 'dashboard', redirectTo: 'index-page', pathMatch: 'full' },
       {
         path: 'index-page',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
+        loadChildren: './dashboard/dashboard.module#DashboardModule',
+        data: { translate: 'index-page' }
       },
       {
         path: 'activity-management',
         loadChildren:
-          './activity-management/activity-management.module#ActivityManagementModule'
+          './activity-management/activity-management.module#ActivityManagementModule',
+        data: { translate: 'activity-management' }
       },
       {
         path: 'interactive-marketing',
         loadChildren:
-          './interactive-marketing/interactive-marketing.module#InteractiveMarketingModule'
+          './interactive-marketing/interactive-marketing.module#InteractiveMarketingModule',
+          data: { translate: 'interactive-marketing' }
       },
       {
         path: 'goods-management',
         loadChildren:
-          './goods-management/goods-management.module#GoodsManagementModule'
+          './goods-management/goods-management.module#GoodsManagementModule',
+          data: { translate: 'goods-management' }
       },
       {
         path: 'order-management',
         loadChildren:
-          './order-management/order-management.module#OrderManagementModule'
+          './order-management/order-management.module#OrderManagementModule',
+          data: { translate: 'order-management' }
       },
       {
         path: 'jinxiaocun-management',
         loadChildren:
-          './jinxiaocun-management/jinxiaocun-management.module#JinXiaoCunManagementModule'
+          './jinxiaocun-management/jinxiaocun-management.module#JinXiaoCunManagementModule',
+          data: { translate: 'jinxiaocun-management' }
       },
       {
         path: 'customer-management',
         loadChildren:
-          './customer-management/customer-management.module#CustomerManagementModule'
+          './customer-management/customer-management.module#CustomerManagementModule',
+          data: { translate: 'customer-management' }
       },
       {
         path: 'qrcode-management',
         loadChildren:
-          './qrcode-management/qrcode-management.module#QrcodeManagementModule'
+          './qrcode-management/qrcode-management.module#QrcodeManagementModule',
+          data: { translate: 'qrcode-management' }
       },
       {
         path: 'precise-analysis',
         loadChildren:
-          './precise-analysis/precise-analysis.module#PreciseAnalysisModule'
+          './precise-analysis/precise-analysis.module#PreciseAnalysisModule',
+          data: { translate: 'precise-analysis' }
       },
       {
         path: 'management-analysis',
         loadChildren:
-          './management-analysis/management-analysis.module#ManagementAnalysisModule'
+          './management-analysis/management-analysis.module#ManagementAnalysisModule',
+          data: { translate: 'management-analysis' }
       },
       {
         path: 'merchant-info',
-        loadChildren:
-          './merchant-info/merchant-info.module#MerchantInfoModule'
+        loadChildren: './merchant-info/merchant-info.module#MerchantInfoModule',
+        data: { translate: 'merchant-info' }
       }
     ]
   },
@@ -89,8 +99,24 @@ export const routes: Routes = [
     component: RegisterSuccessComponent,
     data: { translate: 'register-success' }
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'forget', component: ForgetComponent, data: { translate: 'forget' } },
-  { path: 'lock', component: LockComponent, data: { translate: 'lock' } },
-  { path: 'bind-wechat', component: BindWechatComponent }
+  { 
+    path: 'login', 
+    component: LoginComponent,
+    data: { translate: 'login' }
+   },
+  { 
+    path: 'forget', 
+    component: ForgetComponent, 
+    data: { translate: 'forget' } 
+  },
+  { 
+    path: 'lock', 
+    component: LockComponent, 
+    data: { translate: 'lock' } 
+  },
+  { 
+    path: 'bind-wechat', 
+    component: BindWechatComponent,
+    data: { translate: 'bind-wechat' }
+   }
 ]

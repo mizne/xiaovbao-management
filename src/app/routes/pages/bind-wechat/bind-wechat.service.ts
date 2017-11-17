@@ -20,14 +20,6 @@ export class BindWechatService {
       .map(res => (res as APIResponse).result[0])
       .map(User.convertFromResp)
       .catch(this.handleError)
-
-    // return Observable.of({
-    //   name: 'testName',
-    //   industry: 'hotel',
-    //   token: 'testToken',
-    //   tenantId: '33333ce0f7e31d8b92c4472a8ad3eeb3'
-    // }).delay(4e3)
-    // .mergeMap(() => Observable.throw('fake failed'))
   }
 
   bindWechat(
@@ -46,14 +38,6 @@ export class BindWechatService {
       .map(res => (res as APIResponse).result[0])
       .map(User.convertFromResp)
       .catch(this.handleError)
-
-    // return Observable.of({
-    //   name: 'testName',
-    //   industry: 'hotel',
-    //   token: 'testToken',
-    //   tenantId: '33333ce0f7e31d8b92c4472a8ad3eeb3'
-    // }).delay(4e3)
-    // .mergeMap(() => Observable.throw('error'))
   }
 
   private handleError(error: any) {

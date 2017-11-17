@@ -46,14 +46,14 @@ export class AppComponent implements OnInit {
         })
         .filter((route) => route.outlet === 'primary')
         .mergeMap((route) => route.data)
-        .subscribe(event => {
-          let t = event['translate'];
-          if (t) {
-            t = this.tsServ.fanyi(t);
+        .subscribe(data => {
+          let title = data['translate'];
+          if (title) {
+            title = this.tsServ.fanyi(title);
           } else {
-            t = event['title'];
+            title = data['title'];
           }
-          this.titleSrv.setTitle('小v宝智能管理系统');
+          this.titleSrv.setTitle(title || '小V宝智能管理系统');
         });
   }
 

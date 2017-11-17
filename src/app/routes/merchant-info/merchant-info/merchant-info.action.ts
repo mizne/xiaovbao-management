@@ -1,67 +1,48 @@
 import { Action } from '@ngrx/store'
-import { Statistics } from '../../dashboard/models/statistics.model'
+import { MerchantInfo } from '../models/merchat-info.model'
 
-export const FETCH_TODAY_STATISTICS = '[MerchantInfo] Fetch Today Statistics'
-export const FETCH_TODAY_STATISTICS_SUCCESS = '[MerchantInfo] Fetch Today Statistics Success'
-export const FETCH_TODAY_STATISTICS_FAILURE = '[MerchantInfo] Fetch Today Statistics Failure'
+export const FETCH_MERCHANT_INFO = '[MerchantInfo] Fetch Merchant Info'
+export const FETCH_MERCHANT_INFO_SUCCESS = '[MerchantInfo] Fetch Merchant Info Success'
+export const FETCH_MERCHANT_INFO_FAILURE = '[MerchantInfo] Fetch Merchant Info Failure'
 
-export const FETCH_MONTH_STATISTICS = '[MerchantInfo] Fetch Month Statistics'
-export const FETCH_MONTH_STATISTICS_SUCCESS = '[MerchantInfo] Fetch Month Statistics Success'
-export const FETCH_MONTH_STATISTICS_FAILURE = '[MerchantInfo] Fetch Month Statistics Failure'
+export const EDIT_MERCHANT_INFO = '[MerchantInfo] Edit Merchant Info'
+export const EDIT_MERCHANT_INFO_SUCCESS = '[MerchantInfo] Edit Merchant Info Success'
+export const EDIT_MERCHANT_INFO_FAILURE = '[MerchantInfo] Edit Merchant Info Failure'
 
-export const FETCH_YEAR_STATISTICS = '[MerchantInfo] Fetch Year Statistics'
-export const FETCH_YEAR_STATISTICS_SUCCESS = '[MerchantInfo] Fetch Year Statistics Success'
-export const FETCH_YEAR_STATISTICS_FAILURE = '[MerchantInfo] Fetch Year Statistics Failure'
 
-export class FectchTodayStatisticsAction implements Action {
-  readonly type = FETCH_TODAY_STATISTICS
-  constructor() {}
+export class FetchMerchantInfoAction implements Action {
+  readonly type = FETCH_MERCHANT_INFO
 }
-export class FetchTodayStatisticsSuccessAction implements Action {
-  readonly type = FETCH_TODAY_STATISTICS_SUCCESS
-  constructor(public statistics: Statistics[]) {}
+export class FetchMerchantInfoSuccessAction implements Action {
+  readonly type = FETCH_MERCHANT_INFO_SUCCESS
+  constructor(public merchantInfo: MerchantInfo) {}
 }
-export class FetchTodayStatisticsFailureAction implements Action {
-  readonly type = FETCH_TODAY_STATISTICS_FAILURE
+export class FetchMerchantInfoFailureAction implements Action {
+  readonly type = FETCH_MERCHANT_INFO_FAILURE
 }
 
 
-export class FectchMonthStatisticsAction implements Action {
-  readonly type = FETCH_MONTH_STATISTICS
-  constructor() {}
+export class EditMerchantInfoAction implements Action {
+  readonly type = EDIT_MERCHANT_INFO
+  constructor(public merchantInfo: MerchantInfo) {}
 }
-export class FetchMonthStatisticsSuccessAction implements Action {
-  readonly type = FETCH_MONTH_STATISTICS_SUCCESS
-  constructor(public statistics: Statistics[]) {}
+export class EditMerchatInfoSuccessAction implements Action {
+  readonly type = EDIT_MERCHANT_INFO_SUCCESS
 }
-export class FetchMonthStatisticsFailureAction implements Action {
-  readonly type = FETCH_MONTH_STATISTICS_FAILURE
-}
-
-
-export class FectchYearStatisticsAction implements Action {
-  readonly type = FETCH_YEAR_STATISTICS
-  constructor() {}
-}
-export class FetchYearStatisticsSuccessAction implements Action {
-  readonly type = FETCH_YEAR_STATISTICS_SUCCESS
-  constructor(public statistics: Statistics[]) {}
-}
-export class FetchYearStatisticsFailureAction implements Action {
-  readonly type = FETCH_YEAR_STATISTICS_FAILURE
+export class EditMerchantInfoFailureAction implements Action {
+  readonly type = EDIT_MERCHANT_INFO_FAILURE
 }
 
 
 
 export type Actions =
-FectchTodayStatisticsAction |
-FetchTodayStatisticsSuccessAction |
-FetchTodayStatisticsFailureAction |
+FetchMerchantInfoAction |
+FetchMerchantInfoSuccessAction |
+FetchMerchantInfoFailureAction |
 
-FectchMonthStatisticsAction |
-FetchMonthStatisticsSuccessAction |
-FetchMonthStatisticsFailureAction |
+EditMerchantInfoAction |
+EditMerchatInfoSuccessAction |
+EditMerchantInfoFailureAction
 
-FectchYearStatisticsAction |
-FetchYearStatisticsSuccessAction |
-FetchYearStatisticsFailureAction
+
+

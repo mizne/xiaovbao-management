@@ -8,11 +8,12 @@ import { Store } from '@ngrx/store'
 import { State, getCaptchaKey } from '../reducers'
 
 import * as fromBindWechat from './bind-wechat.action'
-import { BindWechatService } from '../services/bind-wechat.service'
+import { BindWechatService } from './bind-wechat.service'
 import { ACLService } from 'app/core/acl/acl.service'
 import { MenuService } from 'app/core/services/menu.service'
 import { TenantService } from 'app/core/services/tenant.service'
 import { TitleService } from 'app/core/services/title.service'
+import { SettingsService } from 'app/core/services/settings.service'
 import { DESTINATION_MAP } from '../models/bind-wechat.model'
 
 @Injectable()
@@ -46,8 +47,8 @@ export class BindWechatEffects {
     .do(({ user, destination }) => {
       // this.notify.success('微信帐号绑定', '您已成功绑定，马上跳转页面！')
       this.tenantService.login(user)
-      this.router.navigate([DESTINATION_MAP[destination]])
-      
+      this.router.navigate([DESTINATION_MAP[destination]], { replaceUrl: true })
+      this.settings.setLayout('collapsed', true)
     })
 
   @Effect({ dispatch: false })
@@ -105,6 +106,7 @@ export class BindWechatEffects {
     private aclService: ACLService,
     private menuService: MenuService,
     private tenantService: TenantService,
+    private settings: SettingsService,
     private notify: NzNotificationService,
     private titleService: TitleService
   ) {}

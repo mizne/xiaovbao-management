@@ -10,29 +10,29 @@ import { TenantService } from 'app/core/services/tenant.service'
 
 @Injectable()
 export class MerchantInfoEffects {
-  @Effect()
-  fetchTodayStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_TODAY_STATISTICS)
-  .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfToday(this.tenantService.tenantId)
-    .map(statistics => new fromManagementAnalysis.FetchTodayStatisticsSuccessAction(statistics))
-    .catch(e => Observable.of(new fromManagementAnalysis.FetchTodayStatisticsFailureAction()))
-  })
+  // @Effect()
+  // fetchTodayStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_TODAY_STATISTICS)
+  // .switchMap(() => {
+  //   return this.statisticsService.fetchOrderStatisticsOfToday(this.tenantService.tenantId)
+  //   .map(statistics => new fromManagementAnalysis.FetchTodayStatisticsSuccessAction(statistics))
+  //   .catch(e => Observable.of(new fromManagementAnalysis.FetchTodayStatisticsFailureAction()))
+  // })
 
-  @Effect()
-  fetchMonthStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_MONTH_STATISTICS)
-  .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.tenantService.tenantId)
-    .map(statistics => new fromManagementAnalysis.FetchMonthStatisticsSuccessAction(statistics))
-    .catch(e => Observable.of(new fromManagementAnalysis.FetchMonthStatisticsFailureAction()))
-  })
+  // @Effect()
+  // fetchMonthStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_MONTH_STATISTICS)
+  // .switchMap(() => {
+  //   return this.statisticsService.fetchOrderStatisticsOfThisMonth(this.tenantService.tenantId)
+  //   .map(statistics => new fromManagementAnalysis.FetchMonthStatisticsSuccessAction(statistics))
+  //   .catch(e => Observable.of(new fromManagementAnalysis.FetchMonthStatisticsFailureAction()))
+  // })
 
-  @Effect()
-  fetchYearStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_YEAR_STATISTICS)
-  .switchMap(() => {
-    return this.statisticsService.fetchOrderStatisticsOfThisYear(this.tenantService.tenantId)
-    .map(statistics => new fromManagementAnalysis.FetchYearStatisticsSuccessAction(statistics))
-    .catch(e => Observable.of(new fromManagementAnalysis.FetchYearStatisticsFailureAction()))
-  })
+  // @Effect()
+  // fetchYearStatistics$ = this.actions$.ofType(fromManagementAnalysis.FETCH_YEAR_STATISTICS)
+  // .switchMap(() => {
+  //   return this.statisticsService.fetchOrderStatisticsOfThisYear(this.tenantService.tenantId)
+  //   .map(statistics => new fromManagementAnalysis.FetchYearStatisticsSuccessAction(statistics))
+  //   .catch(e => Observable.of(new fromManagementAnalysis.FetchYearStatisticsFailureAction()))
+  // })
 
 
   constructor(
