@@ -5686,9 +5686,9 @@ typescript@^2.3.3, typescript@^2.4.2:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.1.tgz#ef39cdea27abac0b500242d6726ab90e0c846631"
 
-ua-discover@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ua-discover/-/ua-discover-1.0.1.tgz#27340ce5c6ace13d420fb648f95362d86a999f8b"
+ua-discover@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/ua-discover/-/ua-discover-0.0.1.tgz#a94efd521d2d3273f7db207e4f126285090c4167"
 
 uglify-es@^3.1.3:
   version "3.1.9"
