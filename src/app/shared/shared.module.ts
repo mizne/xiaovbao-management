@@ -13,6 +13,9 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { MomentPipe } from './pipes/moment.pipe';
 import { OrderStatusPipe } from './pipes/order-status.pipe';
+
+import { AppPhantomDirective } from './directives/phantom.directive'
+
 import { WrapTableComponent } from './components/wrap-table/wrap-table.component'
 
 
@@ -127,7 +130,7 @@ const components = [
 ]
 
 const directives = [
-
+  AppPhantomDirective,
 ]
 
 @NgModule({
