@@ -18,7 +18,7 @@ export class MerchantInfoService {
     const query = `?tenantId=${tenantId}`
     
     return this.http.get(this.merchantInfoUrl + query)
-    .map(res => (res as APIResponse).result as MerchantInfoResp)
+    .map(res => (res as APIResponse).result[0] as MerchantInfoResp)
     .map(MerchantInfo.convertFromResp)
     .catch(this.handleError)
 

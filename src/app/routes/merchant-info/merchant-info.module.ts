@@ -8,11 +8,13 @@ import { reducers } from './reducers'
 import { MerchantInfoEffects } from './merchant-info/merchant-info.effects'
 
 import { MerchantInfoComponent } from './merchant-info/merchant-info.component'
+import { BindWechatModalComponent } from './modals/bind-wechat-modal.component'
 
 import { MerchantInfoService } from './merchat-info.service'
-import { qqMapAPiKey } from '../../../config'
+import { QQ_MAP_API_KEY } from '../../../config'
 
 const modals = [
+  BindWechatModalComponent
 ]
 
 const effects = [
@@ -27,7 +29,7 @@ const routes: Routes = [
   imports: [
     SharedModule,
     AqmModule.forRoot({
-      apiKey: qqMapAPiKey
+      apiKey: QQ_MAP_API_KEY
     }),
     RouterModule.forChild(routes),
     StoreModule.forFeature('merchantInfo', reducers),

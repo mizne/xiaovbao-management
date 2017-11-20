@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgZorroAntdExtraModule } from 'ng-zorro-antd-extra'
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { MomentPipe } from './pipes/moment.pipe';
@@ -136,6 +137,7 @@ const directives = [
         ReactiveFormsModule,
         FileUploadModule,
         ChartsModule,
+        // NgxQRCodeModule,
         ...ZORROMODULES,
         NgZorroAntdExtraModule.forRoot(),
     ],
@@ -156,6 +158,7 @@ const directives = [
         TranslateModule,
         FileUploadModule,
         ChartsModule,
+        NgxQRCodeModule,
         ...pipes,
         ...components,
         ...directives
