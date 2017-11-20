@@ -35,7 +35,8 @@ export function reducer(
     case fromGoods.FETCH_GOODS:
       return {
         ...state,
-        loading: true
+        loading: true,
+        goods: []
       }
     case fromGoods.FETCH_GOODS_SUCCESS:
       return {
@@ -46,7 +47,8 @@ export function reducer(
     case fromGoods.FETCH_GOODS_FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        goods: []
       }
     case fromGoods.FETCH_GOODS_COUNT_SUCCESS:
       return {

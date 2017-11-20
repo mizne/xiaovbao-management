@@ -21,7 +21,8 @@ export function reducer(
     case fromOrder.FETCH_ORDERS:
       return {
         ...state,
-        loading: true
+        loading: true,
+        orders: []
       }
     case fromOrder.FETCH_ORDERS_SUCCESS:
       return {
@@ -32,14 +33,15 @@ export function reducer(
     case fromOrder.FETCH_ORDERS_FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        orders: []
       }
     case fromOrder.FETCH_ORDERS_COUNT_SUCCESS:
       return {
         ...state,
         orderTotalCount: action.count
       }
-    
+
     default:
       return state
   }
