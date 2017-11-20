@@ -40,7 +40,9 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
   updateMerchantFormSub: Subject<MerchantInfo> = new Subject<MerchantInfo>()
 
   passwordForm: FormGroup
-  changePasswordFormSub: Subject<ChangePasswordParams> = new Subject<ChangePasswordParams>()
+  changePasswordFormSub: Subject<ChangePasswordParams> = new Subject<
+    ChangePasswordParams
+  >()
 
   loading$: Observable<boolean>
   hasBindWechat$: Observable<boolean>
@@ -71,7 +73,7 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
     private store: Store<State>,
     private destoryService: DestroyService,
     private ua: UADetectorService,
-    private modalService: NzModalService,
+    private modalService: NzModalService
   ) {}
 
   onReady(mapNative: any): void {
@@ -238,40 +240,41 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
     // 如果不是微信浏览器 则 弹框提醒用户用微信扫描二维码 去绑定微信页面
 
     const bindWechat$: Observable<{
-      hasBind: boolean,
+      hasBind: boolean
       isWechatBrowser: boolean
-    }> = this.bindWechatSub.asObservable()
-    .withLatestFrom(this.hasBindWechat$, (_, hasBindWechat) => hasBindWechat)
-    .map(hasBind => {
-      return {
-        hasBind,
-        isWechatBrowser: this.ua.isWechat()
-      }
-    })
-    .takeUntil(this.destoryService)
+    }> = this.bindWechatSub
+      .asObservable()
+      .withLatestFrom(this.hasBindWechat$, (_, hasBindWechat) => hasBindWechat)
+      .map(hasBind => {
+        return {
+          hasBind,
+          isWechatBrowser: this.ua.isWechat()
+        }
+      })
+      .takeUntil(this.destoryService)
 
     const inWechatBrowser$ = bindWechat$.filter(e => e.isWechatBrowser)
     const notInWechatBrowser$ = bindWechat$.filter(e => !e.isWechatBrowser)
 
-    inWechatBrowser$.subscribe(() => {
+    inWechatBrowser$.takeUntil(this.destoryService).subscribe(() => {
       window.location.href = BIND_WECHAT_HREF
     })
 
-    notInWechatBrowser$.subscribe(() => {
-      console.log('not in wechat browser to bind wechat')
-
-      this.modalService.open({
-        title: '请用微信扫描二维码',
-        content: BindWechatModalComponent,
-        footer: false,
+    notInWechatBrowser$
+      .switchMap(() => {
+        return this.modalService.open({
+          title: '请用微信扫描二维码',
+          content: BindWechatModalComponent,
+          footer: false
+        })
       })
-      .subscribe((s) => {
+      .takeUntil(this.destoryService)
+      .subscribe(s => {
         if (s === 'onOk') {
           console.log('on ok click')
           this.initDispatch()
         }
       })
-    })
   }
 
   private setMapCenterAndMarker(latLng): void {

@@ -135,7 +135,6 @@ const directives = [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        FileUploadModule,
         ChartsModule,
         // NgxQRCodeModule,
         ...ZORROMODULES,

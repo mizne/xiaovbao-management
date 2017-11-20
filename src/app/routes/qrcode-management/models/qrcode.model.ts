@@ -2,6 +2,7 @@ import * as R from 'ramda'
 
 export class Qrcode {
   id?: string
+  QRCodeTemplateId?: string
   bizType?: string
   consigneeId?: string
   consigneeName?: string
@@ -16,6 +17,7 @@ export class Qrcode {
   static convertFromResp(resp: QrcodeResp): Qrcode {
     return R.reject(R.isNil, {
       id: resp.id,
+      QRCodeTemplateId: resp.QRCodeTemplateId,
       bizType: resp.bizType,
       consigneeId: resp.consigneeId,
       consigneeName: resp.consigneeName,
@@ -32,6 +34,7 @@ export class Qrcode {
   static convertFromModel(qrcode: Qrcode): QrcodeResp {
     return R.reject(R.isNil, {
       id: qrcode.id,
+      QRCodeTemplateId: qrcode.QRCodeTemplateId,
       bizType: qrcode.bizType,
       consigneeId: qrcode.consigneeId,
       consigneeName: qrcode.consigneeName,
@@ -48,6 +51,7 @@ export class Qrcode {
 
 export interface QrcodeResp {
   id?: string
+  QRCodeTemplateId?: string
   bizType?: string
   consigneeId?: string
   consigneeName?: string

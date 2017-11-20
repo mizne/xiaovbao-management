@@ -64,6 +64,10 @@ export class LoginService {
       if (typeof code === 'string') {
         Object.assign(ret, { code })
       }
+    } else if (this.ua.isMobileBrowser()) {
+      Object.assign(ret, {
+        loginMode: 'mobile'
+      })
     }
     return ret
   }
