@@ -1,6 +1,8 @@
 import * as R from 'ramda'
 
 export class Qrcode {
+  static URL_PREFIX = 'https://sales.xiaovbao.cn/?id='
+
   id?: string
   QRCodeTemplateId?: string
   bizType?: string

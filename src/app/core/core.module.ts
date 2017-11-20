@@ -22,7 +22,8 @@ import { TenantService } from './services/tenant.service'
 import { UADetectorService } from './services/ua-detector.service'
 
 @NgModule({
-  imports: [],
+  imports: [
+  ],
   providers: [
     ThemesService,
     SettingsService,
