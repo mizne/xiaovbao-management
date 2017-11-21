@@ -7,7 +7,6 @@ import 'rxjs/add/observable/throw'
 import 'rxjs/add/observable/merge'
 import 'rxjs/add/observable/timer'
 
-
 import 'rxjs/add/operator/distinctUntilChanged'
 import 'rxjs/add/operator/delay'
 import 'rxjs/add/operator/takeWhile'
@@ -26,3 +25,20 @@ import 'rxjs/add/operator/repeat'
 import 'rxjs/add/operator/skip'
 import 'rxjs/add/operator/takeUntil'
 import 'rxjs/add/operator/concatMap'
+
+import { Observable } from 'rxjs/Observable'
+
+export function endWith<T>(value: T) {
+  return function(obs: Observable<T>): Observable<T> {
+    return new Observable(observer => {
+      return obs.subscribe({
+        next: pos => observer.next(pos),
+        error: ev => observer.error(ev),
+        complete: () => {
+          observer.next(value)
+          observer.complete()
+        }
+      })
+    })
+  }
+}

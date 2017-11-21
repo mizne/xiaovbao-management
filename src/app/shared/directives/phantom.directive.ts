@@ -4,11 +4,17 @@ import {
   HostListener,
   OnInit,
   ElementRef,
-  Renderer2
+  Renderer2,
+  OnDestroy
 } from '@angular/core'
 
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
+import { Subscription } from 'rxjs/Subscription'
+
+import { UADetectorService } from 'app/core/services/ua-detector.service'
+import { endWith } from 'rxjs-imports';
+
 export interface Position {
   x: number
   y: number
@@ -16,77 +22,126 @@ export interface Position {
 }
 
 @Directive({ selector: '[appPhantom]' })
-export class AppPhantomDirective implements OnInit {
+export class AppPhantomDirective implements OnInit, OnDestroy {
   @Input()
   set appPhantom(value: string) {
-    this.num = value ? Number(value) : 3
+    let num: number
+
+    if (value && !Number.isNaN(Number(value))) {
+      num = Number(value)
+    } else {
+      num = 5
+    }
+
+    this.num = num
   }
 
   private num: number
+  private els: Element[]
+  private subscriptions: Subscription[]
+  private startPos: Position
 
-  mousedownSub: Subject<MouseEvent> = new Subject<MouseEvent>()
-  mousemoveSub: Subject<MouseEvent> = new Subject<MouseEvent>()
-  mouseupSub: Subject<MouseEvent> = new Subject<MouseEvent>()
+  startSub: Subject<MouseEvent> = new Subject<MouseEvent>()
 
-  constructor(private el: ElementRef, private rd: Renderer2) {
-  }
+  constructor(
+    private el: ElementRef,
+    private rd: Renderer2,
+    private ua: UADetectorService
+  ) {}
 
   ngOnInit() {
-    const els = Array.from({ length: this.num }, () =>
+    this.initEles()
+    this.initStartPos()
+    this.initDelayDrag()
+  }
+
+  ngOnDestroy() {
+    if (this.subscriptions) {
+      this.subscriptions.forEach(sub => {
+        sub.unsubscribe()
+      })
+    }
+  }
+
+  private initEles(): void {
+    this.els = Array.from({ length: this.num }, () =>
       this.el.nativeElement.cloneNode(true)
     )
-    els.forEach(el => {
+    this.els.forEach(el => {
       this.rd.setStyle(el, 'display', 'none')
       this.rd.setStyle(el, 'z-index', '2000')
       document.body.appendChild(el)
     })
-
+  }
+  private initStartPos(): void {
     const nativeEle = this.el.nativeElement
     const { top, left } = nativeEle.getBoundingClientRect()
-    const move$: Observable<MouseEvent> = Observable.fromEvent(
+    this.startPos = {
+      x: left,
+      y: top,
+      end: false
+    }
+  }
+
+  private initDelayDrag(): void {
+    
+    const move$: Observable<MouseEvent | TouchEvent> = this.ua.isMobileBrowser() ?
+    Observable.fromEvent(
+      document,
+      'touchmove'
+    ) :
+    Observable.fromEvent(
       document,
       'mousemove'
     )
-    const mouseup$: Observable<MouseEvent> = Observable.fromEvent(
+    const end$: Observable<MouseEvent | TouchEvent> = this.ua.isMobileBrowser() ?
+    Observable.fromEvent(
+      document,
+      'touchend'
+    ) :
+    Observable.fromEvent(
       document,
       'mouseup'
     )
-    const drag$ = this.mousedownSub.mergeMap(e =>
-      move$.takeUntil(mouseup$).let(obs => {
-        return new Observable(observer => {
-          return obs.subscribe({
-            next: ev =>
-              observer.next({
-                x: (ev as MouseEvent).clientX,
-                y: (ev as MouseEvent).clientY,
-                end: false
-              }),
-            error: ev => observer.error(ev),
-            complete: () => {
-              observer.next({
-                x: left,
-                y: top,
-                end: true
-              })
-            }
-          })
-        }) as Observable<Position>
-      })
+    const drag$: Observable<Position> = this.startSub.mergeMap(e =>
+      move$.takeUntil(end$)
+      .map(ev => {
+        if (ev instanceof MouseEvent) {
+          return {
+            x: ev.clientX,
+            y: ev.clientY,
+            end: false
+          }
+        }
+        if (ev instanceof TouchEvent) {
+          return {
+            x: ev.changedTouches[0].clientX,
+            y: ev.changedTouches[0].clientY,
+            end: false
+          }
+        }
+      }).let(endWith({
+        x: this.startPos.x,
+        y: this.startPos.y,
+        end: true
+      }))
     )
+    // .do(pos => {
+    //   console.log(pos)
+    // })
 
     const delayDrags$ = Array.from({ length: this.num }, (_, i) =>
       drag$.delay(i * 1e2)
     )
-
-    delayDrags$.forEach((d$, i) => {
-      d$.subscribe(pos => {
-        this.rd.setStyle(els[i], 'top', pos.y + 'px')
-        this.rd.setStyle(els[i], 'left', pos.x + 'px')
+    this.subscriptions = delayDrags$.map((d$, i) => {
+      return d$.subscribe(pos => {
+        this.rd.setStyle(this.els[i], 'top', pos.y + 'px')
+        this.rd.setStyle(this.els[i], 'left', pos.x + 'px')
         if (pos.end) {
-          this.rd.setStyle(els[i], 'display', 'none')
+          this.rd.setStyle(this.els[i], 'display', 'none')
         } else {
-          this.rd.setStyle(els[i], 'display', 'block')
-          this.rd.setStyle(els[i], 'position', 'absolute')
+          this.rd.setStyle(this.els[i], 'display', 'block')
+          this.rd.setStyle(this.els[i], 'position', 'absolute')
         }
       })
     })
@@ -94,12 +149,13 @@ export class AppPhantomDirective implements OnInit {
 
   @HostListener('mousedown', ['$event'])
   mousedownHandler(ev) {
-    this.mousedownSub.next(ev)
+    console.log('mouse down')
+    this.startSub.next(ev)
   }
 
   @HostListener('touchstart', ['$event'])
   touchStartHandler(ev) {
-    this.mousedownSub.next(ev)
+    console.log('touch start')
+    this.startSub.next(ev)
   }
-
 }
