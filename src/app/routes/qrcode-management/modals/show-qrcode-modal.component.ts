@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit, Input, Renderer2 } from '@angular/core'
 import { NzModalSubject } from 'ng-zorro-antd'
+
+import { Qrcode } from '../models/qrcode.model'
 
 @Component({
   selector: 'app-show-qrcode-modal',
@@ -17,9 +19,9 @@ import { NzModalSubject } from 'ng-zorro-antd'
 export class ShowQrcodeModalComponent implements OnInit {
   url: string
 
-  @Input() 
+  @Input()
   set tplId(value: string) {
-    this.url = `https://sales.xiaovbao.cn/?id=${value}`
+    this.url = `${Qrcode.URL_PREFIX}${value}`
   }
 
   download() {
@@ -31,10 +33,7 @@ export class ShowQrcodeModalComponent implements OnInit {
 
   constructor(
     private subject: NzModalSubject,
-  ) {
-  }
+  ) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

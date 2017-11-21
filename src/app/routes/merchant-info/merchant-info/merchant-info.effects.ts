@@ -56,7 +56,7 @@ export class MerchantInfoEffects {
   })
 
   @Effect({ dispatch: false })
-  changePasswordFailure$ = this.actions$.ofType(fromMerchantInfo.EDIT_MERCHANT_INFO_FAILURE)
+  changePasswordFailure$ = this.actions$.ofType(fromMerchantInfo.CHANGE_PASSWORD_FAILURE)
   .do(() => {
     this.notify.error('更正密码', '修改密码失败！')
   })

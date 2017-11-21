@@ -26,7 +26,8 @@ export function reducer(
     case fromQrcode.FETCH_QRCODES:
       return {
         ...state,
-        loading: true
+        loading: true,
+        qrcodes: []
       }
     case fromQrcode.FETCH_QRCODES_SUCCESS:
       return {
@@ -37,7 +38,8 @@ export function reducer(
     case fromQrcode.FETCH_QRCODES_FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        qrcodes: []
       }
 
     case fromQrcode.FETCH_QRCODE_COUNT_SUCCESS:
@@ -46,7 +48,7 @@ export function reducer(
         totalCount: action.count
       }
 
-    case fromQrcode.FETCH_TABLE_SUCCESS: 
+    case fromQrcode.FETCH_TABLE_SUCCESS:
       return {
         ...state,
         tables: action.tables

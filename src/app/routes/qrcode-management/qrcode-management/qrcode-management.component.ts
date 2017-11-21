@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder } from '@angular/forms'
-import { NzMessageService, NzModalService } from 'ng-zorro-antd'
+import { NzMessageService, NzModalService, NzNotificationService } from 'ng-zorro-antd'
 
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
@@ -34,6 +34,7 @@ import {
   ActionExecuteOption
 } from 'app/shared/components/wrap-table/wrap-table.component'
 import { DestroyService } from 'app/core/services/destroy.service'
+import { UtilsService } from 'app/core/services/utils.service'
 
 import * as R from 'ramda'
 
@@ -91,9 +92,11 @@ export class QrcodeManagementComponent implements OnInit {
   constructor(
     private message: NzMessageService,
     private modalService: NzModalService,
+    private notify: NzNotificationService,
     private fb: FormBuilder,
     private store: Store<State>,
-    private destroyService: DestroyService
+    private destroyService: DestroyService,
+    private util: UtilsService,
   ) {}
 
   ngOnInit() {
@@ -244,7 +247,10 @@ export class QrcodeManagementComponent implements OnInit {
     })
   }
 
-  private download(url: string): void {
-    console.log('to download ', url)
+  private download(url: string) {
+    this.util.downloadQrcode(url)
+    .catch(err => {
+      this.notify.error('下载二维码', '下载二维码失败！')
+    })
   }
 }
