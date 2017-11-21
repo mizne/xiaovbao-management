@@ -276,7 +276,6 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
       .takeUntil(this.destoryService)
       .subscribe(s => {
         if (s === 'onOk') {
-          console.log('on ok click')
           this.initDispatch()
         }
       })

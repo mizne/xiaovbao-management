@@ -17,6 +17,16 @@ export class MerchantInfoEffects {
     .map(merchantInfo => new fromMerchantInfo.FetchMerchantInfoSuccessAction(merchantInfo))
     .catch(e => Observable.of(new fromMerchantInfo.FetchMerchantInfoFailureAction()))
   })
+  @Effect({ dispatch: false })
+  fetchMerchantInfoSuccess$ = this.actions$.ofType(fromMerchantInfo.FETCH_MERCHANT_INFO_SUCCESS)
+  .do(() => {
+    this.notify.success('商家信息', '恭喜您 获取商家信息成功！')
+  })
+  @Effect({ dispatch: false })
+  fetchMerchantInfoFailure$ = this.actions$.ofType(fromMerchantInfo.FETCH_MERCHANT_INFO_FAILURE)
+  .do(() => {
+    this.notify.error('商家信息', '获取商家信息失败！')
+  })
 
   @Effect()
   editMerchantInfo$ = this.actions$.ofType(fromMerchantInfo.EDIT_MERCHANT_INFO)
@@ -26,13 +36,11 @@ export class MerchantInfoEffects {
     .map((_) => new fromMerchantInfo.EditMerchatInfoSuccessAction())
     .catch(e => Observable.of(new fromMerchantInfo.EditMerchantInfoFailureAction()))
   })
-
   @Effect({ dispatch: false })
   editMerchantInfoSuccess$ = this.actions$.ofType(fromMerchantInfo.EDIT_MERCHANT_INFO_SUCCESS)
   .do(() => {
     this.notify.success('商家信息', '恭喜您 保存商家信息成功！')
   })
-
   @Effect({ dispatch: false })
   editMerchantInfoFailure$ = this.actions$.ofType(fromMerchantInfo.EDIT_MERCHANT_INFO_FAILURE)
   .do(() => {
