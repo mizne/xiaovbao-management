@@ -59,7 +59,7 @@ export class QrcodeService {
 
   delQrcode(tenantId: string, id: string): Observable<any> {
     return this.http
-      .delete(this.qrcodeUrl + `?QRCodeTemplate=${id}&tenantId=${tenantId}`)
+      .delete(this.qrcodeUrl + `?QRCodeTemplateId=${id}`)
       .map(resp => (resp as APIResponse).result)
       .catch(this.handleError)
   }

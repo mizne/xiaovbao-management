@@ -212,7 +212,9 @@ export class AddGoodsModalComponent implements OnInit {
       try {
         const file_path = JSON.parse(resp).result[0]
         this.uploadImageUrl = environment.SERVER_URL + `/${file_path}`
-        this.goodsForm.controls['listImageUrl'].setValue(this.uploadImageUrl)
+        this.goodsForm.patchValue({
+          listImageUrl: this.uploadImageUrl
+        })
       } catch (e) {
         this.notify.error('上传图片', '上传图片失败，请稍后重试！')
       }

@@ -224,14 +224,13 @@ export class QrcodeManagementComponent implements OnInit {
           content: ShowQrcodeModalComponent,
           footer: false,
           componentParams: {
-            tplId: payload.data.QRCodeTemplateId
+            tplId: payload.data.tplId
           }
         })
       })
       .filter(R.is(Object))
       .takeUntil(this.destroyService)
       .subscribe(e => {
-        console.log('to show qrcode ', e)
         this.download(e.url)
       })
   }
@@ -240,7 +239,7 @@ export class QrcodeManagementComponent implements OnInit {
   private initDownloadQrcodeTpl(): void {
     this.actionExecute$.filter(R.propEq('type', 'DOWNLOAD'))
     .subscribe(({ payload }) => {
-      const url = `https://sales.xiaovbao.cn/?id=${payload.data.QRCodeTemplateId}`
+      const url = `https://sales.xiaovbao.cn/?id=${payload.data.tplId}`
       this.download(url)
     })
   }
