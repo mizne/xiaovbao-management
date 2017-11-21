@@ -5,7 +5,8 @@ import {
   OnInit,
   ElementRef,
   Renderer2,
-  OnDestroy
+  OnDestroy,
+  ApplicationRef
 } from '@angular/core'
 
 import { Subject } from 'rxjs/Subject'
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
 
 import { UADetectorService } from 'app/core/services/ua-detector.service'
-import { endWith } from 'rxjs-imports';
+import { endWith } from 'rxjs-imports'
 
 export interface Position {
   x: number
@@ -84,51 +85,48 @@ export class AppPhantomDirective implements OnInit, OnDestroy {
   }
 
   private initDelayDrag(): void {
-    
-    const move$: Observable<MouseEvent | TouchEvent> = this.ua.isMobileBrowser() ?
-    Observable.fromEvent(
+    const event = this.ua.isMobileBrowser() ? {
+      move: 'touchmove',
+      end: 'touchend'
+    } : {
+      move: 'mousemove',
+      end: 'mouseup'
+    }
+    const move$: Observable<MouseEvent | TouchEvent> = Observable.fromEvent(
       document,
-      'touchmove'
-    ) :
-    Observable.fromEvent(
-      document,
-      'mousemove'
+      event.move
     )
-    const end$: Observable<MouseEvent | TouchEvent> = this.ua.isMobileBrowser() ?
-    Observable.fromEvent(
+    const end$: Observable<MouseEvent | TouchEvent> = Observable.fromEvent(
       document,
-      'touchend'
-    ) :
-    Observable.fromEvent(
-      document,
-      'mouseup'
+      event.end
     )
     const drag$: Observable<Position> = this.startSub.mergeMap(e =>
-      move$.takeUntil(end$)
-      .map(ev => {
-        if (ev instanceof MouseEvent) {
-          return {
-            x: ev.clientX,
-            y: ev.clientY,
-            end: false
+      move$
+        .takeUntil(end$)
+        .map(ev => {
+          if (ev instanceof MouseEvent) {
+            return {
+              x: ev.clientX,
+              y: ev.clientY,
+              end: false
+            }
           }
-        }
-        if (ev instanceof TouchEvent) {
-          return {
-            x: ev.changedTouches[0].clientX,
-            y: ev.changedTouches[0].clientY,
-            end: false
+          if (ev instanceof TouchEvent) {
+            return {
+              x: ev.changedTouches[0].clientX,
+              y: ev.changedTouches[0].clientY,
+              end: false
+            }
           }
-        }
-      }).let(endWith({
-        x: this.startPos.x,
-        y: this.startPos.y,
-        end: true
-      }))
+        })
+        .let(
+          endWith({
+            x: this.startPos.x,
+            y: this.startPos.y,
+            end: true
+          })
+        )
     )
-    // .do(pos => {
-    //   console.log(pos)
-    // })
 
     const delayDrags$ = Array.from({ length: this.num }, (_, i) =>
       drag$.delay(i * 1e2)
@@ -149,13 +147,11 @@ export class AppPhantomDirective implements OnInit, OnDestroy {
 
   @HostListener('mousedown', ['$event'])
   mousedownHandler(ev) {
-    console.log('mouse down')
     this.startSub.next(ev)
   }
 
   @HostListener('touchstart', ['$event'])
   touchStartHandler(ev) {
-    console.log('touch start')
     this.startSub.next(ev)
   }
 }

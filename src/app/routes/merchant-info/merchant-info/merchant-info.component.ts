@@ -184,8 +184,13 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
     this.loading$ = this.store.select(getLoading)
     this.hasBindWechat$ = this.store
       .select(getMerchantInfo)
-      .filter(R.complement(R.isNil))
-      .map(merchantInfo => !!merchantInfo.wechatOpenId)
+      .map(merchantInfo => {
+        if (merchantInfo) {
+          return !!merchantInfo.wechatOpenId
+        } else {
+          return false
+        }
+      })
 
     this.bindWechatText$ = this.hasBindWechat$.map(hasBind => {
       if (hasBind) {
