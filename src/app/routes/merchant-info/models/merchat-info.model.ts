@@ -7,6 +7,8 @@ export class MerchantInfo {
   indexPageImgUrl?: string
   startTime?: string
   endTime?: string
+  deliveryStartTime?: string
+  deliveryEndTime?: string
   wechatOpenId?: string
   address?: string
   lat?: number
@@ -20,6 +22,8 @@ export class MerchantInfo {
       indexPageImgUrl: resp.homeImage,
       startTime: resp.startTime,
       endTime: resp.endTime,
+      deliveryStartTime: resp.deliveryStartTime,
+      deliveryEndTime: resp.deliveryEndTime,
       wechatOpenId: resp.wecharPayee_account,
       address: resp.address,
       lat: parseFloat(resp.latitude),
@@ -35,6 +39,8 @@ export class MerchantInfo {
       homeImage: merchantInfo.indexPageImgUrl,
       startTime: merchantInfo.startTime,
       endTime: merchantInfo.endTime,
+      deliveryStartTime: merchantInfo.deliveryStartTime,
+      deliveryEndTime: merchantInfo.deliveryEndTime,
       wecharPayee_account: merchantInfo.wechatOpenId,
       address: merchantInfo.address,
       latitude: String(merchantInfo.lat),
@@ -50,6 +56,8 @@ export interface MerchantInfoResp {
   homeImage?: string
   startTime?: string
   endTime?: string
+  deliveryStartTime?: string
+  deliveryEndTime?: string
   wecharPayee_account?: string
   payee_account?: string
   address?: string

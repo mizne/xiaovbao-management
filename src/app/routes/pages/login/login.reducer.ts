@@ -18,7 +18,7 @@ const initialState: State = {
   tenantId: '',
   captcha: {
     key: '',
-    base64: ''
+    content: ''
   }
 }
 
@@ -64,5 +64,5 @@ export const getLogin = (state: State) => state.login
 export const getLoginName = (state: State) => state.loginName
 export const getTenantId = (state: State) => state.tenantId
 export const getLoginFailureMsg = (state: State) => state.loginFailureMsg
-export const getCaptchaUrl = (state: State) => state.captcha.base64
+export const getCaptchaUrl = (state: State) => state.captcha.content
 export const getCaptchaKey = (state: State) => state.captcha.key

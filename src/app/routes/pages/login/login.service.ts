@@ -24,7 +24,7 @@ export class LoginService {
       .get(this.fetchCaptchaUrl)
       .map(res => ({
         key: (res as any).result.key,
-        base64: 'data:image/jpg;base64,' + (res as any).result.buf
+        content: (res as any).result.svg
       }))
       .catch(this.handleError)
   }

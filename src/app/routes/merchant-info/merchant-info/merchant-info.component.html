@@ -85,6 +85,37 @@
 
             <div nz-form-item nz-row>
               <div nz-form-label nz-col>
+                <label>配送时间</label>
+              </div>
+              <div nz-form-control>
+                <div nz-col [nzSpan]="4">
+                  <div nz-form-item nz-row>
+                    <div>
+                      <div nz-form-control>
+                        <nz-timepicker formControlName="deliveryStartTime" [nzSize]="'large'" [nzFormat]="'HH:mm'" [nzPlaceHolder]="'开始时间'">
+                        </nz-timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                  <p nz-form-split>-</p>
+                </div>
+                <div nz-col [nzSpan]="4">
+                  <div nz-form-item nz-row>
+                    <div>
+                      <div nz-form-control>
+                        <nz-timepicker formControlName="deliveryEndTime" [nzSize]="'large'" [nzFormat]="'HH:mm'" [nzPlaceHolder]="'结束时间'">
+                        </nz-timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col>
                 <label for="address">地址( 请点击地图具体位置来选择地址 )</label>
               </div>
               <div nz-form-control nz-col>

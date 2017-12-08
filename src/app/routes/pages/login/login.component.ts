@@ -1,5 +1,6 @@
 import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { SettingsService } from '@core/services/settings.service'
 
@@ -24,14 +25,15 @@ export class LoginComponent implements OnInit {
 
   loading$: Observable<boolean>
   loginFailureMsg$: Observable<string>
-  captcha$: Observable<string>
+  captcha$: Observable<SafeHtml>
 
   constructor(
     public settings: SettingsService,
     private fb: FormBuilder,
     private router: Router,
     private store: Store<State>,
-    private util: UtilsService
+    private util: UtilsService,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
     this.loading$ = this.store.select(getLoginLoading)
     this.loginFailureMsg$ = this.store.select(getLoginFailureMsg)
     this.captcha$ = this.store.select(getCaptchaUrl)
-
+    .map(this.sanitizer.bypassSecurityTrustHtml)
     this.store.dispatch(new FetchCaptchaAction())
   }
 

@@ -124,19 +124,14 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
       indexPageImgUrl: formValue.indexPageImgUrl
     }
 
-    // 需将 startTime endTime转化为 HH:mm 字符串
-    if (formValue.startTime) {
-      Object.assign(params, {
-        startTime: moment(formValue.startTime).format('HH:mm')
-      })
-    }
-    if (formValue.endTime) {
-      Object.assign(params, {
-        endTime: moment(formValue.endTime).format('HH:mm')
-      })
-    }
-    console.log('to save merchant info ', params)
-
+    // 需将 startTime endTime deliveryStartTime deliveryEndTime转化为 HH:mm 字符串
+    ; ['startTime', 'endTime', 'deliveryStartTime', 'deliveryEndTime'].forEach(prop => {
+      if (formValue[prop]) {
+        Object.assign(params, {
+          [prop]: moment(formValue[prop]).format('HH:mm')
+        })
+      }
+    })
     this.updateMerchantFormSub.next(params)
   }
 
@@ -145,8 +140,6 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
       oldPassword: value.oldPassword,
       newPassword: value.newPassword
     }
-    console.log('to change password ', params)
-
     this.changePasswordFormSub.next(params)
   }
 
@@ -343,7 +336,9 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
       latitude: [null],
       startTime: [null],
       endTime: [null],
-      indexPageImgUrl: [null]
+      indexPageImgUrl: [null],
+      deliveryStartTime: [null],
+      deliveryEndTime: [null]
     })
   }
 
@@ -375,22 +370,19 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
       address: merchantInfo.address,
       indexPageImgUrl: merchantInfo.indexPageImgUrl
     }
-    if (merchantInfo.startTime) {
-      Object.assign(patchObj, {
-        startTime: moment(
-          today + ' ' + merchantInfo.startTime,
-          'YYYY-MM-DD HH:mm'
-        ).toDate()
-      })
-    }
-    if (merchantInfo.endTime) {
-      Object.assign(patchObj, {
-        endTime: moment(
-          today + ' ' + merchantInfo.endTime,
-          'YYYY-MM-DD HH:mm'
-        ).toDate()
-      })
-    }
+    ; ['startTime', 'endTime', 'deliveryStartTime', 'deliveryEndTime'].forEach(
+      prop => {
+        if (merchantInfo[prop]) {
+          Object.assign(patchObj, {
+            [prop]: moment(
+              today + ' ' + merchantInfo[prop],
+              'YYYY-MM-DD HH:mm'
+            ).toDate()
+          })
+        }
+      }
+    )
+
     if (merchantInfo.lat) {
       Object.assign(patchObj, {
         longitude: merchantInfo.lng,
