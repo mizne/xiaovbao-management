@@ -1,9 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser'
-import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core'
+import {
+  NgModule,
+  APP_INITIALIZER,
+  LOCALE_ID,
+  ErrorHandler
+} from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS
+} from '@angular/common/http'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
+
+import * as Raven from 'raven-js'
 
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
@@ -22,7 +33,7 @@ import { CoreModule } from './core/core.module'
 import { ApiErrorInterceptor } from './core/interceptors/api-error-interceptor'
 import { TokenInterceptor } from './core/interceptors/token.interceptor'
 
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment'
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `assets/i18n/`, '.json')
@@ -32,6 +43,16 @@ export function StartupServiceFactory(
   startupService: StartupService
 ): Function {
   return () => startupService.load()
+}
+
+Raven.config(
+  'https://00c4d9765ab6484eaa9b84b8a5de210a@sentry.io/258086'
+).install()
+
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err: any): void {
+    Raven.captureException(err)
+  }
 }
 
 @NgModule({
@@ -73,6 +94,7 @@ export function StartupServiceFactory(
       deps: [StartupService],
       multi: true
     },
+    { provide: ErrorHandler, useClass: RavenErrorHandler }
   ],
   bootstrap: [AppComponent]
 })

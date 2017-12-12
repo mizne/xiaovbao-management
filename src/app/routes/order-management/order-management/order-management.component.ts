@@ -40,13 +40,18 @@ export class OrderManagementComponent implements OnInit {
       transform: (rowData) => moment(rowData.createdAt).format('YYYY-MM-DD HH:mm')
     },
     {
+      label: '订单状态',
+      key: 'status',
+      transform: (rowData) => rowData // TODO 转化 订单状态 描述性文字
+    },
+    {
       label: '手机号码',
       key: 'phone'
     },
     {
       label: '订单金额',
       key: 'orderAmount'
-    }
+    },
   ]
 
   actions: Action[] = [
@@ -85,7 +90,7 @@ export class OrderManagementComponent implements OnInit {
     this.currentOrders$ = this.store.select(getCurrentOrders)
     this.fetchOrderLoading$ = this.store.select(getOrderLoading)
     this.orderTotalCount$ = this.store.select(getOrderTotalCount)
-    
+
   }
 
   private initSubscriber(): void {

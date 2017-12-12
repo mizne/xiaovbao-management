@@ -8,6 +8,8 @@ export interface State {
   loginFailureMsg: string
   tenantId: string
   captcha: Captcha
+
+  fetchCaptchaLoading: boolean
 }
 
 const initialState: State = {
@@ -19,7 +21,8 @@ const initialState: State = {
   captcha: {
     key: '',
     content: ''
-  }
+  },
+  fetchCaptchaLoading: false
 }
 
 type Action = fromLogin.Actions
@@ -48,10 +51,27 @@ export function reducer(state: State = initialState, action: Action): State {
         loginFailureMsg: action.loginFailureMsg
       }
 
+    case fromLogin.FETCH_CAPTCHA:
+      return {
+        ...state,
+        fetchCaptchaLoading: true,
+        captcha: {
+          key: '',
+          content: ''
+        }
+      }
+
     case fromLogin.FETCH_CAPTCHA_SUCCESS:
       return {
         ...state,
-        captcha: action.captcha
+        captcha: action.captcha,
+        fetchCaptchaLoading: false
+      }
+
+    case fromLogin.FETCH_CAPTCHA_FAILURE:
+      return {
+        ...state,
+        fetchCaptchaLoading: false
       }
     default:
       return state
@@ -66,3 +86,4 @@ export const getTenantId = (state: State) => state.tenantId
 export const getLoginFailureMsg = (state: State) => state.loginFailureMsg
 export const getCaptchaUrl = (state: State) => state.captcha.content
 export const getCaptchaKey = (state: State) => state.captcha.key
+export const getFetchCaptchaLoading = (state: State) => state.fetchCaptchaLoading

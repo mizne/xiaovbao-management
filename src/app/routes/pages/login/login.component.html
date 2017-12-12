@@ -36,10 +36,13 @@
                 <div nz-col [nzSpan]="12">
                   <nz-input [nzSize]="'large'" [nzPlaceHolder]="'验证码'" formControlName="captcha" [nzId]="'captcha'"></nz-input>
                 </div>
-                <div nz-col [nzSpan]="12" (click)="refreshCaptcha()" [innerHTML]="captcha$ | async">
-                  <!-- <img (click)="refreshCaptcha()" [src]="captcha$ | async" alt="点击获取验证码" style="max-width: 100%; max-height: 100%;"> -->
-                  <!-- <button nz-button [nzSize]="'large'" (click)="getCaptcha($event)">Get captcha</button> -->
+                <div nz-col [nzSpan]="12" class="d-flex justify-content-center align-items-center" *ngIf="fetchCaptchaLoading$ | async; else noLoading;">
+                  <nz-spin></nz-spin>
                 </div>
+                <ng-template #noLoading>
+                  <div nz-col [nzSpan]="12" class="d-flex justify-content-center align-items-center" (click)="refreshCaptcha()" [innerHTML]="captcha$ | async">
+                  </div>
+                </ng-template>
               </div>
               <!-- <div nz-form-extra>We must make sure that your are a human.</div> -->
               <div nz-form-explain *ngIf="getFormControlValidator('captcha', 'required')">请输入验证码</div>

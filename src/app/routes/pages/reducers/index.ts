@@ -33,7 +33,10 @@ export const getTenantId = createSelector(getLoginState, fromLogin.getTenantId)
 export const getLoginFailureMsg = createSelector(getLoginState, fromLogin.getLoginFailureMsg)
 export const getCaptchaUrl = createSelector(getLoginState, fromLogin.getCaptchaUrl)
 export const getCaptchaKey = createSelector(getLoginState, fromLogin.getCaptchaKey)
-
+export const getFetchCaptchaLoading = createSelector(
+  getLoginState,
+  fromLogin.getFetchCaptchaLoading
+)
 
 export const getRegisterState = createSelector(
   getPagesModuleState,

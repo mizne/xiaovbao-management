@@ -10,7 +10,8 @@ import {
   State,
   getLoginLoading,
   getLoginFailureMsg,
-  getCaptchaUrl
+  getCaptchaUrl,
+  getFetchCaptchaLoading,
 } from '../reducers'
 import { LoginRequestAction, FetchCaptchaAction } from './login.action'
 
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   loading$: Observable<boolean>
   loginFailureMsg$: Observable<string>
   captcha$: Observable<SafeHtml>
+  fetchCaptchaLoading$: Observable<boolean>
 
   constructor(
     public settings: SettingsService,
@@ -57,6 +59,8 @@ export class LoginComponent implements OnInit {
     this.captcha$ = this.store.select(getCaptchaUrl)
     .map(this.sanitizer.bypassSecurityTrustHtml)
     this.store.dispatch(new FetchCaptchaAction())
+
+    this.fetchCaptchaLoading$ = this.store.select(getFetchCaptchaLoading)
   }
 
   getFormControl(key: string) {
