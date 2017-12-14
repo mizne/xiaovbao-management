@@ -26,6 +26,8 @@ import {
 } from 'app/shared/components/wrap-table/wrap-table.component'
 import { DestroyService } from 'app/core/services/destroy.service'
 
+const orderStatuses = ['未支付', '待支付', '已支付', '退房支付']
+
 @Component({
   selector: 'app-order-management',
   templateUrl: './order-management.component.html',
@@ -42,7 +44,7 @@ export class OrderManagementComponent implements OnInit {
     {
       label: '订单状态',
       key: 'status',
-      transform: (rowData) => rowData // TODO 转化 订单状态 描述性文字
+      transform: (rowData) => orderStatuses[rowData.status] // TODO 转化 订单状态 描述性文字
     },
     {
       label: '手机号码',
