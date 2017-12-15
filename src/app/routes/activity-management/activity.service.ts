@@ -1,8 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-import * as R from 'ramda'
 
 import { Activity, ActivityType, ActivityStatus } from './models/activity.model'
 import { DiscountActivity } from './models/discount-activity.model'
@@ -33,7 +31,7 @@ export class ActivityService {
 
 
     fetchDiscountActivity(tenantId: string, pageIndex: number = 1, pageSize: number = 10): Observable<DiscountActivity[]> {
-      const query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
+      // const query = `?tenantId=${tenantId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
       return this.http.get(this.discountActivityUrl + `?tenantId=${tenantId}`)
       .map(resp => (resp as APIResponse).result)
       .map(res => res.map(DiscountActivity.convertFromResp))

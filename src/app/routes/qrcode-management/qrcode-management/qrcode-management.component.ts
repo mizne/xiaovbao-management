@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormGroup, FormBuilder } from '@angular/forms'
-import { NzMessageService, NzModalService, NzNotificationService } from 'ng-zorro-antd'
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd'
 
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
@@ -90,10 +89,8 @@ export class QrcodeManagementComponent implements OnInit {
   createQrcodeSub: Subject<void> = new Subject<void>()
 
   constructor(
-    private message: NzMessageService,
     private modalService: NzModalService,
     private notify: NzNotificationService,
-    private fb: FormBuilder,
     private store: Store<State>,
     private destroyService: DestroyService,
     private util: UtilsService,

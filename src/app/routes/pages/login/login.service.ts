@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable'
 
 import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 import { Captcha } from '../models/captcha.model'
-import { User, ROLES } from '../models/user.model'
+import { User } from '../models/user.model'
 
 import { UADetectorService } from 'app/core/services/ua-detector.service'
 import { UtilsService } from 'app/core/services/utils.service'

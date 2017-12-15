@@ -8,8 +8,6 @@ import { State, getCaptchaKey } from '../reducers'
 
 import * as fromLogin from './login.action'
 import { LoginService } from './login.service'
-import { ACLService } from 'app/core/acl/acl.service'
-import { MenuService } from 'app/core/services/menu.service'
 import { TenantService } from 'app/core/services/tenant.service'
 import { ERROR_CODE_MAP } from '../models/user.model'
 
@@ -69,8 +67,6 @@ export class LoginEffects {
     private loginService: LoginService,
     private router: Router,
     private store: Store<State>,
-    private aclService: ACLService,
-    private menuService: MenuService,
     private tenantService: TenantService,
   ) {}
 }

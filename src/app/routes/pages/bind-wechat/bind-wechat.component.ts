@@ -1,4 +1,3 @@
-import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { SettingsService } from '@core/services/settings.service'
@@ -22,8 +21,6 @@ import { UtilsService } from 'app/core/services/utils.service'
 import { DestroyService } from 'app/core/services/destroy.service'
 import { BindWechatState } from '../models/bind-wechat.model'
 
-import * as R from 'ramda'
-
 @Component({
   selector: 'app-pages-bind-wechat',
   templateUrl: './bind-wechat.component.html',
@@ -45,7 +42,6 @@ export class BindWechatComponent implements OnInit {
   constructor(
     public settings: SettingsService,
     private fb: FormBuilder,
-    private router: Router,
     private store: Store<State>,
     private utils: UtilsService,
     private destroyService: DestroyService

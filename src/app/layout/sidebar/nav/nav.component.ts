@@ -12,8 +12,6 @@ const FLOATINGCLS = 'nav-floating';
     templateUrl: './nav.component.html'
 })
 export class SidebarNavComponent implements OnInit {
-
-    private rootEl: HTMLDivElement;
     private floatingEl: HTMLDivElement;
 
     constructor(
@@ -23,7 +21,6 @@ export class SidebarNavComponent implements OnInit {
         el: ElementRef,
         private render: Renderer2,
         @Inject(DOCUMENT) private doc: Document) {
-        this.rootEl = el.nativeElement as HTMLDivElement;
     }
 
     ngOnInit() {

@@ -8,10 +8,8 @@ import {
 
 import { TenantService } from 'app/core/services/tenant.service'
 
-
 @Injectable()
 export class AuthGuard implements CanActivate {
-
   constructor(
     private router: Router,
     private tenantService: TenantService

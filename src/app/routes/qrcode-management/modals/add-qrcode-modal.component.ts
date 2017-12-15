@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { NzModalSubject } from 'ng-zorro-antd'
-import { FileUploader } from 'ng2-file-upload'
-
 import { Observable } from 'rxjs/Observable'
 import { Qrcode } from '../models/qrcode.model'
 import { Table } from '../models/table.model'

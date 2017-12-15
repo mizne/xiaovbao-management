@@ -1,5 +1,3 @@
-import { NzNotificationService } from 'ng-zorro-antd'
-
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
 import { Observable } from 'rxjs/Observable'
@@ -39,6 +37,5 @@ export class IndexPageEffects {
     private actions$: Actions,
     private statisticsService: StatisticsService,
     private tenantService: TenantService,
-    private notify: NzNotificationService
   ) {}
 }

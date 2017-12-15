@@ -2,9 +2,6 @@ import { Component, Input, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NzModalSubject } from 'ng-zorro-antd'
 
-import { Observable } from 'rxjs/Observable'
-import { Vip } from '../models/vip.model'
-
 @Component({
   selector: 'app-edit-vip-modal',
   template: `

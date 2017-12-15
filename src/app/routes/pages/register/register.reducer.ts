@@ -1,5 +1,4 @@
 import * as fromRegister from './register.action'
-import { Captcha } from '../models/captcha.model'
 
 export interface State {
   loading: boolean

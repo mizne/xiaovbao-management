@@ -1,15 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { NzModalSubject, NzNotificationService } from 'ng-zorro-antd'
-import { FileUploader } from 'ng2-file-upload'
-
-import { Subject } from 'rxjs/Subject'
+import { FormGroup,  FormBuilder, Validators } from '@angular/forms'
+import { NzModalSubject } from 'ng-zorro-antd'
 import { Observable } from 'rxjs/Observable'
-
 import { Store } from '@ngrx/store'
 import { State, getQrcodeTpls } from '../reducers'
 import { FetchQrcodeTemplateAction } from '../discount-activity/discount-activity.action'
-import * as R from 'ramda'
 
 import { Qrcode } from '../../qrcode-management/models/qrcode.model'
 

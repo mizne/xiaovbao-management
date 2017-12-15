@@ -2,9 +2,6 @@ import { Component, Input, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { NzModalSubject } from 'ng-zorro-antd'
 
-import { Observable } from 'rxjs/Observable'
-import { Account } from '../models/account.model'
-
 @Component({
   selector: 'app-edit-account-modal',
   template: `

@@ -3,9 +3,8 @@ import { NzMessageService } from 'ng-zorro-antd'
 import { SettingsService } from '@core/services/settings.service'
 
 import { Store } from '@ngrx/store'
-import { State, getLoginName } from '../../routes/pages/reducers'
+import { State } from '../../routes/pages/reducers'
 import { LogoutAction } from 'app/routes/pages/login/login.action'
-import { Observable } from 'rxjs/Observable'
 
 import { TenantService } from 'app/core/services/tenant.service'
 

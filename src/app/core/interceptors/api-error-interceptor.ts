@@ -5,22 +5,16 @@ import {
   HttpHandler,
   HttpRequest,
   HttpResponse,
-  HttpHeaders,
   HttpErrorResponse
 } from '@angular/common/http'
 import { Router } from '@angular/router'
-
 import { NzModalService } from 'ng-zorro-antd'
-
 import { Observable } from 'rxjs/Observable'
-
-import { LoginService } from 'app/routes/pages/login/login.service'
 
 import { environment } from '../../../environments/environment'
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {
-  private url = `${environment.SERVER_URL}/api/test`
   private router: Router
   private modalService: NzModalService
 

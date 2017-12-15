@@ -1,4 +1,3 @@
-import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { SettingsService } from '@core/services/settings.service'
@@ -91,7 +90,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     public settings: SettingsService,
     private fb: FormBuilder,
-    private router: Router,
     private store: Store<State>,
     private utils: UtilsService
   ) {}

@@ -24,7 +24,7 @@ export class LayoutComponent {
             }
             if (evt instanceof NavigationError) {
                 this.isFetching = false;
-                _message.error(`无法加载${evt.url}路由`, { nzDuration: 1000 * 3 });
+                this._message.error(`无法加载${evt.url}路由`, { nzDuration: 1000 * 3 });
                 return;
             }
             if (!(evt instanceof NavigationEnd)) {

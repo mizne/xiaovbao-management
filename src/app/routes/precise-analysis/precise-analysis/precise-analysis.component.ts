@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { NzMessageService, NzModalService, NzModalSubject } from 'ng-zorro-antd'
+import { NzModalService } from 'ng-zorro-antd'
 
 import * as moment from 'moment'
 import { Subject } from 'rxjs/Subject'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 import { Observable } from 'rxjs/Observable'
-import { Observer } from 'rxjs/Observer'
 
 import { Store } from '@ngrx/store'
 import {
@@ -15,7 +14,6 @@ import {
   getCurrentPreciseAnalysis,
   getPreciseAnalysisTotalCount,
   getPreciseAnalysisLoading,
-  getBatchSendSMSLoading
 } from '../reducers'
 import {
   FectchPreciseAnalysisAction,
@@ -116,7 +114,6 @@ export class PreciseAnalysisComponent implements OnInit {
   ]
 
   constructor(
-    private message: NzMessageService,
     private modalService: NzModalService,
     private fb: FormBuilder,
     private store: Store<State>,

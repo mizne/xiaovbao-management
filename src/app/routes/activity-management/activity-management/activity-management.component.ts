@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { NzMessageService, NzModalService } from 'ng-zorro-antd'
 import { Router, ActivatedRoute } from '@angular/router'
 
-import { Subject } from 'rxjs/Subject'
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Observable } from 'rxjs/Observable'
 import { Store } from '@ngrx/store'
 import {
@@ -18,7 +15,7 @@ import {
 } from './activity.action'
 
 import { Activity } from '../models/activity.model'
-import { Logger, LoggerFactory } from 'app/core/services/logger.service'
+// import { Logger, LoggerFactory } from 'app/core/services/logger.service'
 
 @Component({
   selector: 'app-activity-management',
@@ -34,16 +31,14 @@ export class ActivityManagementComponent implements OnInit {
 
   showActivities$: Observable<Activity[]>
 
-  private logger: Logger
+  // private logger: Logger
   constructor(
-    private message: NzMessageService,
-    private modalService: NzModalService,
     private store: Store<State>,
     private router: Router,
     private route: ActivatedRoute,
-    private loggerFactory: LoggerFactory
+    // private loggerFactory: LoggerFactory
   ) {
-    this.logger = loggerFactory.createLogger('activity-management')
+    // this.logger = loggerFactory.createLogger('activity-management')
   }
 
   ngOnInit() {

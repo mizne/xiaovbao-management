@@ -34,6 +34,7 @@ import { ApiErrorInterceptor } from './core/interceptors/api-error-interceptor'
 import { TokenInterceptor } from './core/interceptors/token.interceptor'
 
 import { environment } from '../environments/environment'
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `assets/i18n/`, '.json')
@@ -44,10 +45,6 @@ export function StartupServiceFactory(
 ): Function {
   return () => startupService.load()
 }
-
-Raven.config(
-  'https://00c4d9765ab6484eaa9b84b8a5de210a@sentry.io/258086'
-).install()
 
 export class RavenErrorHandler implements ErrorHandler {
   handleError(err: any): void {

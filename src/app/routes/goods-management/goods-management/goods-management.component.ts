@@ -1,6 +1,6 @@
-import { Component, OnInit, TemplateRef } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder } from '@angular/forms'
-import { NzMessageService, NzModalService } from 'ng-zorro-antd'
+import { NzModalService } from 'ng-zorro-antd'
 
 import { Subject } from 'rxjs/Subject'
 
@@ -110,7 +110,6 @@ export class GoodsManagementComponent implements OnInit {
   goodsTotalCount$: Observable<number>
 
   constructor(
-    private message: NzMessageService,
     private modalService: NzModalService,
     private fb: FormBuilder,
     private store: Store<State>,

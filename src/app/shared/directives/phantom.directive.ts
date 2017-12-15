@@ -6,7 +6,6 @@ import {
   ElementRef,
   Renderer2,
   OnDestroy,
-  ApplicationRef
 } from '@angular/core'
 
 import { Subject } from 'rxjs/Subject'

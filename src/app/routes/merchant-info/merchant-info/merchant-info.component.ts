@@ -22,7 +22,6 @@ import * as R from 'ramda'
 import * as moment from 'moment'
 import { Observable } from 'rxjs/Observable'
 import { MerchantInfo } from 'app/routes/merchant-info/models/merchat-info.model'
-import { patch } from 'webdriver-js-extender'
 import { Subject } from 'rxjs/Subject'
 
 import { BindWechatModalComponent } from '../modals/bind-wechat-modal.component'

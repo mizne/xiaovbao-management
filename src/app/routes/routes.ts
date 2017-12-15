@@ -12,7 +12,6 @@ import { BindWechatComponent } from './pages/bind-wechat/bind-wechat.component'
 // import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 // import { Page404Component } from './pages/404/404.component';
 // import { Page500Component } from './pages/500/500.component';
-import { IndexPageComponent } from './dashboard/index/index-page.component'
 
 export const routes: Routes = [
   {
@@ -99,23 +98,23 @@ export const routes: Routes = [
     component: RegisterSuccessComponent,
     data: { translate: 'register-success' }
   },
-  { 
-    path: 'login', 
+  {
+    path: 'login',
     component: LoginComponent,
     data: { translate: 'login' }
    },
-  { 
-    path: 'forget', 
-    component: ForgetComponent, 
-    data: { translate: 'forget' } 
+  {
+    path: 'forget',
+    component: ForgetComponent,
+    data: { translate: 'forget' }
   },
-  { 
-    path: 'lock', 
-    component: LockComponent, 
-    data: { translate: 'lock' } 
+  {
+    path: 'lock',
+    component: LockComponent,
+    data: { translate: 'lock' }
   },
-  { 
-    path: 'bind-wechat', 
+  {
+    path: 'bind-wechat',
     component: BindWechatComponent,
     data: { translate: 'bind-wechat' }
    }

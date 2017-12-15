@@ -1,11 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
 import * as screenfull from 'screenfull'
-import { NzModalService, NzMessageService } from 'ng-zorro-antd'
 
 import {
   SettingsService,
-  SidebarThemeType
 } from '@core/services/settings.service'
 import { ThemesService } from '@core/services/themes.service'
 import { ThemeType } from '@core/services/themes.service'
@@ -44,9 +41,6 @@ export class HeaderComponent implements OnInit {
     public settings: SettingsService,
     public tsServ: TranslatorService,
     private themeServ: ThemesService,
-    private confirmServ: NzModalService,
-    private messageServ: NzMessageService,
-    private router: Router,
     private store: Store<State>
   ) {}
 

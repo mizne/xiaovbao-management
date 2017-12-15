@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { NzMessageService, NzModalService } from 'ng-zorro-antd'
+import { NzModalService } from 'ng-zorro-antd'
 import { Subject } from 'rxjs/Subject'
 import * as R from 'ramda'
 
@@ -13,7 +13,6 @@ import {
   getDiscountActivities,
   getDiscountActivityTotalCount,
   getCurrentGoods,
-  getToAddActivities,
   getToAddActivitiesToShow,
   getToAddActivitiesTotalCount
  } from '../reducers'
@@ -133,7 +132,6 @@ export class DiscountActivityComponent implements OnInit {
   selectGoodsSub: Subject<void> = new Subject<void>()
 
   constructor(
-    private message: NzMessageService,
     private modalService: NzModalService,
     private store: Store<State>,
     private destroyService: DestroyService

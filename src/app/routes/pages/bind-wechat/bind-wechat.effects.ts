@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core'
 import { Effect, Actions } from '@ngrx/effects'
 import { Observable } from 'rxjs/Observable'
-import { NzNotificationService } from 'ng-zorro-antd'
 
 import { Router } from '@angular/router'
-import { Store } from '@ngrx/store'
-import { State, getCaptchaKey } from '../reducers'
 
 import * as fromBindWechat from './bind-wechat.action'
 import { BindWechatService } from './bind-wechat.service'
-import { ACLService } from 'app/core/acl/acl.service'
-import { MenuService } from 'app/core/services/menu.service'
 import { TenantService } from 'app/core/services/tenant.service'
-import { TitleService } from 'app/core/services/title.service'
 import { SettingsService } from 'app/core/services/settings.service'
 import { DESTINATION_MAP } from '../models/bind-wechat.model'
 
@@ -102,12 +96,7 @@ export class BindWechatEffects {
     private actions$: Actions,
     private bindWechatService: BindWechatService,
     private router: Router,
-    private store: Store<State>,
-    private aclService: ACLService,
-    private menuService: MenuService,
     private tenantService: TenantService,
     private settings: SettingsService,
-    private notify: NzNotificationService,
-    private titleService: TitleService
   ) {}
 }

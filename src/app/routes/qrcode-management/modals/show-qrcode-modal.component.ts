@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Renderer2 } from '@angular/core'
+import { Component, OnInit, Input } from '@angular/core'
 import { NzModalSubject } from 'ng-zorro-antd'
 
 import { Qrcode } from '../models/qrcode.model'

@@ -1,4 +1,3 @@
-import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -15,15 +14,12 @@ import {
 } from '../reducers'
 import { LoginRequestAction, FetchCaptchaAction } from './login.action'
 
-import { UtilsService } from 'app/core/services/utils.service'
-
 @Component({
   selector: 'app-pages-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
   valForm: FormGroup
-
   loading$: Observable<boolean>
   loginFailureMsg$: Observable<string>
   captcha$: Observable<SafeHtml>
@@ -32,9 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public settings: SettingsService,
     private fb: FormBuilder,
-    private router: Router,
     private store: Store<State>,
-    private util: UtilsService,
     private sanitizer: DomSanitizer
   ) {
   }

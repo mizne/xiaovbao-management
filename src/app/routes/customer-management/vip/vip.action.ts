@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store'
-import { Account } from '../models/account.model'
 import { Vip } from '../models/vip.model'
 
 export const FETCH_VIPS = '[Vip] Fetch Vips'

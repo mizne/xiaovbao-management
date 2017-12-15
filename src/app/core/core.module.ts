@@ -1,7 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core'
-import { HTTP_INTERCEPTORS } from '@angular/common/http'
-import { throwIfAlreadyLoaded } from './module-import-guard'
 
+import { throwIfAlreadyLoaded } from './module-import-guard'
 import { SettingsService } from './services/settings.service'
 import { MenuService } from './services/menu.service'
 import { ThemesService } from './services/themes.service'
@@ -20,6 +19,7 @@ import { StatisticsService } from './services/statistics.service'
 import { UtilsService } from './services/utils.service'
 import { TenantService } from './services/tenant.service'
 import { UADetectorService } from './services/ua-detector.service'
+import { ErrorLoggerService } from './services/error-logger.service'
 
 @NgModule({
   imports: [
@@ -43,6 +43,7 @@ import { UADetectorService } from './services/ua-detector.service'
     UtilsService,
     TenantService,
     UADetectorService,
+    ErrorLoggerService,
   ],
   declarations: [],
   exports: []

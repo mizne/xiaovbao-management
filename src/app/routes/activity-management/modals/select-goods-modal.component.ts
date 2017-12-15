@@ -1,12 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Component, OnInit } from '@angular/core'
 import { NzModalSubject } from 'ng-zorro-antd'
 
 import {
   Column,
-  Action,
   PageChangeOption,
-  ActionExecuteOption
 } from 'app/shared/components/wrap-table/wrap-table.component'
 import { DestroyService } from 'app/core/services/destroy.service'
 
@@ -87,7 +84,6 @@ export class SelectGoodsModalComponent implements OnInit {
 
   constructor(
     private subject: NzModalSubject,
-    private fb: FormBuilder,
     private destroyService: DestroyService,
     private store: Store<State>
   ) {

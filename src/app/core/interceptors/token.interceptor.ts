@@ -1,14 +1,11 @@
-import { Injectable, Injector } from '@angular/core'
+import { Injectable } from '@angular/core'
 import {
   HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpResponse,
   HttpHeaders,
-  HttpErrorResponse
 } from '@angular/common/http'
-import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 import { TenantService } from 'app/core/services/tenant.service'
 import { environment } from '../../../environments/environment'
@@ -16,10 +13,8 @@ import { environment } from '../../../environments/environment'
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private url = `${environment.SERVER_URL}/api/test`
-  private router: Router
 
   constructor(
-    private injector: Injector,
     private tenantService: TenantService
   ) {}
 

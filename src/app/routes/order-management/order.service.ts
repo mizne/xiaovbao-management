@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { Order, OrderResp } from './models/order.model'
@@ -40,7 +40,7 @@ export class OrderService {
 
   fetchOrderDetail(tenantId: string, tradeNo: string): Observable<Order> {
     const query = `?tenantId=${tenantId}&tradeNo=${tradeNo}`
-    
+
     return this.http
     .get(this.orderByTradeNoUrl + query)
     .map(resp => (resp as APIResponse).result[0])

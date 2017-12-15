@@ -12,7 +12,7 @@ import { GoodsUnit } from '../models/goodsUnit.model'
 
 import { Store } from '@ngrx/store'
 import { State, getAllGoodsTypes, getAllGoodsUnits, getAddGoodsUnitLoading } from '../reducers'
-import { AddGoodsUnitAction, FetchGoodsUnitsAction } from '../goods-management/goods.action'
+import { AddGoodsUnitAction } from '../goods-management/goods.action'
 import { environment } from '../../../../environments/environment'
 
 import * as R from 'ramda'

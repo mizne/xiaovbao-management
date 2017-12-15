@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormGroup, FormBuilder } from '@angular/forms'
-import { NzMessageService, NzModalService } from 'ng-zorro-antd'
+import { NzModalService } from 'ng-zorro-antd'
 
 import { Observable } from 'rxjs/Observable'
 
@@ -25,7 +24,6 @@ export class AccountComponent implements OnInit {
   showAccounts$: Observable<any>
 
   constructor(
-    private message: NzMessageService,
     private modalService: NzModalService,
     private store: Store<State>
   ) {}

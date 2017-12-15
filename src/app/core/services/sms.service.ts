@@ -1,15 +1,15 @@
-import { HttpClient, HttpParams } from '@angular/common/http'
+// import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 
-import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
+// import { APIResponse } from 'app/core/interceptors/api-error-interceptor'
 
 @Injectable()
 export class SMSService {
-  private fetchAccountsUrl = '/admin/customerByTenantId'
-  private fetchAccountsCountUrl = '/admin/customerByCount'
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    // private http: HttpClient
+  ) {}
 
   sendSMS(tenantId: string, phones: string[]): Observable<any> {
     // return this.http.post(this.fetchAccountsUrl, {
@@ -29,11 +29,11 @@ export class SMSService {
     return Observable.of({}).delay(1e3)
   }
 
-  private handleError(error: any) {
-    const errMsg = error.message
-      ? error.message
-      : error.status ? `${error.status} - ${error.statusText}` : 'Server error'
-    console.error(errMsg) // log to console instead
-    return Observable.throw(errMsg)
-  }
+  // private handleError(error: any) {
+  //   const errMsg = error.message
+  //     ? error.message
+  //     : error.status ? `${error.status} - ${error.statusText}` : 'Server error'
+  //   console.error(errMsg) // log to console instead
+  //   return Observable.throw(errMsg)
+  // }
 }
