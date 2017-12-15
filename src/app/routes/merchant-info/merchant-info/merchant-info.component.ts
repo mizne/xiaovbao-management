@@ -402,6 +402,6 @@ export class MerchantInfoComponent implements OnInit, OnDestroy {
   }
 
   private computeDetailAddr(obj): string {
-    return Object.values(obj).join('')
+    return Object.keys(obj).map(k => obj[k]).join('')
   }
 }
