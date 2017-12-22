@@ -39,6 +39,17 @@ export class GoodsService {
       .catch(this.handleError)
   }
 
+  fetchSingleGoods(tenantId: string, goodsId: string): Observable<Goods> {
+    const query = `?tenantId=${tenantId}&id=${goodsId}`
+    return this.http
+    .get(this.goodsUrl + query)
+    .map(resp => (resp as APIResponse).result as GoodsResp[])
+    .map(result =>
+      result.map(Goods.convertFromResp)[0]
+    )
+    .catch(this.handleError)
+  }
+
   addGoods(tenantId: string, goods: Goods): Observable<any> {
     return this.http
       .post(this.goodsUrl, {

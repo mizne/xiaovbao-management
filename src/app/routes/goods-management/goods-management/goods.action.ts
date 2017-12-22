@@ -3,6 +3,10 @@ import { Goods } from '../models/goods.model'
 import { GoodsType } from '../models/goodsType.model'
 import { GoodsUnit } from '../models/goodsUnit.model'
 
+export const FETCH_SINGLE_GOODS = '[Goods] Fetch Single Goods'
+export const FETCH_SINGLE_GOODS_SUCCESS = '[Goods] Fetch Single Goods Success'
+export const FETCH_SINGLE_GOODS_FAILURE = '[Goods] Fetch Single Goods Failure'
+
 export const FETCH_GOODS = '[Goods] Fetch Goods'
 export const FETCH_GOODS_SUCCESS = '[Goods] Fetch Goods Success'
 export const FETCH_GOODS_FAILURE = '[Goods] Fetch Goods Failure'
@@ -43,11 +47,25 @@ export const FETCH_GOODS_UNITS = '[Goods] Fetch Goods Units'
 export const FETCH_GOODS_UNITS_SUCCESS = '[Goods] Fetch Goods Units Success'
 export const FETCH_GOODS_UNITS_FAILURE = '[Goods] Fetch Goods Units Failure'
 
+
+export class FetchSingleGoodsAction implements Action {
+  readonly type = FETCH_SINGLE_GOODS
+  constructor(public goodsId: string) {}
+}
+export class FetchSingleGoodsSuccessAction implements Action {
+  readonly type = FETCH_SINGLE_GOODS_SUCCESS
+  constructor(public goods: Goods) {}
+}
+export class FetchSingleGoodsFailureAction implements Action {
+  readonly type = FETCH_SINGLE_GOODS_FAILURE
+}
+
+
 export interface FetchGoodsParams {
-  pageIndex: number, 
+  pageIndex: number,
   pageSize: number,
   goodsName?: string,
-  goodsType?: string 
+  goodsType?: string
 }
 export const emptyFetchGoodsParams: FetchGoodsParams = {
   pageIndex: 1,
@@ -189,9 +207,11 @@ export class FetchGoodsUnitsFailureAction implements Action {
 }
 
 
-
-
 export type Actions =
+FetchSingleGoodsAction |
+FetchSingleGoodsSuccessAction |
+FetchSingleGoodsFailureAction |
+
 FetchGoodsAction |
 FetchGoodsSuccessAction |
 FetchGoodsFailureAction |

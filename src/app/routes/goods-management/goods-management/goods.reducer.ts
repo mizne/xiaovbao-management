@@ -38,6 +38,16 @@ export function reducer(
         loading: true,
         goods: []
       }
+    case fromGoods.FETCH_SINGLE_GOODS_SUCCESS:
+      return {
+        ...state,
+        goods: state.goods.map(e => {
+          if (e.id === action.goods.id) {
+            return action.goods
+          }
+          return e
+        })
+      }
     case fromGoods.FETCH_GOODS_SUCCESS:
       return {
         ...state,

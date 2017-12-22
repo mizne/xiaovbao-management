@@ -14,9 +14,7 @@ export class GoodsEffects {
   @Effect()
   fetchGoods$ = this.actions$
     .ofType(fromGoods.FETCH_GOODS)
-    .map(
-      (action: fromGoods.FetchGoodsAction) => action.payload
-    )
+    .map((action: fromGoods.FetchGoodsAction) => action.payload)
     .switchMap(({ pageIndex, pageSize, goodsName, goodsType }) => {
       return this.goodsService
         .fetchGoods(
@@ -28,6 +26,19 @@ export class GoodsEffects {
         )
         .map(goods => new fromGoods.FetchGoodsSuccessAction(goods))
         .catch(e => Observable.of(new fromGoods.FetchGoodsFailureAction()))
+    })
+
+  @Effect()
+  fetchSingleGoods$ = this.actions$
+    .ofType(fromGoods.FETCH_SINGLE_GOODS)
+    .map((action: fromGoods.FetchSingleGoodsAction) => action.goodsId)
+    .switchMap(goodsId => {
+      return this.goodsService
+        .fetchSingleGoods(this.tenantService.tenantId, goodsId)
+        .map(goods => new fromGoods.FetchSingleGoodsSuccessAction(goods))
+        .catch(e =>
+          Observable.of(new fromGoods.FetchSingleGoodsFailureAction())
+        )
     })
 
   @Effect()
@@ -64,7 +75,9 @@ export class GoodsEffects {
           new fromGoods.AddGoodsTypeSuccessAction(goodsTypeName),
           new fromGoods.FectchGoodsTypesAction()
         ])
-        .catch(() => Observable.of(new fromGoods.AddGoodsTypeFailureAction(goodsTypeName)))
+        .catch(() =>
+          Observable.of(new fromGoods.AddGoodsTypeFailureAction(goodsTypeName))
+        )
     })
 
   @Effect({ dispatch: false })
@@ -72,7 +85,10 @@ export class GoodsEffects {
     .ofType(fromGoods.ADD_GOODS_TYPE_SUCCESS)
     .map((action: fromGoods.AddGoodsTypeSuccessAction) => action.goodsTypeName)
     .do(goodsTypeName => {
-      this.notify.success('添加商品类别', `恭喜您 添加商品类别 ${goodsTypeName} 成功！`)
+      this.notify.success(
+        '添加商品类别',
+        `恭喜您 添加商品类别 ${goodsTypeName} 成功！`
+      )
     })
 
   @Effect({ dispatch: false })
@@ -94,7 +110,9 @@ export class GoodsEffects {
           new fromGoods.AddGoodsSuccessAction(goods.name),
           new fromGoods.FetchGoodsCountAction()
         ])
-        .catch(() => Observable.of(new fromGoods.AddGoodsFailureAction(goods.name)))
+        .catch(() =>
+          Observable.of(new fromGoods.AddGoodsFailureAction(goods.name))
+        )
     })
 
   @Effect({ dispatch: false })
@@ -136,7 +154,9 @@ export class GoodsEffects {
           new fromGoods.AddGoodsUnitSuccessAction(goodsUnit),
           new fromGoods.FetchGoodsUnitsAction()
         ])
-        .catch(e => Observable.of(new fromGoods.AddGoodsUnitFailureAction(goodsUnit)))
+        .catch(e =>
+          Observable.of(new fromGoods.AddGoodsUnitFailureAction(goodsUnit))
+        )
     })
 
   @Effect({ dispatch: false })
@@ -144,7 +164,10 @@ export class GoodsEffects {
     .ofType(fromGoods.ADD_GOODS_UNIT_SUCCESS)
     .map((action: fromGoods.AddGoodsUnitSuccessAction) => action.goodsUnit)
     .do(goodsUnit => {
-      this.notify.success('添加商品单位', `恭喜您 添加商品单位 ${goodsUnit} 成功！`)
+      this.notify.success(
+        '添加商品单位',
+        `恭喜您 添加商品单位 ${goodsUnit} 成功！`
+      )
     })
 
   @Effect({ dispatch: false })
@@ -164,7 +187,7 @@ export class GoodsEffects {
         .offShelfGoods(this.tenantService.tenantId, goodsId)
         .concatMap(e => [
           new fromGoods.OffShelfGoodsSuccessAction(),
-          new fromGoods.FetchGoodsAction()
+          new fromGoods.FetchSingleGoodsAction(goodsId)
         ])
         .catch(e => Observable.of(new fromGoods.OffShelfGoodsFailureAction()))
     })
@@ -190,7 +213,7 @@ export class GoodsEffects {
         .onShelfGoods(this.tenantService.tenantId, goodsId)
         .concatMap(e => [
           new fromGoods.OnShelfGoodsSuccessAction(),
-          new fromGoods.FetchGoodsAction()
+          new fromGoods.FetchSingleGoodsAction(goodsId)
         ])
         .catch(e => Observable.of(new fromGoods.OnShelfGoodsFailureAction()))
     })
@@ -200,7 +223,7 @@ export class GoodsEffects {
     .do(() => {
       this.notify.success('上架商品', '恭喜您 上架商品成功！')
     })
-    
+
   @Effect({ dispatch: false })
   onShelfGoodsFailure$ = this.actions$
     .ofType(fromGoods.ON_SHELF_GOODS_FAILURE)
@@ -209,10 +232,10 @@ export class GoodsEffects {
     })
 
   /**
- * 待优化 编辑成功 获取第一页的十条数据
- *
- * @memberof GoodsEffects
- */
+   * 编辑成功 再获取当前编辑的这个商品
+   *
+   * @memberof GoodsEffects
+   */
   @Effect()
   editGoods$ = this.actions$
     .ofType(fromGoods.EDIT_GOODS)
@@ -222,7 +245,7 @@ export class GoodsEffects {
         .editGoods(this.tenantService.tenantId, goods.id, goods)
         .concatMap(() => [
           new fromGoods.EditGoodsSuccessAction(),
-          new fromGoods.FetchGoodsAction()
+          new fromGoods.FetchSingleGoodsAction(goods.id)
         ])
         .catch(e => Observable.of(new fromGoods.EditGoodsFailureAction()))
     })
