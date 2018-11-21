@@ -99,7 +99,7 @@ export const routes: Routes = [
     data: { translate: 'register-success' }
   },
   {
-    path: 'login',
+    path: 'passport/login',
     component: LoginComponent,
     data: { translate: 'login' }
    },
